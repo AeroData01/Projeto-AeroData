@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AeroData | Home</title>
+
+    <!-- Estilos e Ícones -->
+    <link rel="stylesheet" href="./css/estilo.css">
+    <link rel="icon" href="./assets/icon/logo png.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Scripts -->
+    <script src="./js/sessao.js"></script>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header class="header backAzul">
+
+        <ul class="navbar">
+            <li>
+                <a href="index.html">Voltar</a>
+            </li>
+            <li>|</li>
+            <li class="agora">
+                <a href="#">Login</a>
+            </li>
+            <li>
+                <a href="cadastro.html">Cadastre-se</a>
+            </li>
+        </ul>
+
+    </header>
+
+    <!-- Login Campos -->
+
+    <!-- Alerta de Erro -->
+    <div class="login">
+        <div class="alerta_erro">
+            <div class="card_erro" id="cardErro">
+                <span id="mensagem_erro"></span>
+            </div>
+        </div>
+
+
+        <!-- Container de login -->
+
+        <div class="login-container">
+
+            <div class="login-text">
+                <h1>Login</h1>
+                <p>Bem-Vindo de volta!</p>
+                <span>Não é membro ainda? </span> <a href="cadastro.html">Cadastre-se aqui!</a>
+            </div>
+
+            <div class="form-container">
+                <div class="input-container">
+
+                    <div class="input">
+                        <span>E-mail:</span>
+                        <input type="text" placeholder=" usuario@email.com" id="email_input" />
+                        <i class="fa-regular fa-user"></i>
+                    </div>
+
+                    <div class="input">
+                        <span>Senha:</span>
+                        <input type="password" id="senha_input" placeholder=" *******" />
+                        <i class="fa-solid fa-key"></i>
+                        <i onclick="revealHidePasswordInput()" class="fa-solid fa-eye-slash" id="eyeButton1"></i>
+                    </div>
+                </div>
+
+                <button onclick="entrar()" class="form-button" type="button">Entrar</button>
+
+            </div>
+        </div>
+
+        <!-- Loading -->
+        <div id="div_aguardar" class="loading-div">
+            <img src="./assets/circle-loading.gif" id="loading-gif">
+        </div>
+
+        <!-- Mensagens de erro -->
+        <div id="div_erros_login"></div>
+
+    </div>
+
+
+</body>
+
+</html>
+
+<script>
+
+
+    function entrar() {
+        aguardar();
+
+        var emailVar = email_input.value;
+        var senhaVar = senha_input.value;
+
+        if (emailVar == "" || senhaVar == "") {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            finalizarAguardar();
+            return false;
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.ID_USUARIO = json.id;
+                    // sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
+
+                    setTimeout(function () {
+                        window.location = "./dashboard/cards.html";
+                        // window.location = "./quizCavalos.html"; Caso eu queira que va para o quiz direto
+
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        cardErro.style.display = "none"
+    }
+
+</script>
