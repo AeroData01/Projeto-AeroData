@@ -3,56 +3,73 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AeroData | Página Inicial</title>
+  <link rel="stylesheet" href="css/estilo.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/ResponsividadeIndex.css">
+    <link rel="icon" href="assets/TechMentor-Logo.ico">
+    
 
-  <title>AeroData | Home</title>
-
-  <!-- Estilos e Ícones -->
-  <link rel="stylesheet" href="./css/estilo.css">
-  <link rel="icon" href="./assets/icon/">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-
-  <!-- Scripts -->
-  <script src="./js/sessao.js"></script>
 </head>
 
 <body>
 
-  <!-- Header -->
-  <header class="header">
-
-    <a href="index.html">
-      <img class="imgTitulo" src="./assets/icon/logo png.png" alt="">
-    </a>
-
-    <nav>
-      <ul class="navbar">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="nossaMissao.html">Nossa missão</a></li>
-        <li><a href="infoCuriosidades.html">Informações e curiosidades</a></li>
-        <li><a href="quemSomos.html">Quem somos</a></li>
-      </ul>
-    </nav>
-
-    <div class="auth-buttons">
-      <a href="login.html" class="loginBotao">Login</a>
-      <a href="cadastro.html" class="cadastroBotao">Cadastro</a>
+  <div class="navbar">
+    <div class="nav"></div>
+    <div class="navbar-Child">
+      <img src="assets/logo.png" alt="Logo">
+      <nav id="nav">
+        <button class="menu" aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-controls="menu" aria-expanded="false">
+          <span id="hamburger"></span>
+        </button>
+        <ul class="menu" id="menu" role="menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="https://techmentorproject.atlassian.net/servicedesk/customer/portal/1">Contato</a></li>
+          <li><a href="cadastro.html">Painel de Análise</a></li>
+          <li><a href="cadastro.html">Minha Conta</a></li>
+        </ul>
+      </nav>
+      
+        <li class="nav-padrao">Home</li>
+        <a href="#servicos"><li class="nav-padrao">Serviços</li></a>
+        <a href="cadastro.html"><li class="nav-padrao">Contato</li></a>
+        <a href="cadastro.html"><li class="nav-padrao">Painel de Análise</li></a>
+       <a href="cadastro.html"> <li  class="botaoConta nav-padrao"><img src="assets/ícone-conta.svg" alt="Ícone Conta">Minha Conta</li></a>
+      
+      
     </div>
+  </div>
+  
 
-  </header>
-
-  <!-- Banner -->
-  <section class="banner">
-    <div class="container">
-      <p>Bem-vindo ao <span>AeroData!</span> Informações e dados para seu voo!</p>
+  <div class="secao1">
+    <div class="elementos">
+      <div class="text">
+        <h1>TRANSFORME CANCELAMENTOS DE VOOS EM OPORTUNIDADE</h1>
+        <p>Aproveite oportunidades de melhoria nas áreas que realmente importam, identifique causas e padrões críticos, e maximize a satisfação do cliente com nossas análises de dados detalhadas sobre cancelamentos de voos.</p>
+      </div>
+      <div class="botoes">
+        <a href="#servicos"><button class="servicos">VEJA NOSSOS SERVIÇOS</button></a>
+        <a href="cadastro.html"><button class="contato">CONTATO<img src="assets/seta-secao1.svg"></button></a>
+      </div>
     </div>
-  </section>
+  </div>
 
-  <!-- Seção Principal -->
-  <section class="secao2">
+
+  <div class="secao2">
     <div class="lado-esquerdo">
-      <img src="./assets/imgs/painel voos cancelados.png" alt="Voos cancelados">
+      <img src="assets/voos.png" alt="">
     </div>
 
     <div class="meio">
@@ -61,44 +78,253 @@
     </div>
 
     <div class="lado-direito">
+
       <div class="titulo">
-        <span>BEM-VINDO A AERO<span class="texto-azul">DATA</span></span>
+        <span>BEM VINDO A AERO<span class="texto-azul">DATA</span></span>
       </div>
 
       <div class="texto">
-        <h1>Dados para Crescimento Estratégico em Cancelamentos de Voos</h1>
-        <p>
-          A AeroData oferece uma solução inovadora para companhias aéreas, fornecendo dados precisos sobre cancelamentos
-          de voos e padrões de atrasos.
-          Com essas informações, as empresas podem identificar causas críticas e padrões recorrentes, ajustando
-          operações de forma estratégica para minimizar impactos e melhorar a satisfação do cliente.
-        </p>
+        <h1>Dados para Crescimento Estratégico em Cancelamentos de Voos </h1>
+        <p>A AeroData oferece uma solução inovadora para companhias aéreas, fornecendo dados precisos sobre cancelamentos de voos e padrões de atrasos. Com essas informações, as empresas podem identificar causas críticas e padrões recorrentes, ajustando operações de forma estratégica para minimizar impactos e melhorar a satisfação do cliente.</p>
       </div>
 
       <div class="ganhos">
         <div>
-          <img src="./assets/imgs/analise detalhada de dados.svg" alt="Análise de Dados">
+          <img src="assets/analytics-section2.svg" alt="">
           <span>Análise Detalhada de Dados</span>
         </div>
         <div>
-          <img src="./assets/imgs/identificadores de oportunidade.jpg" alt="Identificação de Oportunidades">
-          <span>Identificação de Oportunidades</span>
+          <img src="assets/opportunity-section2.svg" alt="">
+          <span>Identificação de Oportunidade</span>
         </div>
       </div>
 
       <div class="div-botao">
-        <a href="cadastro.html">
-          <button>CONTRATE JÁ</button>
-        </a>
+        <a href="cadastro.html"><button>CONTRATE JÁ</button></a>
       </div>
+
     </div>
+
+  </div>
+
+  <section id="servicos" class="secao3">
+    <div class="elementos">
+      <div class="titulo1">
+        <h2>NOSSOS SERVIÇOS</h2>
+      </div>
+      <div class="titulo2"><h1>Explore Nossas Soluções para Maximizar Seu <br> Potencial de Crescimento</h1></div>
+    
+    <div class="blocos">
+      <div class="bloco1"><img src="assets/Icone1.svg" alt=""> <h1>Mapeamento Preciso</h1> <p>Visualize a cobertura de rede com detalhes e identifique áreas estratégicas <br> para expansão</p> <img class="vetor" src="assets/Vector 5.svg" alt=""></div>
+      <div class="bloco2"><img src="assets/Icone2.svg" alt=""> <h1>Análise de Crescimento</h1> <p>Acompanhe o crescimento populacional e avalie o potencial de mercado em diferentes regiões.</p> <img class="vetor" src="assets/Vector 5.svg" alt=""></div>
+      <div class="bloco3"><img src="assets/Icone3.svg" alt=""><h1>Planejamento Estratégico</h1> <p>Desenvolva estratégias de expansão baseadas em dados confiáveis e evite a competição em mercados saturados.</p> <img class="vetor" src="assets/Vector 5.svg" alt=""></div>
+    </div>
+  </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <h4>&copy; 2025 AeroData</h4>
-  </footer>
+  <!-- SEÇÃO 4 -->
+   <div class="secao4">
 
+    <div class="lado-esquerdo">
+
+      <div class="titulo">
+        <span>BASE DE DADOS</span>
+      </div>
+
+      <div class="texto">
+        <h1>A Base para Suas Decisões Estratégicas</h1>
+        <p>Para oferecer a melhor base para sua expansão, coletamos e analisamos dados extensivos e precisos sobre cobertura de rede e crescimento populacional. Nossos dados são provenientes de fontes confiáveis e abrangem uma variedade de aspectos cruciais para a tomada de decisões estratégicas. Aqui está um panorama das informações que captamos e como elas podem beneficiar sua empresa:</p>
+      </div>
+
+      <div class="ganhos">
+        <div>
+          <img src="assets/map-section4.svg" alt="">
+          <span>Localização de Antenas</span>
+        </div>
+        <div>
+          <img src="assets/data-section4.svg" alt="">
+          <span>Dados Demográficos</span>
+        </div>
+      </div>
+
+    </div>
+    
+    <div class="meio">
+      <div></div>
+      <div></div>
+    </div>
+
+    <div class="lado-direito">
+      <img src="assets/cloud-section4.svg" alt="">
+    </div>
+
+   </div>
+
+
+
+   <!-- SEÇÃO 5 -->
+    <div class="secao5">
+
+      <div class="lado-esquerdo">
+        <div class="titulo">
+          <span>BENEFÍCIOS</span>
+        </div>
+        <div class="texto">
+          <h1>Benefícios Exclusivos da Nossa Solução</h1>
+          <p>Aproveite os recursos adicionais que tornam nossa oferta ainda mais valiosa para sua expansão.</p>
+        </div>
+        <div class="beneficios">
+          <div>
+            <img src="assets/check-section5.svg" alt="">
+            <span>Acesso Prioritário</span>
+          </div>
+          <div>
+            <img src="assets/check-section5.svg" alt="">
+            <span>Consultoria Personalizada</span>
+          </div>
+          <div>
+            <img src="assets/check-section5.svg" alt="">
+            <span>Atualizações Contínuas</span>
+          </div>
+        </div>
+        <div class="div-botao">
+          <a href="cadastro.html"><button>COMECE AGORA!</button></a>
+        </div>
+      </div>
+
+      <div class="lado-direito">
+        <div class="parte-esquerda">
+          <div>
+            <img src="assets/suport-section5.svg" alt="">
+            <span>SUPORTE PREMIUM</span>
+          </div>
+          <div>
+            <img src="assets/report-section5.svg" alt="">
+            <span>RELATÓRIOS COMPLETOS</span>
+          </div>
+        </div>
+
+        <div class="parte-direita">
+          <div>
+            <img src="assets/management-section5.svg" alt="">
+            <span>RECURSOS ADICIONAIS</span>
+          </div>
+          <div>
+            <img src="assets/verified-section5.svg" alt="">
+            <span>SEGURANÇA</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <!-- SEÇÃO 6 -->
+    <div class="secao6">
+        <div class="titulo1">
+          <span>PARA CONTRATAR</span>
+        </div>
+
+        <div class="titulo2">
+          <h1>Como Trabalhamos com Você</h1>
+        </div>
+        
+        <div class="caixas">
+          <div class="caixa1">
+            <div class="div-img">
+              <img src="assets/img-box1-section6.svg" alt="">
+            </div>
+
+            <div class="texto">
+              <h1>Cadastre-se</h1>
+              <p>Cadastre-se e trabalhe com nossa equipe para garantir a melhor expansão de sua rede.</p>
+            </div>
+
+            <div class="numero">
+              <span>1</span>
+            </div>
+          </div>
+          
+          <div class="seta1">
+            <img src="assets/arrow-section6.svg" alt="">
+          </div>
+
+          <div class="caixa2">
+            <div class="div-img">
+              <img src="assets/img-box2-section6.svg" alt="">
+            </div>
+
+            <div class="texto">
+              <h1>Entrega dos dados</h1>
+              <p>Analisamos e identificamos as áreas com potencial de crescimento e te entregamos esses dados.</p>
+            </div>
+
+            <div class="numero">
+              <span>2</span>
+            </div>
+          </div>
+          
+          <div class="seta2">
+            <img src="assets/arrow-section6.svg" alt="">
+          </div>
+
+          <div class="caixa3">
+            <div class="div-img">
+              <img src="assets/img-box3-section6.svg" alt="">
+            </div>
+
+            <div class="texto">
+              <h1>Plano de Ação</h1>
+              <p>Com os dados em mãos, ainda te ajudamos a tomar a melhor decisão possível.</p>
+            </div>
+
+            <div class="numero">
+              <span>3</span>
+            </div>
+          </div>
+        </div>
+      
+      </div>
+    </div>
+
+
+
+
+    <!-- FOOTER -->
+     <footer>
+      <div class="parte1">
+        <img src="assets/logo-techmentor.svg" alt="">
+        <span>Líder em soluções tecnológicas inovadoras, comprometida com a excelência e o sucesso de seus clientes.</span>
+      </div>
+      
+      <div class="parte2">
+        <h1>Informações de Contato</h1>
+        <div class="telefone">
+          <img src="assets/tel-icon.svg" alt="">
+          <span>(11) 97742-1795</span>
+        </div>
+        <div class="email">
+          <img src="assets/email-icon.svg" alt="">
+          <span>contato@techmentor</span>
+        </div>
+        <div class="localizacao">
+          <img src="assets/loc-icon.svg" alt="">
+          <span>Rua Haddock Lobo, 595 - Cerqueira César, São Paulo - SP, 01414-905</span>
+        </div>
+        <span class="direitos">Copyright © 2024 TechMentor. All rights reserved.</span>
+      </div>
+      
+      <div class="parte3">
+        <h1>Links Úteis</h1>
+        <a href="cadastro.html"><span>Cadastrar</span></a>
+        <a href="#servicos"><span>Serviços</span></a>
+        <a href="https://techmentorproject.atlassian.net/servicedesk/customer/portal/1"><span>Contato</span></a>
+        <a href="cadastro.html"><span>Painel de Análise</span></a>
+      </div>
+    </footer>
 </body>
 
 </html>
+
+<script src="js/header.js"></script>
