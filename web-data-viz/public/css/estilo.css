@@ -347,7 +347,7 @@ body {
   display: flex;
   padding-top: 2vh;
   font-size: 1.4rem;
-  line-height: 1.5;
+  line-height: 1.2;
   font-family: 'Montserrat', sans-serif;
   font-weight: 900;
   justify-content: center;
@@ -397,7 +397,7 @@ body {
 .bloco1 h1,
 .bloco2 h1,
 .bloco3 h1 {
-  font-size: 1.1rem;
+  font-size: 1.0rem;
   font-family: 'Prompt', sans-serif;
   font-weight: 600;
 
@@ -409,7 +409,7 @@ body {
   padding: 0 3%;
   line-height: 2;
   font-family: 'Inter', sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.68rem;
   color: #ffffff;
 }
 
@@ -732,12 +732,12 @@ body {
 
 /* CAIXAS */
 .secao6 .caixas {
-  display: flex;
-  align-items: center;
-  width: 58%;
-  justify-content: center;
-  height: 60%;
-  margin-top: 1%;
+      display: flex;
+      align-items: center;
+      width: 71%;
+      justify-content: center;
+      height: 68%;
+      margin-top: 1%;
 }
 
 .secao6 .caixa1,
