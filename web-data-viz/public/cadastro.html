@@ -1,95 +1,169 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Portal dos Cavalos | Cadastra-se</title>
+    <title>AeroData | Home</title>
 
-  <script src="./js/sessao.js"></script>
+    <!-- Estilos e Ícones -->
+    <link rel="stylesheet" href="./css/cadastro.css">
+    <link rel="icon" href="./assets/icon/logo png.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <link rel="stylesheet" href="./css/estilo.css" />
-  <link rel="icon" href="./assets/icon/logoPortaldosCavalosICON.png" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <!-- Scripts -->
+    <script src="./js/sessao.js"></script>
+
 </head>
 
 <body>
-  <!--header inicio-->
-  <div class="header">
-    <div class="container">
-      <h1 class="titulo">Portal dos Cavalos</h1>
+
+    <!-- Header -->
+    <header class="header backAzul">
+
       <ul class="navbar">
-        <li>
-          <a href="index.html">Home</a>
-        </li>
-        <li>|</li>
-        <li>
-          <a href="login.html">Login</a>
-        </li>
-        <li class="agora">
-          <a href="#">Cadastre-se</a>
-        </li>
+          <li>
+              <a href="index.html">Home</a>
+          </li>
+          <li>|</li>
+          <li class="agora">
+              <a href="login.html">Login</a>
+          </li>
+          <li>
+              <a href="cadastro.html">Cadastre-se</a>
+          </li>
       </ul>
-    </div>
-  </div>
-  <!--header fim-->
 
-  <div class="login">
-    <div class="alerta_erro">
-      <div class="card_erro" id="cardErro">
-        <span id="mensagem_erro"></span>
+  </header>
+
+
+
+<!-- Cadastro Campos -->
+    
+    <div class="login">
+
+    <!-- Alerta de Erro -->
+      <div class="alerta_erro">
+          <div class="card_erro" id="cardErro">
+              <span id="mensagem_erro"></span>
+          </div>
       </div>
-    </div>
-    <div class="container">
-      <div class="cardCadastrar">
-        <h2>Cadastre-se já!</h2>
-        <div class="formulario">
-          <!--
-                         Para inserir mais um campo, copie uma das inputs abaixo.
-                         Assim que inserir vá para o script abaixo.
-                     -->
 
-          <div class="campo">
-            <span>Nome:</span>
-            <input id="nome_input" type="text" placeholder="Seu nome" />
-          </div>
-          <div class="campo">
-            <span>E-mail:</span>
-            <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
-          </div>
-          <div class="campo">
-            <span>Senha:</span>
-            <input id="senha_input" type="password" placeholder="******" />
-          </div>
-          <div class="campo">
-            <span>Confirmar Senha:</span>
-            <input id="confirmacao_senha_input" type="password" placeholder="******" />
-          </div>
-          <button class="botao" onclick="cadastrar()">Cadastrar</button>
-        </div>
-        <div id="div_aguardar" class="loading-div">
-          <img src="./assets/circle-loading.gif" id="loading-gif" />
+
+      <!-- Container de cadastro -->
+
+      <div class="login-container">
+
+        <div class="login-text">
+            <h1>Cadastre-se aqui!</h1>
+            <span>Já tem uma conta? </span> <a href="login.html">Clique aqui!</a>
         </div>
 
-        <div id="div_erros_login"></div>
-      </div>
-    </div>
-  </div>
+        <div class="form-container">
+            <div class="input-container">
 
-  <!--footer inicio-->
-  <div class="footer">
-    <div class="container">
-      <h4> &copy; 2024 Portal dos Cavalos </h4>
+                <div class="input">
+                    <span>Nome Completo:</span>
+                    <input type="text" id="nome_input" />
+                    <i class="fa-regular fa-user"></i>
+                </div>
+
+                <div class="input">
+                    <span>E-mail:</span>
+                    <input type="text" placeholder="" id="email_input" />
+                    <i class="fa-regular fa-envelope"></i>
+                </div>
+
+                <div class="input">
+                  <span>Empresa:</span>
+                  <input type="text" placeholder="" id="empresa_input" />
+                  <i class="fa-solid fa-building"></i>
+                </div>
+
+                <div class="input">
+                  <span>CNPJ:</span>
+                  <input type="text" placeholder="" id="cnpj_input" />
+                  <i class="fa-solid fa-file-invoice"></i>
+                </div>
+
+                <div class="input">
+                    <span>Senha:</span>
+                    <input type="password" id="senha_input" placeholder="" />
+                    <i class="fa-solid fa-key"></i>
+                    <i onclick="revealHidePasswordInput()" class="fa-solid fa-eye-slash" id="eyeButton1"></i>
+                </div>
+
+                <div class="input">
+                  <span>Confirmar senha:</span>
+                  <input type="password" id="confirmacao_senha_input" placeholder="" />
+                  <i class="fa-solid fa-key"></i>
+                  <i onclick="revealHidePasswordConfirmInput()" class="fa-solid fa-eye-slash" id="eyeButton2"></i>
+                </div>
+
+            </div>
+
+            <button onclick="cadastrar()" class="form-button" type="button">Cadastrar</button>
+
+        </div>
+      </div>
+
+          <!-- Loading -->
+          <div id="div_aguardar" class="loading-div">
+            <img src="./assets/circle-loading.gif" id="loading-gif">
+          </div>
+
+          <!-- Mensagens de erro -->
+          <div id="div_erros_login"></div>
+
     </div>
-  </div>
-  <!--footer fim-->
+
 </body>
 
 </html>
 
 <script>
+  function revealHidePasswordInput() {
+      var passwordInput = document.getElementById("senha_input"); 
+      var eyeButton = document.getElementById("eyeButton1");
+  
+      if (passwordInput.type === "password") {
+          passwordInput.type = "text"; // Mostra a senha
+          eyeButton.classList.remove("fa-eye-slash");
+          eyeButton.classList.add("fa-eye");
+      } else {
+          passwordInput.type = "password"; // Esconde a senha
+          eyeButton.classList.remove("fa-eye");
+          eyeButton.classList.add("fa-eye-slash");
+      }
+  }
+
+  function revealHidePasswordConfirmInput() {
+      var passwordInput = document.getElementById("confirmacao_senha_input"); 
+      var eyeButton = document.getElementById("eyeButton2");
+  
+      if (passwordInput.type === "password") {
+          passwordInput.type = "text"; 
+          eyeButton.classList.remove("fa-eye-slash");
+          eyeButton.classList.add("fa-eye");
+      } else {
+          passwordInput.type = "password"; 
+          eyeButton.classList.remove("fa-eye");
+          eyeButton.classList.add("fa-eye-slash");
+      }
+  }
+
+</script>
+  
+
+<script>
+
+// *****    TEM QUE CONFIGURAR OS NOVOS CAMPOS DO FORMULÁRIO DE CADASTRO PARA O BACKEND
+
 
   function cadastrar() {
     // aguardar();

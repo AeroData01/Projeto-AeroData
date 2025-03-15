@@ -1,0 +1,380 @@
+/*  CONFIGURAÇÕES GERAIS  */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
+:root {
+  --tamanho-header: 70px;
+  --tamanho-footer: 60px;
+  --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
+  --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
+  --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
+
+  --cor-principal: #215db8;
+  --cor-secundaria: whitesmoke;
+  --cor-terciaria: #1565c0;
+  --cor-fundo: rgb(26, 66, 122);
+  --cor-texto-footer: #fff;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Barlow', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: whitesmoke;
+  color: rgb(90, 90, 90);
+}
+
+
+/*     HEADER   */
+
+.header {
+    background-color: var(--cor-principal);
+    border-bottom: 2px solid var(--cor-secundaria);
+    height: var(--tamanho-header);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 5%;
+  }
+  
+  .imgTitulo {
+    width: 135px;
+    height: auto;
+  }
+
+    
+  .backAzul {
+    background-color: #1a1a66; 
+  }
+  
+  
+  /*     NAVBAR   */
+  
+  .navbar {
+    display: flex;
+    gap: 35px;
+    list-style: none;
+    margin: auto; 
+  }
+  
+  .navbar a {
+    text-decoration: none;
+    color: var(--cor-secundaria);
+    font-size: 18px;
+    font-weight: 600;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .navbar a:hover {
+    color: deepskyblue;
+  }
+  
+  
+  
+  /*  BOTÕES LOGIN/CADASTRO */
+  
+  .auth-buttons {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .auth-buttons a {
+    text-decoration: none;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  
+  .loginBotao {
+    background-color: #007BFF;
+  }
+  
+  .cadastroBotao {
+    background-color: #10004f;
+  }
+
+  
+  /*      BANNER      */
+  
+    .banner {
+      height: 450px;
+      color: white;
+      background-image: url('../assets/imgs/banner\ aviao.jpg');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .banner .container {
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+  
+    .banner .container p {
+      width: 50%;
+      font-size: 34px;
+      font-weight: 600;
+      
+    }
+    
+    .banner .container span {
+      font-weight: 800;
+    }
+  
+    .container {
+      display: flex;
+      width: 80%;
+      margin: auto;
+    }
+
+
+  /*       LOGIN        */
+  
+  .imgLogin{
+    height: 100px;
+    display: flex;
+  }
+
+  .login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../assets/imgs/banner\ aviao.jpg');
+    background-size: cover; 
+    background-position: center; 
+    height: 90vh; 
+    text-align: center;
+    width: 100%; 
+  }
+  
+  .login-container {
+    width: 430px; 
+    padding: 30px;
+    background-color: var(--cor-principal); 
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    animation: fadeInTop 1s;
+  }
+  
+  .login-container .login-text {
+    color: #fff;
+    margin-bottom: 60px;
+    text-align: center;
+  }
+  
+  .login-container .login-text h1 {
+    font-size: 2rem;
+  }
+  
+  .login-container .login-text p {
+    font-size: 1.4rem;
+  }
+  
+  .login-container .login-text span {
+    font-size: 0.87rem;
+  }
+  
+  .login-container .login-text a {
+    color: white;
+    font-weight: 500;
+  
+  }
+  
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+  
+  .form-container .input-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+  .form-container .input-container .input {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    background: none;
+    border: 1px solid #fff;
+    border-radius: 7px;
+  }
+
+  .form-container .input-container input {
+    width: 100%;
+    height: 8px;
+    background: none;
+    outline: none;
+    border: none;
+    color: #fff;
+    font-size: 14px;
+    padding-left: 35px; 
+    padding-bottom: 6px;
+  }
+  
+  .form-container .input-container .input span {
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: bold;
+    position: absolute;
+    top: -20px; 
+    left: 5px;
+  }
+  
+  .form-container .input-container input::placeholder {
+    color: #ccc; 
+    opacity: 1;
+    line-height: normal;
+  }
+  
+  .form-container .input-container .input i {
+    position: absolute;
+    left: 10px; 
+    color: #fff;
+    font-size: 1rem;
+  }
+  
+  /* icone do olho senha */
+  .form-container .input-container .input .fa-eye,
+  .form-container .input-container .input .fa-eye-slash {
+    right: 10px; 
+    left: auto;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  /* botão de login */
+  .form-container .form-button {
+    width: 100%;
+    height: 35px;
+    margin-top: 15px;
+    background-color: #10004f;
+    color: white;
+    font-weight: 800;
+    border: none;
+    border-radius: 10px;
+    transition: 0.4s;
+  }
+  
+  .form-container .form-button:hover {
+    border: 2px solid white; 
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .form-container .text {
+    color: #fff;
+    font-size: 0.85rem;
+    font-style: italic;
+  }
+  
+  .form-container .text.register {
+    align-self: center;
+    margin-top: 15px;
+  }
+  
+  
+  /* mensagem de erro */
+  .alerta_erro {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .card_erro {
+    display: none;
+    background-color: #fff;
+    color: black;
+    width: 230px;
+    position: fixed;
+    border-radius: 4px;
+    border: #ED145B 3px solid;
+    padding: 10px;
+    margin-right: 10%;
+  }
+  
+  .card_erro #mensagem_erro {
+    font-weight: 500;
+    font-size: 20px;
+  }
+  
+  /* loading */
+  .loading-div {
+    width: 50px;
+    margin: auto;
+    display: none;
+  }
+  
+  .loading-div img {
+    height: 50px;
+    width: 50px;
+  }
+  
+
+  /* FORMULARIO */
+
+.formulario .tipo_campo {
+  font-size: 20px;
+  font-weight: 600 !important;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  margin-bottom: 10px;
+  border: 2px solid #32b9cd;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.btn {
+  font-family: "Barlow", sans-serif;
+  border: 0;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 10px 15px;
+  color: white;
+  background-color: #ED145B;
+  width: 120px;
+  align-self: center;
+  margin-top: 5px;
+}
+
+
+/* animação do container caindo */
+@keyframes fadeInTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Ajuste para telas menores */
+@media (max-width: 768px) {
+  .form-container .input-container {
+      grid-template-columns: 1fr; /* Volta para uma coluna no mobile */
+  }
+}

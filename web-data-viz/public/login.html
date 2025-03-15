@@ -9,7 +9,7 @@
     <title>AeroData | Home</title>
 
     <!-- Estilos e Ícones -->
-    <link rel="stylesheet" href="./css/estilo.css">
+    <link rel="stylesheet" href="./css/login.css">
     <link rel="icon" href="./assets/icon/logo png.png">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
@@ -18,6 +18,7 @@
 
     <!-- Scripts -->
     <script src="./js/sessao.js"></script>
+
 </head>
 
 <body>
@@ -27,11 +28,11 @@
 
         <ul class="navbar">
             <li>
-                <a href="index.html">Voltar</a>
+                <a href="index.html">Home</a>
             </li>
             <li>|</li>
             <li class="agora">
-                <a href="#">Login</a>
+                <a href="login.html">Login</a>
             </li>
             <li>
                 <a href="cadastro.html">Cadastre-se</a>
@@ -58,6 +59,8 @@
             <div class="login-text">
                 <h1>Login</h1>
                 <p>Bem-Vindo de volta!</p>
+                <!-- <img class="imgLogin" src="./assets/icon/logo png.png" alt=""> -->
+                
                 <span>Não é membro ainda? </span> <a href="cadastro.html">Cadastre-se aqui!</a>
             </div>
 
@@ -67,7 +70,7 @@
                     <div class="input">
                         <span>E-mail:</span>
                         <input type="text" placeholder=" usuario@email.com" id="email_input" />
-                        <i class="fa-regular fa-user"></i>
+                        <i class="fa-regular fa-envelope"></i>
                     </div>
 
                     <div class="input">
@@ -78,7 +81,13 @@
                     </div>
                 </div>
 
-                <button onclick="entrar()" class="form-button" type="button">Entrar</button>
+                <button onclick="" class="form-button" type="button">Entrar</button>
+                
+                <!-- 
+                Versão original com a função entrar() funcionando:
+
+                <button onclick="entrar()" class="form-button" type="button">Entrar</button> 
+                -->
 
             </div>
         </div>
@@ -97,6 +106,24 @@
 </body>
 
 </html>
+
+<script>
+    function revealHidePasswordInput() {
+        var passwordInput = document.getElementById("senha_input"); 
+        var eyeButton = document.getElementById("eyeButton1"); 
+    
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text"; // Mostra a senha
+            eyeButton.classList.remove("fa-eye-slash");
+            eyeButton.classList.add("fa-eye");
+        } else {
+            passwordInput.type = "password"; // Esconde a senha
+            eyeButton.classList.remove("fa-eye");
+            eyeButton.classList.add("fa-eye-slash");
+        }
+    }
+</script>
+
 
 <script>
 
