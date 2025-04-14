@@ -3,7 +3,7 @@ import java.text.SimpleDateFormat; // Para formatar a data e horário do log
 import java.util.Date; // Para obter a data atual
 import java.util.Random; // Para gerar logs aleatórios
 
-public class Teste4 {
+public class Logs {
     public static void main(String[] args) throws InterruptedException {
         // Lista de logs com pares fixos de nível e mensagem correspondente
         String[][] logEntries = {
