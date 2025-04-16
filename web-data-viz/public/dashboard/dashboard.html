@@ -29,33 +29,28 @@
                <span>Hello Olivia</span>
             </div>
             <div class="date-picker">
-               <label>Selecionar periodo:</label>
+               <label>Selecionar período:</label>
                <input type="date" value="2022-01-01" />
                <span>até</span>
                <input type="date" value="2022-12-31" />
             </div>
-
          </header>
 
          <section class="stats">
-            <div class="card">Taxa de voos atrasados <h2>$57.3%</h2>
-            </div>
-            <div class="card">Taxa de cancelamento <h2>36.2%</h2>
-            </div>
-            <div class="card">Tempo médio de atrasos<h2>36 Horas</h2>
-            </div>
-            <div class="card">Não sei ainda oq colocar <h2>29</h2>
-            </div>
+            <div class="card">Taxa de voos atrasados <h2>57.3%</h2></div>
+            <div class="card">Taxa de cancelamento <h2>36.2%</h2></div>
+            <div class="card">Tempo médio de atrasos <h2>36 Horas</h2></div>
+            <div class="card">Não sei ainda o que colocar <h2>29</h2></div>
          </section>
 
          <section class="charts">
-            <div class="chart-card"><canvas id="donutChart1"></canvas></div>
-            <div class="chart-card"><canvas id="barChart1"></canvas></div>
-            <div class="chart-card"><canvas id="barChart2"></canvas></div>
-            <div class="chart-card"><canvas id="donutChart2"></canvas></div>
-            <div class="chart-card"><canvas id="barChart3"></canvas></div>
-            <div class="chart-card"><canvas id="stackedBarChart"></canvas></div>
-         </section>
+            
+               <div class="chart-card"><canvas id="donutChart1" width="360" height="300"></canvas></div>
+               <div class="chart-card"><canvas id="barChart1" width="320" height="170"></canvas></div>
+               <div class="chart-card"><canvas id="barChart2" width="300" height="170"></canvas></div>
+            </section>
+            
+   
       </main>
    </div>
 
@@ -73,7 +68,14 @@
             responsive: false,
             animation: { duration: 0 },
             transitions: { active: { animation: { duration: 0 } } },
-            plugins: { legend: { position: 'bottom' } }
+            plugins: {
+               legend: { position: 'bottom' },
+               title: {
+                  display: true,
+                  text: 'Benchmarking Rio e São Paulo',
+                  font: { size: 16 }
+               }
+            }
          }
       });
 
@@ -84,101 +86,49 @@
             datasets: [{
                label: 'Inquiries',
                data: [5, 8, 12, 10, 15, 14, 9, 11, 12, 18, 20, 25],
-               backgroundColor: '#b49af1'
+               backgroundColor: '#2b8cc8'
             }]
          },
          options: {
             responsive: false,
             animation: { duration: 0 },
             transitions: { active: { animation: { duration: 0 } } },
-            plugins: { legend: { display: false } }
+            plugins: {
+               legend: { display: false },
+               title: {
+                  display: true,
+                  text: 'Evolução Mensal de Cancelamento',
+                  font: { size: 16 }
+               }
+            }
          }
       });
 
       const barChart2 = new Chart(document.getElementById('barChart2'), {
          type: 'bar',
          data: {
-            labels: ["Jan", "Fev", "Mar", "Abr", "Mar", "Jun",],
+            labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun"],
             datasets: [{
                label: 'Source',
-               data: [65, 30, 25, 15, 10],
-               backgroundColor: ['#a88df1', '#bfa9f2', '#c8bdf5', '#d9cdfb', '#e6dcfc']
+               data: [65, 30, 25, 15, 10, 8],
+               backgroundColor: ['#a88df1', '#bfa9f2', '#c8bdf5', '#d9cdfb', '#e6dcfc', '#f4efff']
             }]
          },
          options: {
             responsive: false,
             animation: { duration: 0 },
             transitions: { active: { animation: { duration: 0 } } },
-            plugins: { legend: { display: false } }
-         }
-      });
-
-      const donutChart2 = new Chart(document.getElementById('donutChart2'), {
-         type: 'doughnut',
-         data: {
-            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-            datasets: [{
-               data: [13.1, 28.6, 28, 30.3],
-               backgroundColor: ['#a88df1', '#bfa9f2', '#d2c3fa', '#e4dcfd']
-            }]
-         },
-         options: {
-            responsive: false,
-            animation: { duration: 0 },
-            transitions: { active: { animation: { duration: 0 } } },
-            plugins: { legend: { position: 'bottom' } }
-         }
-      });
-
-      const barChart3 = new Chart(document.getElementById('barChart3'), {
-         type: 'bar',
-         data: {
-            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            datasets: [{
-               label: 'Income',
-               data: [10000, 20000, 30000, 35000, 40000, 37000, 33000, 34000, 32000, 36000, 34000, 33000],
-               backgroundColor: '#a88df1'
-            }]
-         },
-         options: {
-            responsive: false,
-            animation: { duration: 0 },
-            transitions: { active: { animation: { duration: 0 } } },
-            plugins: { legend: { display: false } }
-         }
-      });
-
-      const stackedBarChart = new Chart(document.getElementById('stackedBarChart'), {
-         type: 'bar',
-         data: {
-            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-            datasets: [
-               {
-                  label: 'não',
-                  data: [5000, 8000, 11000, 13000, 15000, 16000, 14000, 15000, 13000, 14000, 15000, 14000],
-                  backgroundColor: '#a88df1'
-               },
-               {
-                  label: 'sei',
-                  data: [3000, 6000, 8000, 9000, 10000, 11000, 10000, 9000, 10000, 11000, 10000, 9000],
-                  backgroundColor: '#c2b7f2'
+            plugins: {
+               legend: { display: false },
+               title: {
+                  display: true,
+                  text: 'Evolução Mensal de Atrasos',
+                  font: { size: 16 }
                }
-            ]
-         },
-         options: {
-            responsive: false,
-            animation: { duration: 0 },
-            transitions: { active: { animation: { duration: 0 } } },
-            plugins: { legend: { position: 'bottom' } },
-            scales: {
-               x: { stacked: true },
-               y: { stacked: true }
             }
          }
       });
    </script>
-
-
 </body>
 
 </html>
