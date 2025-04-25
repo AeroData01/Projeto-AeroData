@@ -25,13 +25,14 @@ CREATE TABLE Usuario (
 			REFERENCES Companhia_Aerea(cnpj)
 );
 
+
 CREATE TABLE Voos (
 	id_Voo INT PRIMARY KEY AUTO_INCREMENT,
 	numero_voo VARCHAR (10),
 	dia_referencia DATE,
-	aeroporto_partida VARCHAR (45),
+	aeroporto_partida VARCHAR (255),
 	sigla_aeroporto_partida CHAR (3),
-	aeroporto_destino VARCHAR (45),
+	aeroporto_destino VARCHAR (255),
 	sigla_aeroporto_destino CHAR (3),
 	situacao_voo VARCHAR (45),
 	situacao_partida VARCHAR (45),
@@ -83,6 +84,8 @@ DELIMITER ;
 
 
 SHOW TABLES;
+
+SELECT * FROM Voos;
 
  -- CREATE TABLE IF NOT EXISTS Voos (
                            -- id IDENTITY PRIMARY KEY,

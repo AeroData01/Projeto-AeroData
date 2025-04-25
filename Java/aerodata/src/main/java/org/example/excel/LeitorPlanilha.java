@@ -3,19 +3,16 @@ package org.example.excel;
 import org.example.model.Voo;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Cell;
-
+import org.apache.poi.ss.usermodel.DateUtil;
+import org.example.model.Voo;
 
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Date;
-
 
 /**
- * Classe responsável por ler os dados da planilha Excel e convertê-los em objetos do tipo Voo.
+ * Classe responsável por ler e tratar a planilha de voos.
  */
 public class LeitorPlanilha {
 
@@ -24,35 +21,44 @@ public class LeitorPlanilha {
      * @param caminhoArquivo caminho do arquivo Excel
      * @return lista de objetos Voo extraídos da planilha
      */
-    public static List<Voo> lerVoos(String caminhoArquivo) {
-        List<Voo> voos = new ArrayList<>();
+    public static List<org.example.model.Voo> lerVoos(String caminhoArquivo) {
+        List<org.example.model.Voo> voos = new ArrayList<>();
         try (FileInputStream fis = new FileInputStream(caminhoArquivo);
              Workbook workbook = new XSSFWorkbook(fis)) {
 
             Sheet sheet = workbook.getSheetAt(0);
             Iterator<Row> rowIterator = sheet.iterator();
 
-            // Pula a primeira linha que é o cabeçalho
+            // Pula o cabeçalho
             if (rowIterator.hasNext()) rowIterator.next();
 
             // Itera sobre as linhas da planilha
             while (rowIterator.hasNext()) {
                 Row row = rowIterator.next();
-                Voo voo = new Voo();
+                org.example.model.Voo voo = new org.example.model.Voo();
+
+                // Mapeia campos de texto
                 voo.setSiglaCompanhia(getString(row, 0));
                 voo.setNomeCompanhia(getString(row, 1));
                 voo.setNumeroVoo(getString(row, 2));
-                voo.setAeroportoOrigem(getString(row, 8));
+                voo.setAeroportoPartida(getString(row, 8));
                 voo.setAeroportoDestino(getString(row, 12));
+
+                // Processa data na coluna 16
                 Cell cell = row.getCell(16);
-                if (cell != null && cell.getCellType() == CellType.STRING) {  // Verifica se é STRING ou DATE
-                    voo.setDataReferencia(cell.getDateCellValue());
+                if (cell != null && cell.getCellType() == CellType.NUMERIC && DateUtil.isCellDateFormatted(cell)) {
+                    java.util.Date utilDate = cell.getDateCellValue();
+                    voo.setDataReferencia(new java.sql.Date(utilDate.getTime()));
                 } else {
-                    voo.setDataReferencia(new Date());  // Definindo data padrão
+                    // Fallback para data atual
+                    voo.setDataReferencia(new java.sql.Date(System.currentTimeMillis()));
                 }
+
+                // Situações
                 voo.setSituacaoVoo(getString(row, 15));
                 voo.setSituacaoPartida(getString(row, 17));
                 voo.setSituacaoChegada(getString(row, 18));
+
                 voos.add(voo);
             }
         } catch (Exception e) {
@@ -62,13 +68,20 @@ public class LeitorPlanilha {
     }
 
     /**
-     * Recupera o valor textual de uma célula de uma linha.
-     * @param row linha da planilha
-     * @param index índice da célula
-     * @return texto da célula ou string vazia caso seja nula
+     * Recupera o valor da célula como String, independentemente do tipo.
      */
     private static String getString(Row row, int index) {
         Cell cell = row.getCell(index);
-        return cell != null ? cell.toString() : "";
+        if (cell == null) return "";
+        switch (cell.getCellType()) {
+            case STRING:
+                return cell.getStringCellValue();
+            case NUMERIC:
+                return String.valueOf(cell.getNumericCellValue());
+            case BOOLEAN:
+                return String.valueOf(cell.getBooleanCellValue());
+            default:
+                return cell.toString();
+        }
     }
 }
