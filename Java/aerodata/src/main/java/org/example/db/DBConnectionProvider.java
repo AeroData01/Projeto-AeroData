@@ -9,13 +9,13 @@ import java.sql.DriverManager;
 public class DBConnectionProvider {
 
     // URL de conexão com banco H2 em memória
-    private static final String URL = "jdbc:h2:mem:aerodata;DB_CLOSE_DELAY=-1";
+    private static final String URL = "jdbc:mysql://localhost:3306/aerodata";
 
     // Usuário padrão do H2
-    private static final String USUARIO = "sa";
+    private static final String USUARIO = "root";
 
     // Senha padrão do H2 (vazia por padrão)
-    private static final String SENHA = "";
+    private static final String SENHA = "Dfo2006da1970@";
 
     /**
      * Retorna uma conexão válida com o banco de dados H2.

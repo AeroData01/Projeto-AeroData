@@ -20,8 +20,8 @@ public class VooRepository {
      * @throws SQLException em caso de erro na operação
      */
     public void salvarVoos(Connection conexao, List<Voo> voos) throws SQLException {
-        String sql = "INSERT INTO Voos (numero_voo, dia_referencia, situacao_voo, situacao_partida, situacao_chegada, fk_rota, fk_companhia) " +
-                "VALUES (?, ?, ?, ?, ?, NULL, NULL)";
+        String sql = "INSERT INTO Voos (id_Voo, numero_voo, dia_referencia, aeroporto_partida, sigla_aeroporto_partida, aeroporto_destino, sigla_aeroporto_destino, situacao_voo, situacao_partida, situacao_chegada, fk_companhia) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, null)";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             for (Voo voo : voos) {

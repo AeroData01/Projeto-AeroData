@@ -30,17 +30,23 @@ public class Main {
 
                 // Criação da tabela Voos, se não existir
                 try (Statement stmt = conexao.createStatement()) {
-                    stmt.execute("""
-                        CREATE TABLE IF NOT EXISTS Voos (
-                            id IDENTITY PRIMARY KEY,
-                            numero_voo VARCHAR(20),
-                            dia_referencia DATE,
-                            situacao_voo VARCHAR(50),
-                            situacao_partida VARCHAR(50),
-                            situacao_chegada VARCHAR(50),
-                            fk_rota INT,
-                            fk_companhia INT
-                        )
+                    stmt.execute(""" 
+                    CREATE TABLE IF NOT EXISTS Voos (
+                                id_Voo INT AUTO_INCREMENT PRIMARY KEY,
+                                numero_voo VARCHAR (10),
+                                dia_referencia DATE,
+                                aeroporto_partida VARCHAR (45),
+                                sigla_aeroporto_partida CHAR (3),
+                                aeroporto_destino VARCHAR (45),
+                                sigla_aeroporto_destino CHAR (3),
+                                situacao_voo VARCHAR (45),
+                                situacao_partida VARCHAR (45),
+                                situacao_chegada VARCHAR (45),
+                                fk_companhia CHAR (14),
+                                CONSTRAINT fk_companhiaVoos
+                                    FOREIGN KEY (fk_companhia)\s
+                                        REFERENCES Companhia_Aerea(cnpj)
+                            );
                     """);
                     logger.info("Tabela 'Voos' verificada/criada com sucesso.");
                 }
