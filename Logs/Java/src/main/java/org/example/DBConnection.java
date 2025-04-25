@@ -4,11 +4,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
 
-public class Conexao {
+public class DBConnection {
 
     private final DataSource dataSource;
 
-    public Conexao() {
+    public DBConnection() {
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setUrl("jdbc:h2:mem:filmes");
         basicDataSource.setUsername("sa");
