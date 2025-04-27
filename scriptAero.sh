@@ -56,7 +56,7 @@ verificar_docker_e_containers() {
 # Função para o Banco de Dados
 start_banco() {
     echo "Iniciando operações do Banco de Dados..."
-    local dir_banco="./bancoDeDadosMYSQL"
+    local dir_banco="./Banco de Dados/BD definitivo"
 
     if [ "$(sudo docker ps -a -q -f name=container-bd)" ]; then
         echo "Container do banco de dados já existe."
@@ -77,7 +77,7 @@ start_banco() {
 # Função para o Site Aero Data
 start_site() {
     echo "Iniciando operações do Site Aero Data..."
-    local dir_site="./siteAeroData"
+    local dir_site="./DockerSite"
 
     if [ "$(sudo docker ps -a -q -f name=container_aero_data)" ]; then
         echo "Container do site já existe."
