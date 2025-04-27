@@ -15,7 +15,7 @@ public class DBConnectionProvider {
     private static final String USUARIO = "root";
 
     // Senha padrão do H2 (vazia por padrão)
-    private static final String SENHA = "Pimada#10";
+    private static final String SENHA = "";
 
     /**
      * Retorna uma conexão válida com o banco de dados H2.
