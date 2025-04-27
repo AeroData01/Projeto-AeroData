@@ -67,43 +67,61 @@
         <div class="form-container">
             <div class="input-container">
 
+              <div class="input">
+                <span>CNPJ:</span>
+                <input type="text" id="empresa_input" maxlength="14" oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+                <i class="fa-solid fa-file-invoice"></i>
+              </div>
+              
                 <div class="input">
-                    <span>Nome Completo:</span>
-                    <input type="text" id="nome_input" />
-                    <i class="fa-regular fa-user"></i>
-                </div>
-
-                <div class="input">
-                    <span>E-mail:</span>
-                    <input type="text" placeholder="" id="email_input" />
-                    <i class="fa-regular fa-envelope"></i>
-                </div>
-
-                <div class="input">
-                  <span>Empresa:</span>
-                  <input type="text" placeholder="" id="empresa_input" />
-                  <i class="fa-solid fa-building"></i>
-                </div>
-
-                <div class="input">
-                  <span>CNPJ:</span>
+                  <span>Razão Social:</span>
                   <input type="text" placeholder="" id="cnpj_input" />
-                  <i class="fa-solid fa-file-invoice"></i>
+                  <i class="fa-solid fa-building "></i>
                 </div>
 
                 <div class="input">
-                    <span>Senha:</span>
-                    <input type="password" id="senha_input" placeholder="" />
-                    <i class="fa-solid fa-key"></i>
-                    <i onclick="revealHidePasswordInput()" class="fa-solid fa-eye-slash" id="eyeButton1"></i>
+                  <span>Nome fantasia</span>
+                  <input type="text" placeholder="" id="empresa_input" />
+                  <i class="fa-solid fa-plane"></i>
                 </div>
 
-                <div class="input">
-                  <span>Confirmar senha:</span>
-                  <input type="password" id="confirmacao_senha_input" placeholder="" />
-                  <i class="fa-solid fa-key"></i>
-                  <i onclick="revealHidePasswordConfirmInput()" class="fa-solid fa-eye-slash" id="eyeButton2"></i>
+                <div class="custom-select-wrapper">
+                  <div class="custom-select">
+                    <div class="custom-select-trigger"><i class="fa-solid fa-users"></i>Selecione uma opção de conta</div>
+                    <div class="custom-options">
+                      <span class="custom-option" data-value="gerencial">Gerencial</span>
+                      <span class="custom-option" data-value="operacional">Operacional</span>
+                    </div>
+                  </div>
                 </div>
+                <input type="hidden" id="tipo_conta_selecionado" name="tipo_conta_selecionado">
+                               
+
+                <div class="input">
+                  <span>Nome Completo:</span>
+                  <input type="text" id="nome_input" />
+                  <i class="fa-solid fa-person"></i>
+              </div>
+
+              <div class="input">
+                  <span>Email:</span>
+                  <input type="text" placeholder="" id="email_input" />
+                  <i class="fa-regular fa-envelope"></i>
+              </div>
+
+              <div class="input">
+                <span>Senha:</span>
+                <input type="password" id="senha_input" placeholder="" />
+                <i class="fa-solid fa-key"></i>
+                <i onclick="revealHidePasswordInput()" class="fa-solid fa-eye-slash" id="eyeButton1"></i>
+            </div>
+
+            <div class="input">
+              <span>Confirmar senha:</span>
+              <input type="password" id="confirmacao_senha_input" placeholder="" />
+              <i class="fa-solid fa-key"></i>
+              <i onclick="revealHidePasswordConfirmInput()" class="fa-solid fa-eye-slash" id="eyeButton2"></i>
+            </div>
 
             </div>
 
@@ -117,8 +135,16 @@
             <img src="./assets/circle-loading.gif" id="loading-gif">
           </div>
 
-          <!-- Mensagens de erro -->
-          <div id="div_erros_login"></div>
+          <!-- Pop-up de erro -->
+            <div id="div_erros_login" class="alerta_erro">
+              <span id="erro_msg"></span>
+          </div>
+
+          <!-- Pop-up de cadastro realizado -->
+          <div id="div_cadastro_realizado" class="alerta_cadastro_realizado">
+            <span id="cadastro_realizado"></span>
+        </div>
+
 
     </div>
 
@@ -158,7 +184,34 @@
   }
 
 </script>
-  
+
+<script>
+
+    const customSelect = document.querySelector('.custom-select');
+    const customSelectTrigger = document.querySelector('.custom-select-trigger');
+    const customOptions = document.querySelector('.custom-options');
+    const hiddenInput = document.getElementById('tipo_conta_selecionado');
+
+    customSelectTrigger.addEventListener('click', () => {
+      customOptions.style.display = customOptions.style.display === 'block' ? 'none' : 'block';
+    });
+
+    document.querySelectorAll('.custom-option').forEach(option => {
+      option.addEventListener('click', () => {
+        customSelectTrigger.textContent = option.textContent;
+        hiddenInput.value = option.getAttribute('data-value');
+        customOptions.style.display = 'none';
+      });
+    });
+
+    // Fechar se clicar fora
+    document.addEventListener('click', function(event) {
+      if (!customSelect.contains(event.target)) {
+        customOptions.style.display = 'none';
+      }
+    });
+
+</script>
 
 <script>
 
@@ -189,48 +242,70 @@
     
 
     if (nomeVar === "" || emailVar === "" || senhaVar === "" || confirmacaoSenhaVar === "") {
-      alert("Erro! Todos os campos devem ser preenchidos!");
+      exibirErro("Erro! Todos os campos devem ser preenchidos!");
       finalizarAguardar();
       return false;
 
     } else if (tamanho_nome <= 2) {
-      alert("Erro! O campo nome precisa de ao menos 3 letras!");
+      exibirErro("Erro! O campo nome precisa de ao menos 3 letras!");
       finalizarAguardar();
       return false;
 
     } else if (possuiCaracteresEspeciais(nomeVar)) {
-      alert("Erro! O campo nome não deve possuir caracteres especiais!");
+      exibirErro("Erro! O campo nome não deve possuir caracteres especiais!");
       finalizarAguardar();
       return false;
 
     } else if (!emailVar.includes('@')) {
-      alert("Erro! O campo e-mail deve possuir um '@'!");
+      exibirErro("Erro! O campo e-mail deve possuir um '@'!");
       finalizarAguardar();
       return false;
 
     } else if (!emailVar.endsWith('.com') && !emailVar.endsWith('.com.br')) {
-      alert("Erro! O campo e-mail deve terminar com '.com' ou '.com.br'!");
+      exibirErro("Erro! O campo e-mail deve terminar com '.com' ou '.com.br'!");
       finalizarAguardar();
       return false;
 
     } else if (senhaVar.length <= 5) {
-      alert("Erro! A senha deve conter ao menos 6 caracteres!");
+      exibirErro("Erro! A senha deve conter ao menos 6 caracteres!");
       finalizarAguardar();
       return false;
 
     } else if (!possuiCaracteresEspeciais(senhaVar)) {
-      alert("Erro! A senha deve conter ao menos 1 caractere especial!");
+      exibirErro("Erro! A senha deve conter ao menos 1 caractere especial!");
       finalizarAguardar();
       return false;
 
     } else if (senhaVar !== confirmacaoSenhaVar) {
-      alert("Erro! As senhas não coincidem!");
+      exibirErro("Erro! As senhas não coincidem!");
       finalizarAguardar();
       return false;
 
     } else {
-      setInterval(sumirMensagem, 5000);
+      exibirCadastroRealizado("Cadastro realizado com sucesso!");
+      // setInterval(sumirMensagem, 5000);
     }
+
+    // Função para exibir o pop-up de erro
+        function exibirErro(mensagem) {
+            document.getElementById('erro_msg').innerText = mensagem;
+            document.getElementById('div_erros_login').style.display = 'block';
+            setTimeout(sumirMensagem, 5000);
+        }
+
+        function exibirCadastroRealizado(mensagem) {
+            document.getElementById('cadastro_realizado').innerText = mensagem;
+            document.getElementById('div_cadastro_realizado').style.display = 'block';
+            setTimeout(sumirMensagem, 5000);
+        }
+
+        // Função para sumir com a mensagem após 5 segundos
+        function sumirMensagem() {
+            document.getElementById('div_erros_login').style.display = 'none';
+            document.getElementById('div_cadastro_realizado').style.display = 'none';
+
+        }
+
 
     // Verificando se o código de ativação é de alguma empresa cadastrada
     // for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
