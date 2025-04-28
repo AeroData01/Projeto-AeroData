@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard Analytics</title>
   <link rel="stylesheet" href="styles.css" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
@@ -13,21 +14,25 @@
 
 <body>
   <div class="dashboard">
-    <aside class="sidebar">
-      <div class="icons">
-        <div class="icon"></div>
-        <div class="icon"></div>
-        <div class="icon"></div>
-        <div class="icon"></div>
-        <div class="icon"></div>
+   <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="icon" id="home-icon" title="Home">
+          <i class='bx bxs-home'></i>
+        </div>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="icon" id="logout-icon" title="Sair">
+          <i class='bx bx-log-out'></i>
+        </div>
       </div>
     </aside>
 
     <main class="main-content">
       <header class="top-bar">
         <div class="user-info">
-          <img src="https://via.placeholder.com/40" alt="Profile" class="profile-img" />
-          <span>Hello Olivia</span>
+          <img src="../assets/vagner-deretor.png" alt="Profile" class="profile-img" />
+          <span>Vagner Silva </span>
         </div>
         <div class="date-picker">
           <label>Selecionar período:</label>
@@ -52,7 +57,7 @@
           <canvas id="barChart1" width="320" height="200"></canvas>
         </div>
         <div class="chart-card">
-          <canvas id="barChart2" width="320" height="200"></canvas>
+          <canvas id="barChart2" width="300" height="200"></canvas>
         </div>
       </section>
 
@@ -95,7 +100,7 @@
       plugins: [ChartDataLabels]
     });
 
-    // Bar Chart - Cancelamento
+    //  Cancelamento
     const barChart1 = new Chart(document.getElementById('barChart1'), {
       type: 'bar',
       data: {
@@ -119,7 +124,7 @@
       }
     });
 
-    // Bar Chart - Atrasos
+    //  Atrasos
     const barChart2 = new Chart(document.getElementById('barChart2'), {
       type: 'bar',
       data: {
@@ -143,7 +148,7 @@
       }
     });
 
-    // Double Bar Chart - Cancelamentos por Aeroporto
+   // Cancelamentos por Aeroporto
     const doubleBarChart = new Chart(document.getElementById('doubleBarChart'), {
       type: 'bar',
       data: {
