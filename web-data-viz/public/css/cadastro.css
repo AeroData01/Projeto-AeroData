@@ -9,9 +9,9 @@
   --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
   --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
 
-  --cor-principal: #101046;
+  --cor-principal: rgb(1, 24, 43, 0.95);
   --cor-secundaria: whitesmoke;
-  --cor-terciaria: #1565c0;
+  --cor-terciaria: #43BAFF;
   --cor-fundo: rgb(26, 66, 122);
   --cor-texto-footer: #fff;
 }
@@ -28,8 +28,7 @@ body {
 /*     HEADER   */
 
 .header {
-    background-color: var(--cor-principal);
-    border-bottom: 2px solid var(--cor-secundaria);
+  background-color: rgba(10, 13, 20); 
     height: var(--tamanho-header);
     display: flex;
     align-items: center;
@@ -42,6 +41,11 @@ body {
     height: auto;
   }
 
+  .logo {
+    width: 8.5%;
+  }
+  
+ 
   /*     NAVBAR   */
   
   .navbar {
@@ -55,7 +59,7 @@ body {
     text-decoration: none;
     color: var(--cor-secundaria);
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 650;
     transition: color 0.3s ease-in-out;
   }
   
@@ -63,10 +67,7 @@ body {
     color: deepskyblue;
   }
 
-  .backAzul {
-    background-color: #101046; 
-  }
-  
+ 
   
   /*  BOTÕES LOGIN/CADASTRO */
   
@@ -105,6 +106,7 @@ body {
       justify-content: center;
       align-items: center;
       text-align: center;
+      transition: background-image 0.5s ease-in-out;
     }
     
     .banner .container {
@@ -132,18 +134,25 @@ body {
 
   /*       CADASTRO        */
 
+  .imgLogin{
+    height: 100px;
+    display: flex;
+  }
+
   .login {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url('../assets/imgs/banner\ aviao.jpg');
+    background-image: url('../assets/imgs/img\ voos.jpg');
     background-size: cover; 
-    background-position: center; 
+    background-position: center ;
+    background-position-y: -50vmin; 
     height: 90vh; 
     text-align: center;
     width: 100%; 
   }
-  
+
+
   .login-container {
     width: 630px; 
     padding: 30px;
@@ -261,7 +270,7 @@ body {
     width: 100%;
     height: 35px;
     margin-top: 15px;
-    background-color: #215db8; 
+    background-color: var(--cor-terciaria); 
     color: white;
     font-weight: 800;
     border: none;
@@ -443,8 +452,9 @@ input {
   top: calc(100% + 5px);
   left: 0;
   width: 100%;
-  background-color: var(--cor-terciaria);
+  background-color: var(--cor-principal);
   border-radius: 7px;
+  /* border: 0.1px solid whitesmoke; */
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   min-height: 30px; 
   overflow-y: auto;

@@ -9,10 +9,10 @@
   --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
   --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 2px);
 
-  --cor-principal: #215db8;
+  --cor-principal: rgba(10, 13, 20, 0.95);
   --cor-secundaria: whitesmoke;
-  --cor-terciaria: #1565c0;
-  --cor-fundo: #1a427a;
+  --cor-terciaria: #43BAFF;
+  /* --cor-fundo: #1a427a; */
   --cor-texto-footer: #fff;
 }
 
@@ -28,8 +28,7 @@ body {
 /*     HEADER   */
 
 .header {
-    background-color: var(--cor-principal);
-    border-bottom: 2px solid var(--cor-secundaria);
+    background-color: rgb(10, 13, 20);
     height: var(--tamanho-header);
     display: flex;
     align-items: center;
@@ -42,10 +41,10 @@ body {
     height: auto;
   }
 
-    
-  .backAzul {
-    background-color: #101046; 
+  .logo {
+    width: 8.5%;
   }
+ 
   
   
   /*     NAVBAR   */
@@ -61,13 +60,14 @@ body {
     text-decoration: none;
     color: var(--cor-secundaria);
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 650;
     transition: color 0.3s ease-in-out;
   }
   
   .navbar a:hover {
     color: deepskyblue;
   }
+  
   
   
   
@@ -88,7 +88,7 @@ body {
   }
   
   .loginBotao {
-    background-color: #007BFF;
+    background-color: #43BAFF;
   }
   
   .cadastroBotao {
@@ -101,7 +101,7 @@ body {
     .banner {
       height: 450px;
       color: white;
-      background-image: url('../assets/imgs/banner\ aviao.jpg');
+      /* background-image: url('../assets/imgs/dados\ tablet\ login.jpg'); */
       background-size: cover;
       background-position: center;
       display: flex;
@@ -141,13 +141,14 @@ body {
     display: flex;
   }
 
+  
   .login {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url('../assets/imgs/banner\ aviao.jpg');
+    background-image: url('../assets/imgs/img\ tablet\ dados.jpg');
     background-size: cover; 
-    background-position: center; 
+    background-position: center ;
     height: 90vh; 
     text-align: center;
     width: 100%; 
@@ -261,7 +262,7 @@ body {
     width: 100%;
     height: 35px;
     margin-top: 15px;
-    background-color: #10004f;
+    background-color: var(--cor-terciaria);
     color: white;
     font-weight: 800;
     border: none;
