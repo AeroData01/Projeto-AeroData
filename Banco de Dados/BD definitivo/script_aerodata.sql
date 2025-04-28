@@ -19,6 +19,7 @@ CREATE TABLE Usuario (
         CHECK (cargo IN ('Gestor de Malha Aérea', 'Diretor de Companhia Aérea')),
     email VARCHAR(50) UNIQUE,
     senha CHAR(64), -- Armazena hash SHA-256
+    telefone CHAR (11),
     fk_companhia CHAR(14),
     CONSTRAINT fk_companhiaUsuario
 		FOREIGN KEY (fk_companhia) 
