@@ -93,9 +93,9 @@
             </div>
         </div>
 
-        <!-- Loading -->
-        <div id="div_aguardar" class="loading-div">
-            <img src="./assets/circle-loading.gif" id="loading-gif">
+        <!-- NÃO MEXER NESSE LOADING POIS É BUGADO -->
+        <div id="div_aguardar" >
+            <!-- <img src="./assets/circle-loading.gif" id="loading-gif"> -->
         </div>
 
         <!-- Mensagens de erro -->
@@ -172,16 +172,21 @@
                     // sessionStorage.CPF_USUARIO = json.cpf;
                     // sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
 
-                    setTimeout(function () {
+                    setTimeout(() => {
+                            console.log("Cargo recebido:", json.cargo, "| tipo:", typeof json.cargo);
 
-                        window.location = json.cargo == "gerencial" 
-                                                        ? "./dashboard/dash-gerente.html" 
-                                                        : "./dashboard/dashboard.html";
+                            const cargo = String(json.cargo).toLowerCase().trim();
 
-                        // window.location = json.cargo == "gerencial" ? "./dashboard/dash-gerente.html" : "./dashboard/dashboard.html";
-                        // window.location = "./quizCavalos.html"; Caso eu queira que va para o quiz direto
+                            if (cargo === "gerencial") {
+                                window.location.href = "./dashboard/dash-gerencial.html";
+                            } else {
+                                window.location.href = "./dashboard/dash-operacional.html";
+                            }
 
-                    }, 1000); // apenas para exibir o loading
+                            // window.location = "./quizCavalos.html"; Caso eu queira que va para o quiz direto
+
+                            }, 1000); // apenas para exibir o loading
+
 
                 });
 
