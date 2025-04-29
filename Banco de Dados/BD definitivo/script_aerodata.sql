@@ -1,9 +1,10 @@
--- DROP DATABASE aerodata;
+DROP DATABASE aerodata;
 CREATE DATABASE aerodata;
 USE aerodata;
 
 CREATE TABLE Companhia_Aerea (
-    cnpj CHAR(14) PRIMARY KEY,
+	id_companhia INT PRIMARY KEY AUTO_INCREMENT,
+    cnpj CHAR(14),
     razao_social VARCHAR(45),
     nome_fantasia VARCHAR(45),
     sigla_companhia CHAR(3) UNIQUE,
@@ -20,10 +21,10 @@ CREATE TABLE Usuario (
     email VARCHAR(50) UNIQUE,
     senha CHAR(64), -- Armazena hash SHA-256
     telefone CHAR (11),
-    fk_companhia CHAR(14),
+    fk_companhia INT,
     CONSTRAINT fk_companhiaUsuario
 		FOREIGN KEY (fk_companhia) 
-			REFERENCES Companhia_Aerea(cnpj)
+			REFERENCES Companhia_Aerea(id_companhia)
 );
 
 
@@ -38,10 +39,10 @@ CREATE TABLE Voos (
 	situacao_voo VARCHAR (45),
 	situacao_partida VARCHAR (45),
 	situacao_chegada VARCHAR (45),
-	fk_companhia CHAR (14),
+	fk_companhia INT,
     CONSTRAINT fk_companhiaVoos
 		FOREIGN KEY (fk_companhia) 
-			REFERENCES Companhia_Aerea(cnpj)
+			REFERENCES Companhia_Aerea(id_companhia)
 );
 
 CREATE TABLE Alertas (
@@ -86,7 +87,13 @@ DELIMITER ;
 
 SHOW TABLES;
 
-SELECT * FROM Voos;
+INSERT INTO Companhia_Aerea (cnpj, razao_social, nome_fantasia, sigla_companhia, representante_legal)
+VALUES 
+('03420957000130', 'VRG Linhas Aéreas S.A.', 'GOL', 'GLO', 'Celso Ferrer'),
+('09490781000156', 'Azul Linhas Aéreas Brasileiras S.A.', 'Azul', 'AZU', 'John Rodgerson'),
+('02405658000162', 'TAM Linhas Aéreas S.A.', 'LATAM', 'LAN', 'Jerome Cadier');
+
+SELECT * FROM Companhia_Aerea;
 
  -- CREATE TABLE IF NOT EXISTS Voos (
                            -- id IDENTITY PRIMARY KEY,

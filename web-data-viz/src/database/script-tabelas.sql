@@ -6,32 +6,39 @@
 comandos para mysql server
 */
 
-CREATE DATABASE portalDosCavalos;
-USE portalDosCavalos;
+CREATE DATABASE aerodata;
+USE aerodata;
 
-CREATE TABLE usuario (
-idUsuario INT PRIMARY KEY AUTO_INCREMENT,
-nome VARCHAR(45),
-email VARCHAR(45),
-senha VARCHAR(45)
+CREATE TABLE Companhia_Aerea (
+	id_companhia INT PRIMARY KEY AUTO_INCREMENT,
+    cnpj CHAR(14),
+    razao_social VARCHAR(45),
+    nome_fantasia VARCHAR(45),
+    sigla_companhia CHAR(3) UNIQUE,
+    representante_legal VARCHAR(45)
 );
 
-CREATE TABLE historicoQuiz (
-idQuiz INT AUTO_INCREMENT,
-fkUsuario INT,
-dtJogo DATE,
-acertos INT,
-erros INT,
-PRIMARY KEY (idQuiz, fkUsuario),
-CONSTRAINT fkUsuarioHistorico
-	FOREIGN KEY (fkUsuario) REFERENCES usuario(idUsuario)
+-- Tabela Usuario com senha como SHA-256 (64 caracteres)
+CREATE TABLE Usuario (
+    cpf CHAR(11) PRIMARY KEY,
+    nome VARCHAR(100),
+    cargo VARCHAR(45),
+    CONSTRAINT chk_cargo
+        CHECK (cargo IN ('Gestor de Malha Aérea', 'Diretor de Companhia Aérea')),
+    email VARCHAR(50) UNIQUE,
+    senha CHAR(64), -- Armazena hash SHA-256
+    telefone CHAR (11),
+    fk_companhia INT,
+    CONSTRAINT fk_companhiaUsuario
+		FOREIGN KEY (fk_companhia) 
+			REFERENCES Companhia_Aerea(id_companhia)
 );
 
-INSERT INTO usuario VALUES
-(default, 'Danilo Oliveira','danilo.oliveira@gmail.com', '123456');
 
-INSERT INTO historicoQuiz (fkUsuario, dtJogo, acertos, erros) VALUES
-(1, '2024-10-08', 5, 3);
+INSERT INTO Companhia_Aerea (cnpj, razao_social, nome_fantasia, sigla_companhia, representante_legal)
+VALUES 
+('03420957000130', 'VRG Linhas Aéreas S.A.', 'GOL', 'GLO', 'Celso Ferrer'),
+('09490781000156', 'Azul Linhas Aéreas Brasileiras S.A.', 'Azul', 'AZU', 'John Rodgerson'),
+('02405658000162', 'TAM Linhas Aéreas S.A.', 'LATAM', 'LAN', 'Jerome Cadier');
 
-SELECT * FROM usuario;
-SELECT * FROM historicoQuiz;
+SELECT * FROM Companhia_Aerea;

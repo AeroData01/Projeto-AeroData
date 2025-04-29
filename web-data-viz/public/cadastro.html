@@ -108,9 +108,9 @@
                   <div class="custom-select">
                     <div class="custom-select-trigger"><i class="fa-solid fa-plane"></i>Selecione uma Companhia Aérea</div>
                     <div class="custom-options">
-                      <span class="custom-option" data-value="gol">Gol</span>
-                      <span class="custom-option" data-value="azul">Azul</span>
-                      <span class="custom-option" data-value="latam">Latam</span>
+                      <span class="custom-option" data-value="1">Gol</span>
+                      <span class="custom-option" data-value="2">Azul</span>
+                      <span class="custom-option" data-value="3">Latam</span>
                     </div>
                   </div>
                   <input type="hidden" id="tipo_companhia_selecionado" name="tipo_companhia_selecionado">
@@ -302,19 +302,22 @@
         // setInterval(sumirMensagem, 5000);
     }
 
+    // console.log(tipoContaVar, tipoCompanhiaVar);
+    // console.log(nomeVar,emailVar,cpfVar,senhaVar, telefoneVar)
+
     function exibirErro(mensagem) {
         document.getElementById('erro_msg').innerText = mensagem;
         document.getElementById('div_erros_login').style.display = 'block';
-        setTimeout(sumirMensagem, 5000);
+        setTimeout(sumirMensagem1, 5000);
     }
 
     function exibirCadastroRealizado(mensagem) {
         document.getElementById('cadastro_realizado').innerText = mensagem;
         document.getElementById('div_cadastro_realizado').style.display = 'block';
-        setTimeout(sumirMensagem, 5000);
+        setTimeout(sumirMensagem1, 5000);
     }
 
-    function sumirMensagem() {
+    function sumirMensagem1() {
         document.getElementById('div_erros_login').style.display = 'none';
         document.getElementById('div_cadastro_realizado').style.display = 'none';
     }
@@ -344,8 +347,13 @@
         // crie um atributo que recebe o valor recuperado aqui
         // Agora vá para o arquivo routes/usuario.js
         nomeServer: nomeVar,
+        cpfServer: cpfVar,
         emailServer: emailVar,
+        telefoneServer: telefoneVar,
+        tipoContaServer: tipoContaVar,
+        tipoCompanhiaServer: tipoCompanhiaVar,
         senhaServer: senhaVar,
+
         // idEmpresaVincularServer: idEmpresaVincular
       }),
     })

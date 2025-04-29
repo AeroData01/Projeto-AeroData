@@ -82,7 +82,7 @@
                     </div>
                 </div>
 
-                <button onclick="" class="form-button" type="button">Entrar</button>
+                <button onclick="entrar()" class="form-button" type="button">Entrar</button>
                 
                 <!-- 
                 Versão original com a função entrar() funcionando:
@@ -167,12 +167,18 @@
                     console.log(json);
                     console.log(JSON.stringify(json));
                     sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.ID_USUARIO = json.id;
+                    sessionStorage.CPF_USUARIO = json.cpf;
+                    sessionStorage.CARGO_USUARIO = json.cargo;
+                    // sessionStorage.CPF_USUARIO = json.cpf;
                     // sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
 
                     setTimeout(function () {
-                        window.location = "./dashboard/cards.html";
+
+                        window.location = json.cargo == "gerencial" 
+                                                        ? "./dashboard/dash-gerente.html" 
+                                                        : "./dashboard/dashboard.html";
+
+                        // window.location = json.cargo == "gerencial" ? "./dashboard/dash-gerente.html" : "./dashboard/dashboard.html";
                         // window.location = "./quizCavalos.html"; Caso eu queira que va para o quiz direto
 
                     }, 1000); // apenas para exibir o loading
