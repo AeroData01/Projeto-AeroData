@@ -1,6 +1,5 @@
-DROP DATABASE aerodata;
-CREATE DATABASE aerodata;
-USE aerodata;
+use aerodata;
+show tables;
 
 CREATE TABLE Companhia_Aerea (
 	id_companhia INT PRIMARY KEY AUTO_INCREMENT,
@@ -39,7 +38,7 @@ CREATE TABLE Voos (
 	situacao_voo VARCHAR (45),
 	situacao_partida VARCHAR (45),
 	situacao_chegada VARCHAR (45),
-	fk_companhia INT,
+	fk_companhia CHAR (3),
     CONSTRAINT fk_companhiaVoos
 		FOREIGN KEY (fk_companhia) 
 			REFERENCES Companhia_Aerea(id_companhia)
@@ -95,12 +94,30 @@ VALUES
 
 SELECT * FROM Companhia_Aerea;
 
- -- CREATE TABLE IF NOT EXISTS Voos (
-                           -- id IDENTITY PRIMARY KEY,
-                            -- numero_voo VARCHAR(20),
-                            -- dia_referencia DATE,
-                            -- situacao_voo VARCHAR(50),
-                            -- situacao_partida VARCHAR(50),
-                            -- situacao_chegada VARCHAR(50),
-                            -- fk_rota INT,
-                            -- fk_companhia INT)
+SHOW COLUMNS FROM Voos LIKE 'sigla_aeroporto_partida';
+
+ALTER TABLE Voos
+  MODIFY sigla_aeroporto_partida VARCHAR(20);
+
+select * from Voos;
+
+
+-- desabilita validação de FK
+SET FOREIGN_KEY_CHECKS = 0;
+
+TRUNCATE TABLE Voos;
+
+-- habilita novamente
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+SELECT 
+  v.fk_companhia,
+  COUNT(*) AS total_voos
+FROM Voos v
+GROUP BY v.fk_companhia;
+
+
+
+
+
