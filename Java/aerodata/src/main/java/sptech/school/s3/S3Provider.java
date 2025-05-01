@@ -1,4 +1,4 @@
-package org.example.s3;
+package sptech.school.s3;
 
 import software.amazon.awssdk.auth.credentials.AwsSessionCredentials;
 import software.amazon.awssdk.regions.Region;

@@ -1,4 +1,4 @@
-package org.example.log;
+package sptech.school.log;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
