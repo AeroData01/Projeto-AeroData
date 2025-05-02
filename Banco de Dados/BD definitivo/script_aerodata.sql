@@ -1,5 +1,6 @@
-use aerodata;
-show tables;
+-- DROP DATABASE aerodata;
+USE aerodata;
+SHOW TABLES;
 
 CREATE TABLE Companhia_Aerea (
 	id_companhia INT PRIMARY KEY AUTO_INCREMENT,
@@ -10,7 +11,6 @@ CREATE TABLE Companhia_Aerea (
     representante_legal VARCHAR(45)
 );
 
--- Tabela Usuario com senha como SHA-256 (64 caracteres)
 CREATE TABLE Usuario (
     cpf CHAR(11) PRIMARY KEY,
     nome VARCHAR(100),
@@ -26,7 +26,6 @@ CREATE TABLE Usuario (
 			REFERENCES Companhia_Aerea(id_companhia)
 );
 
-
 CREATE TABLE Voos (
 	id_Voo INT PRIMARY KEY AUTO_INCREMENT,
 	numero_voo VARCHAR (10),
@@ -38,7 +37,7 @@ CREATE TABLE Voos (
 	situacao_voo VARCHAR (45),
 	situacao_partida VARCHAR (45),
 	situacao_chegada VARCHAR (45),
-	fk_companhia CHAR (3),
+	fk_companhia INT,
     CONSTRAINT fk_companhiaVoos
 		FOREIGN KEY (fk_companhia) 
 			REFERENCES Companhia_Aerea(id_companhia)
@@ -57,32 +56,6 @@ CREATE TABLE Alertas (
 			REFERENCES Voos(id_voo)
 );
 
--- TRIGGER para hashear senha no INSERT
-DELIMITER //
-
-CREATE TRIGGER trg_hash_senha_insert
-BEFORE INSERT ON Usuario
-FOR EACH ROW
-BEGIN
-    SET NEW.senha = SHA2(NEW.senha, 256);
-END;
-//
-
-DELIMITER ;
-
--- TRIGGER para hashear senha no UPDATE
-DELIMITER //
-
-CREATE TRIGGER trg_hash_senha_update
-BEFORE UPDATE ON Usuario
-FOR EACH ROW
-BEGIN
-    SET NEW.senha = SHA2(NEW.senha, 256);
-END;
-//
-
-DELIMITER ;
-
 
 SHOW TABLES;
 
@@ -96,10 +69,7 @@ SELECT * FROM Companhia_Aerea;
 
 SHOW COLUMNS FROM Voos LIKE 'sigla_aeroporto_partida';
 
-ALTER TABLE Voos
-  MODIFY sigla_aeroporto_partida VARCHAR(20);
-
-select * from Voos;
+SELECT * FROM Voos;
 
 
 -- desabilita validação de FK
@@ -118,6 +88,32 @@ FROM Voos v
 GROUP BY v.fk_companhia;
 
 
+
+-- TRIGGER para hashear senha no INSERT
+-- DELIMITER //
+
+-- CREATE TRIGGER trg_hash_senha_insert
+-- BEFORE INSERT ON Usuario
+-- FOR EACH ROW
+-- BEGIN
+--    SET NEW.senha = SHA2(NEW.senha, 256);
+-- END;
+-- //
+
+-- DELIMITER ;
+
+-- TRIGGER para hashear senha no UPDATE
+-- DELIMITER //
+
+-- CREATE TRIGGER trg_hash_senha_update
+--  BEFORE UPDATE ON Usuario
+-- FOR EACH ROW
+-- BEGIN
+--    SET NEW.senha = SHA2(NEW.senha, 256);
+-- END;
+-- //
+
+-- DELIMITER ;
 
 
 
