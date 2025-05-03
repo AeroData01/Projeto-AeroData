@@ -1,26 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AeroData | Página Inicial</title>
+
+  <!-- CSS Externos -->
   <link rel="stylesheet" href="css/estilo.css">
+  <link rel="stylesheet" href="css/ResponsividadeIndex.css">
+
+  <!-- Fontes Google -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-    rel="stylesheet">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-    rel="stylesheet"> 
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-    rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/ResponsividadeIndex.css">
-    <link rel="icon" href="assets/TechMentor-Logo.ico">
-    
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
+  <!-- Ícone -->
+  <link rel="icon" href="assets/TechMentor-Logo.ico">
+
+  <!-- Fonte aplicada globalmente -->
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
 </head>
 
 <body>
@@ -41,22 +44,21 @@
           <li><a href="cadastro.html">Minha Conta</a></li>
         </ul>
       </nav>
-      
-        <li class="nav-padrao">Home</li>
-        <a href="#servicos"><li class="nav-padrao">Serviços</li></a>
-        <a href="#contato"><li class="nav-padrao">Contato</li></a>
-        <a href="cadastro.html"><li class="nav-padrao">Painel de Análise</li></a>
-       <a href="login.html"> <li  class="botaoConta nav-padrao"><img src="assets/ícone-conta.svg" alt="Ícone Conta">Minha Conta</li></a>
-      
-      
+
+      <li class="nav-padrao">Home</li>
+      <a href="#servicos"><li class="nav-padrao">Serviços</li></a>
+      <a href="#contato"><li class="nav-padrao">Contato</li></a>
+      <a href="cadastro.html"><li class="nav-padrao">Painel de Análise</li></a>
+      <a href="login.html">
+        <li class="botaoConta nav-padrao"><img src="assets/ícone-conta.svg" alt="Ícone Conta">Minha Conta</li>
+      </a>
     </div>
   </div>
-  
 
   <div class="secao1">
     <div class="elementos">
       <div class="text">
-        <h1>TRANSFORME CANCELAMENTOS DE VOOS EM OPORTUNIDADE</h1>
+        <h1>TRANSFORME CANCELAMENTOS DE VOOS EM OPORTUNIDADE <br></h1>
         <p>Aproveite oportunidades de melhoria nas áreas que realmente importam, identifique causas e padrões críticos, e maximize a satisfação do cliente com nossas análises de dados detalhadas sobre cancelamentos de voos.</p>
       </div>
       <div class="botoes">
@@ -65,7 +67,6 @@
       </div>
     </div>
   </div>
-
 
   <div class="secao2">
     <div class="lado-esquerdo">
@@ -78,7 +79,6 @@
     </div>
 
     <div class="lado-direito">
-
       <div class="titulo">
         <span>BEM VINDO A AERO<span class="texto-azul">DATA</span></span>
       </div>
@@ -102,9 +102,7 @@
       <div class="div-botao">
         <a href="cadastro.html"><button>CONTRATE JÁ</button></a>
       </div>
-
     </div>
-
   </div>
 
   <section id="servicos" class="secao3">
@@ -112,21 +110,20 @@
       <div class="titulo1">
         <h2>NOSSOS SERVIÇOS</h2>
       </div>
-      <div class="titulo2"><h1>Explore Nossas Soluções para Maximizar Seu <br> Potencial de Crescimento</h1></div>
-    
-    <div class="blocos">
-      <div class="bloco1"><img src="assets/Icone1.svg" alt=""> <h1>Mapeamento Preciso</h1> <p>Identifique os fatores que causam atrasos e cancelamentos, analisando rotas, infraestrutura e clima.</p> <img class="vetor" src="assets/Vector 5.svg" alt=""></div>
-      <div class="bloco2"><img src="assets/Icone2.svg" alt=""> <h1>Análise de Crescimento</h1> <p>Monitore impactos de atrasos e cancelamentos, analisando custos, satisfação dos passageiros e melhorias estratégicas.</p> <img class="vetor" src="assets/Vector 5.svg" alt=""></div>
-      <div class="bloco3"><img src="assets/Icone3.svg" alt=""><h1>Planejamento Estratégico</h1> <p>Elabore planos para reduzir atrasos com ajustes de horários, manutenção otimizada e melhor coordenação com autoridades.</p> <img class="vetor" src="assets/Vector 5.svg" alt=""></div>
+      <div class="titulo2">
+        <h1>Explore Nossas Soluções para Maximizar Seu <br> Potencial de Crescimento</h1>
+      </div>
+
+      <div class="blocos">
+        <div class="bloco1"><img src="assets/Icone1.svg" alt=""> <h1>Mapeamento Preciso</h1> <p>Identifique os fatores que causam atrasos e cancelamentos, analisando rotas, infraestrutura e clima.</p> <img class="vetor" src="assets/Vector 5.svg" alt=""></div>
+        <div class="bloco2"><img src="assets/Icone2.svg" alt=""> <h1>Análise de Crescimento</h1> <p>Monitore impactos de atrasos e cancelamentos, analisando custos, satisfação dos passageiros e melhorias estratégicas.</p> <img class="vetor" src="assets/Vector 5.svg" alt=""></div>
+        <div class="bloco3"><img src="assets/Icone3.svg" alt=""><h1>Planejamento Estratégico</h1> <p>Elabore planos para reduzir atrasos com ajustes de horários, manutenção otimizada e melhor coordenação com autoridades.</p> <img class="vetor" src="assets/Vector 5.svg" alt=""></div>
+      </div>
     </div>
-  </div>
   </section>
 
-  <!-- SEÇÃO 4 -->
-   <div class="secao4">
-
+  <div class="secao4">
     <div class="lado-esquerdo">
-
       <div class="titulo">
         <span>BASE DE DADOS</span>
       </div>
@@ -146,9 +143,8 @@
           <span>Perfil Populacional</span>
         </div>
       </div>
-
     </div>
-    
+
     <div class="meio">
       <div></div>
       <div></div>
@@ -157,174 +153,103 @@
     <div class="lado-direito">
       <img src="assets/cloud-section4.svg" alt="">
     </div>
+  </div>
 
-   </div>
+  <div class="secao5">
+    <div class="lado-esquerdo">
+      <div class="titulo">
+        <span>BENEFÍCIOS</span>
+      </div>
+      <div class="texto">
+        <h1>Benefícios Exclusivos da Nossa Solução</h1>
+        <p>Aproveite os recursos adicionais que tornam nossa oferta ainda mais valiosa para sua expansão.</p>
+      </div>
+      <div class="beneficios">
+        <div><img src="assets/check-section5.svg" alt=""><span>Acesso Prioritário</span></div>
+        <div><img src="assets/check-section5.svg" alt=""><span>Consultoria Personalizada</span></div>
+        <div><img src="assets/check-section5.svg" alt=""><span>Atualizações Contínuas</span></div>
+      </div>
+      <div class="div-botao">
+        <a href="cadastro.html"><button>COMECE AGORA!</button></a>
+      </div>
+    </div>
 
+    <div class="lado-direito">
+      <div class="parte-esquerda">
+        <div><img src="assets/suport-section5.svg" alt=""><span>SUPORTE PREMIUM</span></div>
+        <div><img src="assets/report-section5.svg" alt=""><span>RELATÓRIOS COMPLETOS</span></div>
+      </div>
+      <div class="parte-direita">
+        <div><img src="assets/management-section5.svg" alt=""><span>RECURSOS ADICIONAIS</span></div>
+        <div><img src="assets/verified-section5.svg" alt=""><span>SEGURANÇA</span></div>
+      </div>
+    </div>
+  </div>
 
+  <div class="secao6">
+    <div class="titulo1"><span>PARA CONTRATAR</span></div>
+    <div class="titulo2"><h1>Como Trabalhamos com Você</h1></div>
 
-   <!-- SEÇÃO 5 -->
-    <div class="secao5">
-
-      <div class="lado-esquerdo">
-        <div class="titulo">
-          <span>BENEFÍCIOS</span>
-        </div>
+    <div class="caixas">
+      <div class="caixa1">
+        <div class="div-img"><img src="assets/img-box1-section6.svg" alt=""></div>
         <div class="texto">
-          <h1>Benefícios Exclusivos da Nossa Solução</h1>
-          <p>Aproveite os recursos adicionais que tornam nossa oferta ainda mais valiosa para sua expansão.</p>
+          <h1>Cadastre-se</h1>
+          <p>Cadastre-se e trabalhe com nossa equipe para minimizar o impacto dos cancelamentos de voos.</p>
         </div>
-        <div class="beneficios">
-          <div>
-            <img src="assets/check-section5.svg" alt="">
-            <span>Acesso Prioritário</span>
-          </div>
-          <div>
-            <img src="assets/check-section5.svg" alt="">
-            <span>Consultoria Personalizada</span>
-          </div>
-          <div>
-            <img src="assets/check-section5.svg" alt="">
-            <span>Atualizações Contínuas</span>
-          </div>
-        </div>
-        <div class="div-botao">
-          <a href="cadastro.html"><button>COMECE AGORA!</button></a>
-        </div>
+        <div class="numero"><span>1</span></div>
       </div>
 
-      <div class="lado-direito">
-        <div class="parte-esquerda">
-          <div>
-            <img src="assets/suport-section5.svg" alt="">
-            <span>SUPORTE PREMIUM</span>
-          </div>
-          <div>
-            <img src="assets/report-section5.svg" alt="">
-            <span>RELATÓRIOS COMPLETOS</span>
-          </div>
-        </div>
+      <div class="seta1"><img src="assets/arrow-section6.svg" alt=""></div>
 
-        <div class="parte-direita">
-          <div>
-            <img src="assets/management-section5.svg" alt="">
-            <span>RECURSOS ADICIONAIS</span>
-          </div>
-          <div>
-            <img src="assets/verified-section5.svg" alt="">
-            <span>SEGURANÇA</span>
-          </div>
+      <div class="caixa2">
+        <div class="div-img"><img src="assets/img-box2-section6.svg" alt=""></div>
+        <div class="texto">
+          <h1>Entrega dos dados</h1>
+          <p>Analisamos as causas de atrasos e cancelamentos de voos, identificamos padrões críticos e entregamos dados valiosos para soluções eficazes.</p>
         </div>
+        <div class="numero"><span>2</span></div>
       </div>
 
-    </div>
+      <div class="seta2"><img src="assets/arrow-section6.svg" alt=""></div>
 
-
-
-    <!-- SEÇÃO 6 -->
-    <div class="secao6">
-        <div class="titulo1">
-          <span>PARA CONTRATAR</span>
+      <div class="caixa3">
+        <div class="div-img"><img src="assets/img-box3-section6.svg" alt=""></div>
+        <div class="texto">
+          <h1>Plano de Ação</h1>
+          <p>Com os dados em mãos, auxiliamos você na tomada das melhores decisões para minimizar atrasos e cancelamentos de voos.</p>
         </div>
-
-        <div class="titulo2">
-          <h1>Como Trabalhamos com Você</h1>
-        </div>
-        
-        <div class="caixas">
-          <div class="caixa1">
-            <div class="div-img">
-              <img src="assets/img-box1-section6.svg" alt="">
-            </div>
-
-            <div class="texto">
-              <h1>Cadastre-se</h1>
-              <p>Cadastre-se e trabalhe com nossa equipe para minimizar o impacto dos cancelamentos de voos.</p>
-            </div>
-
-            <div class="numero">
-              <span>1</span>
-            </div>
-          </div>
-          
-          <div class="seta1">
-            <img src="assets/arrow-section6.svg" alt="">
-          </div>
-
-          <div class="caixa2">
-            <div class="div-img">
-              <img src="assets/img-box2-section6.svg" alt="">
-            </div>
-
-            <div class="texto">
-              <h1>Entrega dos dados</h1>
-              <p>Analisamos as causas de atrasos e cancelamentos de voos, identificamos padrões críticos e entregamos dados valiosos para soluções eficazes.</p>
-            </div>
-
-            <div class="numero">
-              <span>2</span>
-            </div>
-          </div>
-          
-          <div class="seta2">
-            <img src="assets/arrow-section6.svg" alt="">
-          </div>
-
-          <div class="caixa3">
-            <div class="div-img">
-              <img src="assets/img-box3-section6.svg" alt="">
-            </div>
-
-            <div class="texto">
-              <h1>Plano de Ação</h1>
-              <p>Com os dados em mãos, auxiliamos você na tomada das melhores decisões para minimizar atrasos e cancelamentos de voos.</p>
-            </div>
-
-            <div class="numero">
-              <span>3</span>
-            </div>
-          </div>
-        </div>
-      
+        <div class="numero"><span>3</span></div>
       </div>
     </div>
+  </div>
 
+  <!-- FOOTER -->
+  <footer>
+    <div id="contato" class="parte1">
+      <img src="assets/logo.png" alt="Logo">
+      <span>Líder em soluções tecnológicas inovadoras, comprometida com a excelência e o sucesso de seus clientes.</span>
+    </div>
 
+    <div class="parte2">
+      <h1>Informações de Contato</h1>
+      <div class="telefone"><img src="assets/tel-icon.svg" alt=""><span>(11) 97742-1795</span></div>
+      <div class="email"><img src="assets/email-icon.svg" alt=""><span>contato@aerodata</span></div>
+      <div class="localizacao"><img src="assets/loc-icon.svg" alt=""><span>Rua Haddock Lobo, 595 - Cerqueira César, São Paulo - SP, 01414-905</span></div>
+      <span class="direitos">Copyright © 2024 AeroData. All rights reserved.</span>
+    </div>
 
+    <div class="parte3">
+      <h1>Links Úteis</h1>
+      <a href="cadastro.html"><span>Cadastrar</span></a>
+      <a href="#servicos"><span>Serviços</span></a>
+      <a href="#contato"><span>Contato</span></a>
+      <a href="cadastro.html"><span>Painel de Análise</span></a>
+    </div>
+  </footer>
 
-    <!-- FOOTER -->
-     <footer>
-      <div id="contato" class="parte1">
-        <img src= (logo) alt="">
-        <span>Líder em soluções tecnológicas inovadoras, comprometida com a excelência e o sucesso de seus clientes.</span>
-      </div>
-      
-      <div class="parte2">
-        <h1>Informações de Contato</h1>
-        <div class="telefone">
-          <img src="assets/tel-icon.svg" alt="">
-          <span>(11) 97742-1795</span>
-        </div>
-        <div class="email">
-          <img src="assets/email-icon.svg" alt="">
-          <span>contato@aerodata</span>
-        </div>
-        <div class="localizacao">
-          <img src="assets/loc-icon.svg" alt="">
-          <span>Rua Haddock Lobo, 595 - Cerqueira César, São Paulo - SP, 01414-905</span>
-        </div>
-        <span class="direitos">Copyright © 2024 AeroData. All rights reserved.</span>
-      </div>
-      
-      <div class="parte3">
-        <h1>Links Úteis</h1>
-        <a href="cadastro.html"><span>Cadastrar</span></a>
-        <a href="#servicos"><span>Serviços</span></a>
-        <a href=><span>Contato</span></a>
-        <a href="cadastro.html"><span>Painel de Análise</span></a>
-      </div>
-    </footer>
+  <!-- Script -->
+  <script src="js/header.js"></script>
 </body>
 
 </html>
-
-<script src="js/header.js"></script>

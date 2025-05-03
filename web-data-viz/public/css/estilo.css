@@ -774,7 +774,7 @@ body {
   margin-left: 3%;
   margin-right: 3%;
   gap: 3%;
-  height: 70%;
+  height: 63%;
   background-color: #01273C;
   display: flex;
   align-items: center;
@@ -835,7 +835,7 @@ body {
   font-family: "Inter";
   font-weight: 300;
   font-size: 2rem;
-  min-height: 50%;
+  min-height: 40%;
 }
 
 .secao6 .seta1,
