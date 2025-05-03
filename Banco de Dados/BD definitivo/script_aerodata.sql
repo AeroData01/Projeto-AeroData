@@ -1,6 +1,6 @@
 -- DROP DATABASE aerodata;
+CREATE DATABASE aerodata;
 USE aerodata;
-SHOW TABLES;
 
 CREATE TABLE Companhia_Aerea (
 	id_companhia INT PRIMARY KEY AUTO_INCREMENT,
@@ -16,14 +16,14 @@ CREATE TABLE Usuario (
     nome VARCHAR(100),
     cargo VARCHAR(45),
     CONSTRAINT chk_cargo
-        CHECK (cargo IN ('Gestor de Malha Aérea', 'Diretor de Companhia Aérea')),
+        CHECK (cargo IN ('gerencial', 'operacional')),
     email VARCHAR(50) UNIQUE,
     senha CHAR(64), -- Armazena hash SHA-256
-    telefone CHAR (11),
+    telefone CHAR(11),
     fk_companhia INT,
     CONSTRAINT fk_companhiaUsuario
-		FOREIGN KEY (fk_companhia) 
-			REFERENCES Companhia_Aerea(id_companhia)
+        FOREIGN KEY (fk_companhia) 
+            REFERENCES Companhia_Aerea(id_companhia)
 );
 
 CREATE TABLE Voos (
@@ -56,7 +56,6 @@ CREATE TABLE Alertas (
 			REFERENCES Voos(id_voo)
 );
 
-
 SHOW TABLES;
 
 INSERT INTO Companhia_Aerea (cnpj, razao_social, nome_fantasia, sigla_companhia, representante_legal)
@@ -66,10 +65,21 @@ VALUES
 ('02405658000162', 'TAM Linhas Aéreas S.A.', 'LATAM', 'LAN', 'Jerome Cadier');
 
 SELECT * FROM Companhia_Aerea;
+SELECT * FROM Usuario;
+
+SELECT * FROM Companhia_Aerea;
 
 SHOW COLUMNS FROM Voos LIKE 'sigla_aeroporto_partida';
 
 SELECT * FROM Voos;
+
+SELECT 
+  v.fk_companhia,
+  COUNT(*) AS total_voos
+FROM Voos v
+GROUP BY v.fk_companhia;
+
+
 
 
 -- desabilita validação de FK
@@ -81,13 +91,6 @@ TRUNCATE TABLE Voos;
 SET FOREIGN_KEY_CHECKS = 1;
 
 
-SELECT 
-  v.fk_companhia,
-  COUNT(*) AS total_voos
-FROM Voos v
-GROUP BY v.fk_companhia;
-
-
 
 -- TRIGGER para hashear senha no INSERT
 -- DELIMITER //
@@ -96,7 +99,7 @@ GROUP BY v.fk_companhia;
 -- BEFORE INSERT ON Usuario
 -- FOR EACH ROW
 -- BEGIN
---    SET NEW.senha = SHA2(NEW.senha, 256);
+   -- SET NEW.senha = SHA2(NEW.senha, 256);
 -- END;
 -- //
 
@@ -106,14 +109,11 @@ GROUP BY v.fk_companhia;
 -- DELIMITER //
 
 -- CREATE TRIGGER trg_hash_senha_update
---  BEFORE UPDATE ON Usuario
+-- BEFORE UPDATE ON Usuario
 -- FOR EACH ROW
 -- BEGIN
---    SET NEW.senha = SHA2(NEW.senha, 256);
+   -- SET NEW.senha = SHA2(NEW.senha, 256);
 -- END;
 -- //
 
 -- DELIMITER ;
-
-
-
