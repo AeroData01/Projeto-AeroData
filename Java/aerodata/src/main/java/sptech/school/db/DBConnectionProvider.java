@@ -1,4 +1,4 @@
-package org.example.db;
+package sptech.school.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,13 +9,13 @@ import java.sql.DriverManager;
 public class DBConnectionProvider {
 
     // URL de conexão com banco H2 em memória
-    private static final String URL = "jdbc:mysql://localhost:3306/aerodata";
+    private static final String URL = "jdbc:mysql://54.204.112.22:3306/aerodata";
 
     // Usuário padrão do H2
     private static final String USUARIO = "root";
 
     // Senha padrão do H2 (vazia por padrão)
-    private static final String SENHA = "";
+    private static final String SENHA = "urubu100";
 
     /**
      * Retorna uma conexão válida com o banco de dados H2.

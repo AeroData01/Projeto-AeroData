@@ -1,4 +1,4 @@
-package org.example.model;
+package sptech.school.model;
 
 import java.sql.Date;
 
@@ -8,36 +8,22 @@ import java.sql.Date;
 public class Voo {
 
     private int idVoo;
+    private String siglaCompanhia;
+    private String nomeCompanhia;
     private String numeroVoo;
     private Date dataReferencia;
-    private String aeroportoOrigem;
+
     private String siglaAeroportoPartida;
     private String aeroportoPartida;
     private String siglaAeroportoDestino;
+    private String aeroportoDestino;
+
     private String situacaoVoo;
     private String situacaoPartida;
     private String situacaoChegada;
     private String fkCompanhia;
-    private String siglaCompanhia;  // Novo atributo
-    private String nomeCompanhia;   // Novo atributo
 
     // Getters e Setters
-
-    public String getSiglaCompanhia() {
-        return siglaCompanhia;
-    }
-
-    public void setSiglaCompanhia(String siglaCompanhia) {
-        this.siglaCompanhia = siglaCompanhia;  // Definindo o valor do atributo siglaCompanhia
-    }
-
-    public String getNomeCompanhia() {
-        return nomeCompanhia;
-    }
-
-    public void setNomeCompanhia(String nomeCompanhia) {
-        this.nomeCompanhia = nomeCompanhia;  // Definindo o valor do atributo nomeCompanhia
-    }
 
     public int getIdVoo() {
         return idVoo;
@@ -45,6 +31,22 @@ public class Voo {
 
     public void setIdVoo(int idVoo) {
         this.idVoo = idVoo;
+    }
+
+    public String getSiglaCompanhia() {
+        return siglaCompanhia;
+    }
+
+    public void setSiglaCompanhia(String siglaCompanhia) {
+        this.siglaCompanhia = siglaCompanhia;
+    }
+
+    public String getNomeCompanhia() {
+        return nomeCompanhia;
+    }
+
+    public void setNomeCompanhia(String nomeCompanhia) {
+        this.nomeCompanhia = nomeCompanhia;
     }
 
     public String getNumeroVoo() {
@@ -63,6 +65,14 @@ public class Voo {
         this.dataReferencia = dataReferencia;
     }
 
+    public String getSiglaAeroportoPartida() {
+        return siglaAeroportoPartida;
+    }
+
+    public void setSiglaAeroportoPartida(String siglaAeroportoPartida) {
+        this.siglaAeroportoPartida = siglaAeroportoPartida;
+    }
+
     public String getAeroportoPartida() {
         return aeroportoPartida;
     }
@@ -71,28 +81,20 @@ public class Voo {
         this.aeroportoPartida = aeroportoPartida;
     }
 
-    public String getSiglaAeroportoPartida() {
-        return siglaAeroportoPartida;
-    }
-
-    public void setSiglaAeroportoPartida(String siglaAeroportoOrigem) {
-        this.siglaAeroportoPartida = siglaAeroportoOrigem;
-    }
-
-    public String getAeroportoDestino() {
-        return aeroportoPartida;
-    }
-
-    public void setAeroportoDestino(String aeroportoDestino) {
-        this.aeroportoPartida = aeroportoDestino;
-    }
-
     public String getSiglaAeroportoDestino() {
         return siglaAeroportoDestino;
     }
 
     public void setSiglaAeroportoDestino(String siglaAeroportoDestino) {
         this.siglaAeroportoDestino = siglaAeroportoDestino;
+    }
+
+    public String getAeroportoDestino() {
+        return aeroportoDestino;
+    }
+
+    public void setAeroportoDestino(String aeroportoDestino) {
+        this.aeroportoDestino = aeroportoDestino;
     }
 
     public String getSituacaoVoo() {
@@ -118,13 +120,10 @@ public class Voo {
     public void setSituacaoChegada(String situacaoChegada) {
         this.situacaoChegada = situacaoChegada;
     }
-
-    public String getFkCompanhia() {
+     public String getFkCompanhia() {
         return fkCompanhia;
     }
-
     public void setFkCompanhia(String fkCompanhia) {
         this.fkCompanhia = fkCompanhia;
-    }
-
+  }
 }

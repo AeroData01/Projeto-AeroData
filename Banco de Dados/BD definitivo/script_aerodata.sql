@@ -1,4 +1,4 @@
-DROP DATABASE aerodata;
+-- DROP DATABASE aerodata;
 CREATE DATABASE aerodata;
 USE aerodata;
 
@@ -11,22 +11,20 @@ CREATE TABLE Companhia_Aerea (
     representante_legal VARCHAR(45)
 );
 
--- Tabela Usuario com senha como SHA-256 (64 caracteres)
 CREATE TABLE Usuario (
     cpf CHAR(11) PRIMARY KEY,
     nome VARCHAR(100),
     cargo VARCHAR(45),
     CONSTRAINT chk_cargo
-        CHECK (cargo IN ('Gestor de Malha Aérea', 'Diretor de Companhia Aérea')),
+        CHECK (cargo IN ('gerencial', 'operacional')),
     email VARCHAR(50) UNIQUE,
     senha CHAR(64), -- Armazena hash SHA-256
-    telefone CHAR (11),
+    telefone CHAR(11),
     fk_companhia INT,
     CONSTRAINT fk_companhiaUsuario
-		FOREIGN KEY (fk_companhia) 
-			REFERENCES Companhia_Aerea(id_companhia)
+        FOREIGN KEY (fk_companhia) 
+            REFERENCES Companhia_Aerea(id_companhia)
 );
-
 
 CREATE TABLE Voos (
 	id_Voo INT PRIMARY KEY AUTO_INCREMENT,
@@ -58,33 +56,6 @@ CREATE TABLE Alertas (
 			REFERENCES Voos(id_voo)
 );
 
--- TRIGGER para hashear senha no INSERT
-DELIMITER //
-
-CREATE TRIGGER trg_hash_senha_insert
-BEFORE INSERT ON Usuario
-FOR EACH ROW
-BEGIN
-    SET NEW.senha = SHA2(NEW.senha, 256);
-END;
-//
-
-DELIMITER ;
-
--- TRIGGER para hashear senha no UPDATE
-DELIMITER //
-
-CREATE TRIGGER trg_hash_senha_update
-BEFORE UPDATE ON Usuario
-FOR EACH ROW
-BEGIN
-    SET NEW.senha = SHA2(NEW.senha, 256);
-END;
-//
-
-DELIMITER ;
-
-
 SHOW TABLES;
 
 INSERT INTO Companhia_Aerea (cnpj, razao_social, nome_fantasia, sigla_companhia, representante_legal)
@@ -94,13 +65,55 @@ VALUES
 ('02405658000162', 'TAM Linhas Aéreas S.A.', 'LATAM', 'LAN', 'Jerome Cadier');
 
 SELECT * FROM Companhia_Aerea;
+SELECT * FROM Usuario;
 
- -- CREATE TABLE IF NOT EXISTS Voos (
-                           -- id IDENTITY PRIMARY KEY,
-                            -- numero_voo VARCHAR(20),
-                            -- dia_referencia DATE,
-                            -- situacao_voo VARCHAR(50),
-                            -- situacao_partida VARCHAR(50),
-                            -- situacao_chegada VARCHAR(50),
-                            -- fk_rota INT,
-                            -- fk_companhia INT)
+SELECT * FROM Companhia_Aerea;
+
+SHOW COLUMNS FROM Voos LIKE 'sigla_aeroporto_partida';
+
+SELECT * FROM Voos;
+
+SELECT 
+  v.fk_companhia,
+  COUNT(*) AS total_voos
+FROM Voos v
+GROUP BY v.fk_companhia;
+
+
+
+
+-- desabilita validação de FK
+SET FOREIGN_KEY_CHECKS = 0;
+
+TRUNCATE TABLE Voos;
+
+-- habilita novamente
+SET FOREIGN_KEY_CHECKS = 1;
+
+
+
+-- TRIGGER para hashear senha no INSERT
+-- DELIMITER //
+
+-- CREATE TRIGGER trg_hash_senha_insert
+-- BEFORE INSERT ON Usuario
+-- FOR EACH ROW
+-- BEGIN
+   -- SET NEW.senha = SHA2(NEW.senha, 256);
+-- END;
+-- //
+
+-- DELIMITER ;
+
+-- TRIGGER para hashear senha no UPDATE
+-- DELIMITER //
+
+-- CREATE TRIGGER trg_hash_senha_update
+-- BEFORE UPDATE ON Usuario
+-- FOR EACH ROW
+-- BEGIN
+   -- SET NEW.senha = SHA2(NEW.senha, 256);
+-- END;
+-- //
+
+-- DELIMITER ;
