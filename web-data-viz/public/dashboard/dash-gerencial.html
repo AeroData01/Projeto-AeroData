@@ -36,6 +36,7 @@
       <header class="top-bar">
         <div class="user-info">
           <!-- <img src="../assets/vagner-deretor.png" alt="Profile" class="profile-img" /> -->
+          <img src="../assets/ícone-conta.svg" alt="Ícone Conta">
           <span>Vagner Silva </span>
         </div>
         <!-- <div class="date-picker">
@@ -47,10 +48,10 @@
       </header>
 
       <section class="stats">
-        <div class="card">Taxa de voos atrasados na rota SP–RJ (%)<h2>22.3%</h2></div>
-        <div class="card">Taxa de cancelamentos na rota SP–RJ (%)<h2>8.2%</h2></div>
-        <div class="card">Rota com mais atrasos<h2>GRU-SDU</h2></div>
-        <div class="card">Rota com mais cancelamento<h2>SDU-CGH</h2></div>
+        <div class="card">Taxa de Voos Atrasados<h3>21.52%</h3><h4>(3.820 voos atrasados)</h4></div>
+        <div class="card">Taxa de Cancelamentos<h3>11.19%</h3> <h4>(2.236 voos cancelados)</h4></div>
+        <div class="card">Rota com Mais Atrasos<h3>CHG-SDU</h3> <h4> (1.444 atrasos)</h4></div>
+        <div class="card">Rota com Mais Cancelamentos<h3>SDU-CGH</h3><h4>(1.006 cancelamentos)</h4></div>
       </section>
 
       <section class="charts">
@@ -77,9 +78,9 @@
     const donutChart1 = new Chart(document.getElementById('donutChart1'), {
       type: 'doughnut',
       data: {
-        labels: ['0–30 min', '30–60 min', '60–120 min', '120+ min'],
+        labels: ['30-60 min', '60-120 min', '120–240 min', '+240 min'],
         datasets: [{
-          data: [17.7, 26.9, 8.1, 47.3],
+          data: [64.7, 27.0, 6.7, 1.6],
           backgroundColor: ['#93C5FD', '#3B82F6', '#1D4ED8', '#0B1536'],
           borderColor: '#fff',
           borderWidth: 2
@@ -91,7 +92,7 @@
           legend: { position: 'bottom' },
           title: {
             display: true,
-            text: 'Tempo médio de atrasos (em minutos)',
+            text: 'Tempo Médio de Atrasos 2023/24',
             font: { size: 18, weight: 'bold' }
           },
           datalabels: {
@@ -104,14 +105,14 @@
       plugins: [ChartDataLabels]
     });
 
-    //  Cancelamento
+    //  Cancelamentos
     const barChart1 = new Chart(document.getElementById('barChart1'), {
       type: 'bar',
       data: {
-        labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
         datasets: [{
           label: 'Cancelamentos',
-          data: [5, 8, 12, 10, 15, 14, 9, 11, 12, 18, 20, 25],
+          data: [100, 105, 78, 77, 53, 50, 90, 83, 54, 90, 76, 45],
           backgroundColor: '#1D4ED8'
         }]
       },
@@ -121,7 +122,7 @@
           legend: { display: false },
           title: {
             display: true,
-            text: 'Evolução Mensal de Cancelamento',
+            text: 'Voos cancelados em 2024',
             font: { size: 18, weight: 'bold' }
           }
         }
@@ -132,11 +133,11 @@
     const barChart2 = new Chart(document.getElementById('barChart2'), {
       type: 'bar',
       data: {
-        labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun"],
+        labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
         datasets: [{
           label: 'Atrasos',
-          data: [65, 30, 25, 15, 10, 8],
-          backgroundColor: ['#1D4ED8', '#3B82F6', '#60A5FA', '#93C5FD', '#BFDBFE', '#DBEAFE']
+          data: [131, 134, 107, 86, 136, 58, 84, 164, 205, 172, 235, 151],
+          backgroundColor: '#3B82F6'
         }]
       },
       options: {
@@ -145,7 +146,7 @@
           legend: { display: false },
           title: {
             display: true,
-            text: 'Evolução Mensal de Atrasos',
+            text: 'Voos atrasados em 2024',
             font: { size: 18, weight: 'bold' }
           }
         }
@@ -156,16 +157,16 @@
     const doubleBarChart = new Chart(document.getElementById('doubleBarChart'), {
       type: 'bar',
       data: {
-        labels: ['GRU', 'CGH', 'GIG', 'SDU', 'VCP'],
+        labels: ['GRU', 'CGH', 'GIG', 'SDU'],
         datasets: [
           {
-            label: 'São Paulo',
-            data: [15, 18, 14, 10, 7],
+            label: 'Atrasos',
+            data: [526, 1571, 345, 1377],
             backgroundColor: '#1D4ED8'
           },
           {
-            label: 'Rio de Janeiro',
-            data: [10, 15, 12, 5, 6],
+            label: 'Cancelamentos',
+            data: [88, 1003, 83, 1062],
             backgroundColor: '#60A5FA'
           }
         ]
@@ -175,7 +176,7 @@
         plugins: {
           title: {
             display: true,
-            text: 'Cancelamentos por Aeroporto',
+            text: 'Atrasos e Cancelamentos por Aeroporto 2023/2024',
             font: { size: 20, weight: 'bold' }
           },
           legend: { position: 'top' }

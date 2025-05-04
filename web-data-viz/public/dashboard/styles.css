@@ -12,7 +12,7 @@ body {
 
 .sidebar {
   width: 70px;
-  background-color: #1E3A8A;
+  background-color: #0B1536;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
@@ -64,6 +64,11 @@ body {
   font-weight: 600;
 }
 
+.user-info img {
+  width: 36px;
+  height: auto;
+}
+
 .profile-img {
   width: 50px;
   height: 50px;
@@ -111,8 +116,8 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   text-align: center;
   transition: transform 0.3s;
-  font-size: 18px;
-  font-weight: 610;
+  font-size: 17px;
+  font-weight: 620;
 }
 .card:hover {
   transform: translateY(-5px);
@@ -120,6 +125,18 @@ body {
 .card h2 {
   margin-top: 1rem;
   font-size: 1.8rem;
+  color: #1D4ED8;
+}
+
+.card h3 {
+  margin-top: 1rem;
+  font-size: 1.39rem;
+  color: #1D4ED8;
+}
+
+.card h4 {
+  margin-top: 0rem;
+  font-size: 1.18rem;
   color: #1D4ED8;
 }
 

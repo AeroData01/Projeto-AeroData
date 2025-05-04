@@ -33,6 +33,7 @@
       <header class="top-bar">
         <div class="user-info">
           <!-- <img src="../assets/angela.png" alt="Profile" class="profile-img" /> -->
+          <img src="../assets/ícone-conta.svg" alt="Ícone Conta">
           <span>Angela Almeida</span>
         </div>
         <!-- <div class="date-picker">
@@ -44,34 +45,38 @@
       </header>
 
       <section class="stats">
-        <div class="card">Rotas com mais atrasos<h2>SP - RJ</h2></div>
-        <div class="card">Rotas com mais cancelamentos<h2>SP - RJ</h2></div>
-        <div class="card">Aeroportos com mais atrasos<h2>SDU</h2></div>
-        <div class="card">Aeroportos com mais cancelamentos<h2>CGH</h2></div>
+        <div class="card">Rota com Mais Atrasos<h3>CHG-SDU</h3> <h4> (1.444 atrasos)</h4></div>
+        <div class="card">Rota com Mais Cancelamentos<h3>SDU-CGH</h3><h4>(1.006 cancelamentos)</h4></div>
+        <div class="card">Aeroporto com Mais Atrasos<h3>CGH</h3><h4>(1.571 atrasos)</h4></div>
+        <div class="card">Aeroporto com Mais Cancelamentos<h3>SDU</h3><h4>(1.062 cancelamentos)</h4></div>
       </section>
 
       <section class="charts">
         <div class="chart-card">
           <canvas id="donutChart" width="320" height="320"></canvas>
         </div>
-        <div class="chart-card">
-          <canvas id="lineChartCancelamentos" width="320" height="200"></canvas>
-        </div>
+
         <div class="chart-card">
           <canvas id="lineChartAtrasos" width="320" height="200"></canvas>
         </div>
+
+        <div class="chart-card">
+          <canvas id="lineChartCancelamentos" width="320" height="200"></canvas>
+        </div>
+        
       </section>
     </main>
   </div>
 
   <script>
+    
     // Gráfico de Pizza (Donut) — Atrasos SP/RJ
     const donutChart = new Chart(document.getElementById('donutChart'), {
       type: 'doughnut',
       data: {
-        labels: ['No horário', '0-30min atraso', '30-60min atraso', '60min+ atraso'],
+        labels: ['30-60 min', '60-120 min', '120–240 min', '+240 min'],
         datasets: [{
-          data: [50, 30, 15, 5],
+          data: [64.7, 27.0, 6.7, 1.6],
           backgroundColor: ['#93C5FD', '#3B82F6', '#1D4ED8', '#0B1536'],
           borderColor: '#fff',
           borderWidth: 2
@@ -83,54 +88,27 @@
           legend: { position: 'bottom' },
           title: {
             display: true,
-            text: 'Distribuição de Atrasos (SP - RJ)',
+            text: 'Tempo Médio de Atrasos 2023/24',
             font: { size: 18, weight: 'bold' }
           },
           datalabels: {
             color: '#fff',
             font: { weight: 'bold', size: 14 },
-            formatter: (value) => `${value}%`
+            formatter: (value) => `${value.toFixed(1)}%`
           }
         }
       },
       plugins: [ChartDataLabels]
     });
-
-    // Gráfico de Linha — Cancelamentos por Rota SP/RJ
-    const lineChartCancelamentos = new Chart(document.getElementById('lineChartCancelamentos'), {
-      type: 'line',
-      data: {
-        labels: ['SP-RJ', 'SP-SDU', 'SP-GIG', 'CGH-RJ', 'GRU-RJ'],
-        datasets: [{
-          label: 'Cancelamentos (%)',
-          data: [10, 12, 8, 11, 9],
-          borderColor: '#1D4ED8',
-          backgroundColor: '#93C5FD',
-          fill: false,
-          tension: 0.4
-        }]
-      },
-      options: {
-        responsive: false,
-        plugins: {
-          title: {
-            display: true,
-            text: 'Cancelamentos por Rota (SP - RJ)',
-            font: { size: 18, weight: 'bold' }
-          },
-          legend: { display: false }
-        }
-      }
-    });
-
+   
     // Gráfico de Linha — Atrasos por Rota SP/RJ
     const lineChartAtrasos = new Chart(document.getElementById('lineChartAtrasos'), {
       type: 'line',
       data: {
-        labels: ['SP-RJ', 'SP-SDU', 'SP-GIG', 'CGH-RJ', 'GRU-RJ'],
+        labels: ['GRU-SDU', 'GRU-GIG', 'CGH-SDU', 'CGH-GIG', 'SDU-CHG', 'SDU-GRU', 'GIG-GRU', 'GIG-CGH'],
         datasets: [{
           label: 'Atrasos (%)',
-          data: [20, 18, 22, 19, 21],
+          data: [378, 148, 1444, 127, 1208, 169, 258, 87],
           borderColor: '#3B82F6',
           backgroundColor: '#BFDBFE',
           fill: false,
@@ -142,13 +120,41 @@
         plugins: {
           title: {
             display: true,
-            text: 'Atrasos por Rota (SP - RJ)',
+            text: 'Atrasos por Rota 2023/24',
             font: { size: 18, weight: 'bold' }
           },
           legend: { display: false }
         }
       }
     });
+
+     // Gráfico de Linha — Cancelamentos por Rota SP/RJ
+     const lineChartCancelamentos = new Chart(document.getElementById('lineChartCancelamentos'), {
+      type: 'line',
+      data: {
+        labels: ['GRU-SDU', 'GRU-GIG', 'CGH-SDU', 'CGH-GIG', 'SDU-CHG', 'SDU-GRU', 'GIG-GRU', 'GIG-CGH'],
+        datasets: [{
+          label: 'Cancelamentos (%)',
+          data: [45, 43, 958, 45, 1006, 56, 43, 40],
+          borderColor: '#1D4ED8',
+          backgroundColor: '#93C5FD',
+          fill: false,
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: false,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Cancelamentos por Rota 2023/24',
+            font: { size: 18, weight: 'bold' }
+          },
+          legend: { display: false }
+        }
+      }
+    });
+
   </script>
 </body>
 </html>

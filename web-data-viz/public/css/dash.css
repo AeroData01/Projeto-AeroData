@@ -389,6 +389,7 @@ Right Side
 .right h2{
   color: var(--clr-dark);
 }
+
 .right .top{
   display: flex;
   justify-content: start;
