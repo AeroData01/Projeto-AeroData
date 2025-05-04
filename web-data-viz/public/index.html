@@ -13,17 +13,12 @@
   <!-- Fontes Google -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"> -->
 
   <!-- Ícone -->
   <link rel="icon" href="assets/TechMentor-Logo.ico">
 
-  <!-- Fonte aplicada globalmente -->
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-  </style>
 </head>
 
 <body>
@@ -31,7 +26,9 @@
   <div class="navbar">
     <div class="nav"></div>
     <div class="navbar-Child">
-      <img src="./assets/icon/logo png.png" alt="Logo">
+
+      <img id="logo1" src="./assets/icon/logo Branco.png" alt="Logo">
+
       <nav id="nav">
         <button class="menu" aria-label="Abrir Menu" id="btn-mobile" aria-haspopup="true" aria-controls="menu" aria-expanded="false">
           <span id="hamburger"></span>
@@ -58,11 +55,11 @@
   <div class="secao1">
     <div class="elementos">
       <div class="text">
-        <h1>TRANSFORME CANCELAMENTOS DE VOOS EM OPORTUNIDADE <br></h1>
-        <p>Aproveite oportunidades de melhoria nas áreas que realmente importam, identifique causas e padrões críticos, e maximize a satisfação do cliente com nossas análises de dados detalhadas sobre cancelamentos de voos.</p>
+        <h1>TRANSFORME ATRASOS E CANCELAMENTOS DE VOOS EM OPORTUNIDADE <br></h1>
+        <p>Aproveite oportunidades de melhoria nas áreas que realmente importam, identifique padrões críticos e maximize a satisfação do cliente com nossa análise de dados detalhada sobre atrasos e cancelamentos de voos comercias.</p>
       </div>
       <div class="botoes">
-        <a href="#servicos"><button class="servicos">VEJA NOSSOS SERVIÇOS</button></a>
+        <a href="#beneficio"><button class="servicos">VEJA OS BENEFÍCIOS <img src="assets/seta-secao1.svg"></button></a>
         <a href="#contato"><button class="contato">CONTATO<img src="assets/seta-secao1.svg"></button></a>
       </div>
     </div>
@@ -84,8 +81,8 @@
       </div>
 
       <div class="texto">
-        <h1>Dados para Crescimento Estratégico em Cancelamentos de Voos </h1>
-        <p>A AeroData oferece uma solução inovadora para companhias aéreas, fornecendo dados precisos sobre cancelamentos de voos e padrões de atrasos. Com essas informações, as empresas podem identificar causas críticas e padrões recorrentes, ajustando operações de forma estratégica para minimizar impactos e melhorar a satisfação do cliente.</p>
+        <h1>Dados para Crescimento Estratégico em Atrasos e Cancelamentos de Voos </h1>
+        <p>A AeroData oferece uma solução inovadora para companhias aéreas, fornecendo dados precisos sobre cancelamentos de voos e padrões de atrasos. Com essas informações, as empresas podem identificar padrões recorrentes, ajustando operações de forma estratégica para minimizar impactos e melhorar a satisfação do cliente.</p>
       </div>
 
       <div class="ganhos">
@@ -108,16 +105,16 @@
   <section id="servicos" class="secao3">
     <div class="elementos">
       <div class="titulo1">
-        <h2>NOSSOS SERVIÇOS</h2>
+        <h2>MISSÃO, VISÃO E VALORES</h2>
       </div>
       <div class="titulo2">
         <h1>Explore Nossas Soluções para Maximizar Seu <br> Potencial de Crescimento</h1>
       </div>
 
       <div class="blocos">
-        <div class="bloco1"><img src="assets/Icone1.svg" alt=""> <h1>Mapeamento Preciso</h1> <p>Identifique os fatores que causam atrasos e cancelamentos, analisando rotas, infraestrutura e clima.</p> <img class="vetor" src="assets/Vector 5.svg" alt=""></div>
-        <div class="bloco2"><img src="assets/Icone2.svg" alt=""> <h1>Análise de Crescimento</h1> <p>Monitore impactos de atrasos e cancelamentos, analisando custos, satisfação dos passageiros e melhorias estratégicas.</p> <img class="vetor" src="assets/Vector 5.svg" alt=""></div>
-        <div class="bloco3"><img src="assets/Icone3.svg" alt=""><h1>Planejamento Estratégico</h1> <p>Elabore planos para reduzir atrasos com ajustes de horários, manutenção otimizada e melhor coordenação com autoridades.</p> <img class="vetor" src="assets/Vector 5.svg" alt=""></div>
+        <div class="bloco1"><img src="assets/Icone1.svg" alt=""> <h1>Missão</h1> <p>Capacitar companhias aéreas com análises precisas de atrasos e cancelamentos via dashboards intuitivos e KPIs acionáveis.</p> <img class="vetor" src="assets/Vector 5.svg" alt=""></div>
+        <div class="bloco2"><img src="assets/Icone2.svg" alt=""> <h1>Visão</h1> <p>Liderar a inteligência analítica do setor aéreo no Brasil, elevando padrões de pontualidade, segurança e satisfação.</p> <img class="vetor" src="assets/Vector 5.svg" alt=""></div>
+        <div class="bloco3"><img src="assets/Icone3.svg" alt=""><h1>Valores</h1> <p>Orientação por dados, Inovação, Compromisso com a segurança, Transparência, Colaboração e Excelência no atendimento</p> <img class="vetor" src="assets/Vector 5.svg" alt=""></div>
       </div>
     </div>
   </section>
@@ -155,7 +152,7 @@
     </div>
   </div>
 
-  <div class="secao5">
+  <div id="beneficio" class="secao5">
     <div class="lado-esquerdo">
       <div class="titulo">
         <span>BENEFÍCIOS</span>
@@ -195,7 +192,7 @@
         <div class="div-img"><img src="assets/img-box1-section6.svg" alt=""></div>
         <div class="texto">
           <h1>Cadastre-se</h1>
-          <p>Cadastre-se e trabalhe com nossa equipe para minimizar o impacto dos cancelamentos de voos.</p>
+          <p>Cadastre-se e trabalhe com nossa equipe para minimizar o impacto dos atrasos e cancelamentos de voos da sua companhia aérea.</p>
         </div>
         <div class="numero"><span>1</span></div>
       </div>
@@ -206,7 +203,7 @@
         <div class="div-img"><img src="assets/img-box2-section6.svg" alt=""></div>
         <div class="texto">
           <h1>Entrega dos dados</h1>
-          <p>Analisamos as causas de atrasos e cancelamentos de voos, identificamos padrões críticos e entregamos dados valiosos para soluções eficazes.</p>
+          <p>Analisamos os atrasos e cancelamentos de voos, identificamos padrões críticos e entregamos dados valiosos para soluções eficazes.</p>
         </div>
         <div class="numero"><span>2</span></div>
       </div>
@@ -217,7 +214,7 @@
         <div class="div-img"><img src="assets/img-box3-section6.svg" alt=""></div>
         <div class="texto">
           <h1>Plano de Ação</h1>
-          <p>Com os dados em mãos, auxiliamos você na tomada das melhores decisões para minimizar atrasos e cancelamentos de voos.</p>
+          <p>Com os dados em mãos, será possível visualizar o panorama completo, subsidiando decisões mais fundamentadas e, consequentemente, minimizando atrasos e cancelamentos de voos.</p>
         </div>
         <div class="numero"><span>3</span></div>
       </div>
@@ -227,7 +224,7 @@
   <!-- FOOTER -->
   <footer>
     <div id="contato" class="parte1">
-      <img src="assets/logo.png" alt="Logo">
+      <img src="./assets/icon/logo Branco.png" alt="Logo">
       <span>Líder em soluções tecnológicas inovadoras, comprometida com a excelência e o sucesso de seus clientes.</span>
     </div>
 
@@ -236,7 +233,7 @@
       <div class="telefone"><img src="assets/tel-icon.svg" alt=""><span>(11) 97742-1795</span></div>
       <div class="email"><img src="assets/email-icon.svg" alt=""><span>contato@aerodata</span></div>
       <div class="localizacao"><img src="assets/loc-icon.svg" alt=""><span>Rua Haddock Lobo, 595 - Cerqueira César, São Paulo - SP, 01414-905</span></div>
-      <span class="direitos">Copyright © 2024 AeroData. All rights reserved.</span>
+      <span class="direitos">Copyright © 2025 AeroData. All rights reserved.</span>
     </div>
 
     <div class="parte3">

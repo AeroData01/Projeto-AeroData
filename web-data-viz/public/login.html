@@ -25,7 +25,7 @@
 
     <!-- Header -->
     <header class="header backAzul">
-        <img class ="logo" src="./assets/icon/logo png.png" alt="Logo">
+        <img class ="logo" src="./assets/icon/logo Branco.png" alt="Logo">
         
         <ul class="navbar">
             <li>
@@ -99,7 +99,7 @@
         </div>
 
         <!-- Mensagens de erro -->
-        <div id="div_erros_login"></div>
+        <!-- <div id="div_erros_login"></div> -->
 
     </div>
 
@@ -137,7 +137,7 @@
 
         if (emailVar == "" || senhaVar == "") {
             cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            mensagem_erro.innerHTML = "Erro! Todos os campos devem ser preenchidos";
             finalizarAguardar();
             return false;
         }
@@ -196,6 +196,8 @@
 
                 resposta.text().then(texto => {
                     console.error(texto);
+                    cardErro.style.display = "block"
+                    mensagem_erro.innerHTML = texto;
                     finalizarAguardar(texto);
                 });
             }
