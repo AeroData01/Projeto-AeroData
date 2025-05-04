@@ -55,8 +55,8 @@ body{
    user-select: none;
    overflow-x: hidden;
    background: var(--clr-color-background);
-   font-family: 'Poppins', sans-serif;
-}
+   font-family: 'Barlow', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
 
 .container  {
   display: grid;

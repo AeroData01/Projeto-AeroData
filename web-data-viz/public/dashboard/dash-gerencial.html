@@ -5,33 +5,37 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard Analytics</title>
+  
   <link rel="stylesheet" href="styles.css" />
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  <link rel="icon" href="../assets/TechMentor-Logo.ico">
+
 </head>
 
 <body>
   <div class="dashboard">
    <aside class="sidebar">
-      <div class="sidebar-top">
+      <!-- <div class="sidebar-top">
         <div class="icon" id="home-icon" title="Home">
           <i class='bx bxs-home'></i>
         </div>
-      </div>
+      </div> -->
 
       <div class="sidebar-bottom">
         <div class="icon" id="logout-icon" title="Sair">
-          <i class='bx bx-log-out'></i>
+          <a href="../index.html"><i class='bx bx-log-out'></i></a>
         </div>
       </div>
     </aside>
 
+
     <main class="main-content">
       <header class="top-bar">
         <div class="user-info">
-          <img src="../assets/vagner-deretor.png" alt="Profile" class="profile-img" />
+          <!-- <img src="../assets/vagner-deretor.png" alt="Profile" class="profile-img" /> -->
           <span>Vagner Silva </span>
         </div>
         <!-- <div class="date-picker">
@@ -43,10 +47,10 @@
       </header>
 
       <section class="stats">
-        <div class="card">Taxa de voos atrasados na rota SP–RJ (%)<h2>57.3%</h2></div>
-        <div class="card">Taxa de cancelamentos na rota SP–RJ (%)<h2>36.2%</h2></div>
-        <div class="card">Rota com mais atrasos<h2>(nome da rota)</h2></div>
-        <div class="card">Rota com mais cancelamento<h2>(nome da rota)</h2></div>
+        <div class="card">Taxa de voos atrasados na rota SP–RJ (%)<h2>22.3%</h2></div>
+        <div class="card">Taxa de cancelamentos na rota SP–RJ (%)<h2>8.2%</h2></div>
+        <div class="card">Rota com mais atrasos<h2>GRU-SDU</h2></div>
+        <div class="card">Rota com mais cancelamento<h2>SDU-CGH</h2></div>
       </section>
 
       <section class="charts">
