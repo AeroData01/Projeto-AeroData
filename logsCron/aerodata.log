@@ -1,0 +1,197 @@
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:31)
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:31)
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:31)
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:31)
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:31)
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:31)
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:31)
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:31)
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:31)
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:31)
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:33)
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:33)
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:33)
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:33)
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:33)
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:33)
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:33)
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:33)
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:33)
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:33)
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:33)
+Exception in thread "main" java.lang.NullPointerException: accessKey must not be null.
+	at software.amazon.awssdk.utils.Validate.paramNotNull(Validate.java:156)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:48)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.<init>(AwsSessionCredentials.java:37)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials$Builder.build(AwsSessionCredentials.java:239)
+	at software.amazon.awssdk.auth.credentials.AwsSessionCredentials.create(AwsSessionCredentials.java:72)
+	at sptech.school.s3.S3Provider.<init>(S3Provider.java:20)
+	at sptech.school.Main.main(Main.java:33)
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+[2025-05-04 23:43:04] [INFO] Planilha baixada do S3 para: downloaded-planilha.xlsx
+[2025-05-04 23:43:10] [INFO] 19984 voos lidos da planilha.
+[2025-05-04 23:43:10] [INFO] Conexão com o banco estabelecida.
+[2025-05-04 23:43:10] [INFO] Tabela 'Voos' verificada/criada com sucesso.
+[2025-05-04 23:43:11] [INFO] Nenhum voo novo para inserir. Todos já estão no banco.
+[2025-05-04 23:43:11] [INFO] ✅ ETL concluído com sucesso!
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+[2025-05-04 23:44:04] [INFO] Arquivo já existe localmente, pulando download: downloaded-planilha.xlsx
+[2025-05-04 23:44:10] [INFO] 19984 voos lidos da planilha.
+[2025-05-04 23:44:10] [INFO] Conexão com o banco estabelecida.
+[2025-05-04 23:44:10] [INFO] Tabela 'Voos' verificada/criada com sucesso.
+[2025-05-04 23:44:11] [INFO] Nenhum voo novo para inserir. Todos já estão no banco.
+[2025-05-04 23:44:11] [INFO] ✅ ETL concluído com sucesso!
+WARNING: sun.reflect.Reflection.getCallerClass is not supported. This will impact performance.
+[2025-05-04 23:45:04] [INFO] Arquivo já existe localmente, pulando download: downloaded-planilha.xlsx
+[2025-05-04 23:45:10] [INFO] 19984 voos lidos da planilha.
+[2025-05-04 23:45:11] [INFO] Conexão com o banco estabelecida.
+[2025-05-04 23:45:11] [INFO] Tabela 'Voos' verificada/criada com sucesso.
+[2025-05-04 23:45:11] [INFO] Nenhum voo novo para inserir. Todos já estão no banco.
+[2025-05-04 23:45:11] [INFO] ✅ ETL concluído com sucesso!

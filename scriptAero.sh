@@ -2,150 +2,171 @@
 
 START_TIME=$(date +%s)
 
-echo "  
- ___    __________  ____  ____  ___  _________ 
-   /   |  / ____/ __ \/ __ \/ __ \/   |/_  __/   |
-  / /| | / __/ / /_/ / / / / / / / /| | / / / /| |
+echo "
+ ___    __________  ____  ____  ___  _________       
+   /   |  / ____/ __ \/ __ \/ __ \/   |/_  __/   |    
+  / /| | / __/ / /_/ / / / / / / /| | / / / /| |    
  / ___ |/ /___/ _, _/ /_/ / /_/ / ___ |/ / / ___ |
-/_/  |_/_____/_/ |_|\____/_____/_/  |_/_/ /_/  |_|
-                                             
+/_/  |_/_____/_/ |_|\\____/_____/_/  |_/_/ /_/  |_|  
+
+                            ___________                          
+                                 |                               
+                            _   _|_   _                          
+                           (_)-/   \-(_)                         
+    _                         /\___/\                         _  
+   (_)_______________________( ( . ) )_______________________(_) 
+                              \_____/                            
 "
 
+
+
 echo "Iniciando Aero Data..."
-
 echo "Verificação de dependências do sistema..."
+sudo apt update -y
 
-# Função para verificar e instalar Java
+# -----------------------------------------------------
+# Função: verificar e instalar Java
+# -----------------------------------------------------
 verificar_java() {
-    echo "Verificando se o Java está instalado..."
-    java -version > /dev/null 2>&1
-    if [ $? -eq 0 ]; then
-        echo "Cliente já possui o Java instalado!"
+    echo -n "✔️  Java: "
+    if java -version &>/dev/null; then
+        echo "já instalado."
     else
-        echo "Cliente não possui o Java instalado!"
-        echo "Instalando o Java..."
+        echo "não encontrado. Instalando openjdk-21-jdk..."
         sudo apt install -y openjdk-21-jdk
-        echo "Instalação do Java concluída!"
+        echo "✅ Java instalado."
     fi
 }
 
-# Função para verificar e instalar Docker e já iniciar containers
-verificar_docker_e_containers() {
-    echo "Verificando se o Docker está instalado..."
-    docker --version > /dev/null 2>&1
-    if [ $? -eq 0 ]; then
-        echo "Cliente já possui o Docker instalado!"
+# -----------------------------------------------------
+# Função: verificar e instalar Docker
+# -----------------------------------------------------
+verificar_docker() {
+    echo -n "✔️  Docker: "
+    if docker --version &>/dev/null; then
+        echo "já instalado."
     else
-        echo "Cliente não possui o Docker instalado!"
-        echo "Instalando o Docker..."
+        echo "não encontrado. Instalando docker.io..."
         sudo apt install -y docker.io
-        echo "Instalação do Docker concluída!"
+        echo "✅ Docker instalado."
     fi
-
-    echo "Iniciando os serviços do Docker..."
-    sudo systemctl start docker
-
-    # Iniciar containers em paralelo também
-    start_banco &
-    start_site &
-
-    wait
-    echo "Containers prontos!"
+    echo "▶️  Iniciando serviço Docker..."
+    sudo systemctl enable --now docker
 }
 
-# Função para o Banco de Dados
+# -----------------------------------------------------
+# Função: iniciar container de BD
+# -----------------------------------------------------
 start_banco() {
-    echo "Iniciando operações do Banco de Dados..."
-    local dir_banco="./Banco de Dados/BD definitivo"
-
-    if [ "$(sudo docker ps -a -q -f name=container-bd)" ]; then
-        echo "Container do banco de dados já existe."
-        if [ "$(sudo docker ps -q -f name=container-bd)" ]; then
-            echo "Container do banco já está em execução."
+    echo "── Iniciando container do Banco de Dados ──"
+    if sudo docker ps -a -q -f name=container-bd | grep -q .; then
+        echo "Container 'container-bd' já existe."
+        if sudo docker ps -q -f name=container-bd | grep -q .; then
+            echo "  → 'container-bd' já está em execução."
         else
-            echo "Iniciando o container do banco de dados..."
+            echo "  → Iniciando 'container-bd'..."
             sudo docker start container-bd
         fi
     else
-        echo "Criando e iniciando o container do banco de dados..."
-        sudo docker build -t imagem-bd-aero-data "$dir_banco"
+        echo "  → Criando imagem e rodando 'container-bd'..."
+        sudo docker build -t imagem-bd-aero-data "./Banco de Dados/BD definitivo"
         sudo docker run -d --name container-bd -p 3306:3306 imagem-bd-aero-data
     fi
-    echo "Banco de Dados pronto."
+    echo "────────────────────────────────────────────"
 }
 
-# Função para o Site Aero Data
+# -----------------------------------------------------
+# Função: iniciar container da aplicação
+# -----------------------------------------------------
 start_site() {
-    echo "Iniciando operações do Site Aero Data..."
-    local dir_site="./DockerSite"
-
-    if [ "$(sudo docker ps -a -q -f name=container_aero_data)" ]; then
-        echo "Container do site já existe."
-        if [ "$(sudo docker ps -q -f name=container_aero_data)" ]; then
-            echo "Container do site já está em execução."
+    echo "── Iniciando container do Site Aero Data ──"
+    if sudo docker ps -a -q -f name=container_aero_data | grep -q .; then
+        echo "Container 'container_aero_data' já existe."
+        if sudo docker ps -q -f name=container_aero_data | grep -q .; then
+            echo "  → 'container_aero_data' já está em execução."
         else
-            echo "Iniciando o container do site..."
+            echo "  → Iniciando 'container_aero_data'..."
             sudo docker start container_aero_data
         fi
     else
-        echo "Criando e iniciando o container do site..."
-        sudo docker build -t aero_data "$dir_site"
-        sudo docker run -d -p 8080:8080 --name container_aero_data aero_data
+        echo "  → Criando imagem e rodando 'container_aero_data'..."
+        sudo docker build -t aero_data "./DockerSite"
+        # mapeamos 8080:3333 pois seu Node escuta na 3333
+        sudo docker run -d --name container_aero_data -p 8080:3333 aero_data
     fi
-    echo "Site Aero Data pronto."
+    echo "────────────────────────────────────────────"
 }
 
-# Rodar Docker+containers e Java em paralelo
-verificar_docker_e_containers &
+# -----------------------------------------------------
+# Executa checagens e sobe containers em paralelo
+# -----------------------------------------------------
 verificar_java &
-
-# Esperar ambos terminarem
+verificar_docker &
+start_banco &
+start_site &
 wait
-
-echo "✅ Ambiente preparado com sucesso!"
-
-echo ""
+echo "✅ Containers e dependências prontos!"
 echo "==============================================================================="
-echo ""
 
-echo "Iniciando o processo de ETL..."
-
-echo "Tratamento de dados foi um sucesso!"
-
-echo ""
-echo "==============================================================================="
-echo ""
-
-
-echo "  
- ___    __________  ____  ____  ___  _________ 
-   /   |  / ____/ __ \/ __ \/ __ \/   |/_  __/   |
-  / /| | / __/ / /_/ / / / / / / / /| | / / / /| |
- / ___ |/ /___/ _, _/ /_/ / /_/ / ___ |/ / / ___ |
-/_/  |_/_____/_/ |_|\____/_____/_/  |_/_/ /_/  |_|
-                                             
-"
-echo "✅ Sua aplicação está rodando com sucesso!"
-IP=$(curl -s http://checkip.amazonaws.com)
-echo ""
-echo "🌐 Acesse a aplicação rodando em: http://$IP:8080"
-echo ""
-echo ""
-echo ""
-echo "🔍 Testando conexão..."
-if curl -s --head --request GET "http://$IP:8080" | grep "200 OK" > /dev/null; then
-    echo "✅ Conexão bem-sucedida! Tudo certo!"
+# -----------------------------------------------------
+# Cria e conecta a rede 'aerodata-net'
+# -----------------------------------------------------
+echo "🔧 Criando/validando rede Docker 'aerodata-net'..."
+if ! sudo docker network ls --format '{{.Name}}' | grep -q '^aerodata-net$'; then
+  sudo docker network create aerodata-net
+  echo "✅ Rede 'aerodata-net' criada."
 else
-    echo "⚠️ Atenção: Não foi possível validar a conexão automaticamente."
-    echo "   Verifique se os containers estão rodando ou tente novamente em alguns segundos."
+  echo "ℹ️  Rede 'aerodata-net' já existe."
 fi
 
-# Mostrar o tempo total
-END_TIME=$(date +%s)
-ELAPSED_TIME=$((END_TIME - START_TIME))
+echo "🔗 Conectando containers à rede..."
+for c in container-bd container_aero_data; do
+  if ! sudo docker network inspect aerodata-net | grep -q "$c"; then
+    sudo docker network connect aerodata-net "$c"
+    echo "  → Container '$c' conectado."
+  else
+    echo "  → Container '$c' já está na rede."
+  fi
+done
 
-echo ""
-echo "⏱️ Tempo total de preparação: ${ELAPSED_TIME} segundos."
-echo ""
+echo "🚀 Todos os containers na rede 'aerodata-net'."
 echo "==============================================================================="
 
+# -----------------------------------------------------
+# Processo de ETL via JAR
+# -----------------------------------------------------
+echo "Iniciando o processo de ETL via JAR..."
+# nome correto do JAR
+JAR_PATH="./Java/aerodata/target/aerodata-integrado-1.0-SNAPSHOT.jar"
+
+if [ ! -f "$JAR_PATH" ]; then
+  echo "❌ JAR não encontrado em $JAR_PATH"
+  exit 1
+fi
+
+echo "✔️  Executando: java -jar $JAR_PATH"
+java -jar "$JAR_PATH"
+echo "==============================================================================="
+
+# -----------------------------------------------------
+# Validação final de conectividade HTTP
+# -----------------------------------------------------
+echo "✅ Sua aplicação está rodando com sucesso!"
+IP=$(curl -s http://checkip.amazonaws.com)
+echo "🌐 Acesse em: http://$IP:8080"
+echo -n "🔍 Aguardando a aplicação responder"
+until curl -s -o /dev/null http://localhost:8080; do
+  echo -n "."
+  sleep 5
+done
+echo " ✅"
+echo ""
+echo "
+ ___    __________  ____  ____  ___  _________
+   /   |  / ____/ __ \/ __ \/ __ \/   |/_  __/   |
+  / /| | / __/ / /_/ / / / / / / /| | / / / /| |
+ / ___ |/ /___/ _, _/ /_/ / /_/ / ___ |/ / / ___ |
+/_/  |_/_____/_/ |_|\\____/_____/_/  |_/_/ /_/  |_|
+"
+echo "⏱️ Tempo total: $(( $(date +%s) - START_TIME )) segundos."
+echo "==============================================================================="
