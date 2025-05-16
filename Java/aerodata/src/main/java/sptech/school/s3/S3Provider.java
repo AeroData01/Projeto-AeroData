@@ -1,19 +1,19 @@
-package sptech.school.s3;
+package br.com.technology.tree.bucket;
 
-import software.amazon.awssdk.auth.credentials.AwsSessionCredentials;
+import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.GetObjectRequest;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
-import java.io.File;
-import java.nio.file.Paths;
-
-/**
- * Classe que fornece o cliente S3 configurado com credenciais temporárias da AWS.
- */
 public class S3Provider {
 
+    public S3Client getS3Client() {
+        return S3Client.builder()
+                .region(Region.US_EAST_1)
+                .credentialsProvider(DefaultCredentialsProvider.create())
+                .build();
+    }
+
+    /* VERSÃO LOCAL!!!
     private final AwsSessionCredentials credentials;
 
     public S3Provider() {
@@ -30,4 +30,5 @@ public class S3Provider {
                 .credentialsProvider(() -> credentials)
                 .build();
     }
+    */
 }
