@@ -1,4 +1,4 @@
-package br.com.technology.tree.bucket;
+package sptech.school.s3;
 
 import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
