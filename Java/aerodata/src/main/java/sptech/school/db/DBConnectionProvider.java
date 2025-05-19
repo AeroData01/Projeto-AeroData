@@ -9,7 +9,7 @@ import java.sql.DriverManager;
 public class DBConnectionProvider {
 
     // URL de conexão com banco H2 em memória
-    private static final String URL = "jdbc:mysql://container-BD:3306/aerodata";
+    private static final String URL = "jdbc:mysql://localhost:3306/aerodata";
 
     // Usuário padrão do H2
     private static final String USUARIO = "root";
