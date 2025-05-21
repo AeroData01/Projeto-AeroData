@@ -21,65 +21,60 @@ import java.util.List;
 public class LeitorPlanilha {
 
     public static List<Voo> lerVoos(String caminhoArquivo) throws IOException {
-        List<Voo> voos = new ArrayList<>();
-        boolean printedFirst = false;
+    List<Voo> voos = new ArrayList<>();
 
-        try (InputStream fis = new FileInputStream(caminhoArquivo);
-             InputStream is  = FileMagic.prepareToCheckMagic(fis)) {
+    try (InputStream fis = new FileInputStream(caminhoArquivo);
+         InputStream is  = FileMagic.prepareToCheckMagic(fis)) {
 
-            // Abre workbook conforme formato
-            Workbook workbook = FileMagic.valueOf(is) == FileMagic.OOXML
-                    ? new XSSFWorkbook(is)
-                    : new HSSFWorkbook(is);
+        Workbook workbook = FileMagic.valueOf(is) == FileMagic.OOXML
+                ? new XSSFWorkbook(is)
+                : new HSSFWorkbook(is);
 
-            Sheet sheet = workbook.getSheetAt(0);
-            Iterator<Row> rows = sheet.iterator();
-            // Pula cabeçalho (linha 0)
-            if (!rows.hasNext()) { workbook.close(); return voos; }
-            rows.next();
+        Sheet sheet = workbook.getSheetAt(0);
+        int totalLinhas = sheet.getLastRowNum();
 
-            // Itera pelas linhas de dados
-            while (rows.hasNext()) {
-                Row row = rows.next();
+        // Começa em 1 para pular cabeçalho
+        for (int i = 1; i <= totalLinhas; i++) {
+            Row row = sheet.getRow(i);
+            if (row == null || isLinhaVazia(row)) continue;
 
-                // Extrai campos usados
-                String sigComp    = getString(row, 0);
-                String nomeComp   = getString(row, 1);
-                String numVoo     = getString(row, 2);
-                String sigOrig    = getString(row, 3);
-                String descOrig   = getString(row, 4);
-                String sigDest    = getString(row, 5);
-                String descDest   = getString(row, 6);
-                String sitVoo     = getString(row, 7);
-                java.sql.Date ref = dateFromCell(row.getCell(8));
-                String sitPart   = getString(row, 9);
-                String sitCheg   = getString(row,10);
+            String sigComp    = getString(row, 0);
+            String nomeComp   = getString(row, 1);
+            String numVoo     = getString(row, 2);
+            String sigOrig    = getString(row, 3);
+            String descOrig   = getString(row, 4);
+            String sigDest    = getString(row, 5);
+            String descDest   = getString(row, 6);
+            String sitVoo     = getString(row, 7);
+            java.sql.Date ref = dateFromCell(row.getCell(8));
+            String sitPart    = getString(row, 9);
+            String sitCheg    = getString(row,10);
 
-
-                // Descartar linhas de filtro (origem==destino)
-                if (descOrig.isBlank() || descDest.isBlank() || descOrig.equals(descDest)) {
-                    continue;
-                }
-
-                // Popula objeto Voo
-                Voo voo = new Voo();
-                voo.setFkCompanhia(sigComp);
-                voo.setNomeCompanhia(nomeComp);
-                voo.setNumeroVoo(numVoo);
-                voo.setSiglaAeroportoPartida(sigOrig);
-                voo.setAeroportoPartida(descOrig);
-                voo.setSiglaAeroportoDestino(sigDest);
-                voo.setAeroportoDestino(descDest);
-                voo.setSituacaoVoo(sitVoo);
-                voo.setDataReferencia(ref);
-                voo.setSituacaoPartida(sitPart);
-                voo.setSituacaoChegada(sitCheg);
-                voos.add(voo);
+            // Descartar linhas inválidas
+            if (descOrig.isBlank() || descDest.isBlank() || descOrig.equals(descDest)) {
+                continue;
             }
-            workbook.close();
+
+            Voo voo = new Voo();
+            voo.setFkCompanhia(sigComp);
+            voo.setNomeCompanhia(nomeComp);
+            voo.setNumeroVoo(numVoo);
+            voo.setSiglaAeroportoPartida(sigOrig);
+            voo.setAeroportoPartida(descOrig);
+            voo.setSiglaAeroportoDestino(sigDest);
+            voo.setAeroportoDestino(descDest);
+            voo.setSituacaoVoo(sitVoo);
+            voo.setDataReferencia(ref);
+            voo.setSituacaoPartida(sitPart);
+            voo.setSituacaoChegada(sitCheg);
+            voos.add(voo);
         }
-        return voos;
+
+        workbook.close();
     }
+    return voos;
+}
+
 
     private static String getString(Row row, int idx) {
         Cell c = row.getCell(idx);
