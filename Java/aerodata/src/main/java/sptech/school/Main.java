@@ -12,6 +12,8 @@ import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.HeadBucketRequest;
 import software.amazon.awssdk.services.s3.model.NoSuchBucketException;
 import software.amazon.awssdk.services.s3.model.S3Exception;
+import org.apache.poi.util.IOUtils;
+
 
 import java.io.File;
 import java.nio.file.Path;
@@ -21,6 +23,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        IOUtils.setByteArrayMaxOverride(105_000_000);
         // Inicializa conexão e transação
         try (Connection connection = new DBConnectionProvider().getConnection()) {
             connection.setAutoCommit(false);
