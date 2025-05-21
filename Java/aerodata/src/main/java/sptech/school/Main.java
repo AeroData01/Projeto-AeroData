@@ -31,8 +31,8 @@ public class Main {
             // Configurações do S3
             S3Client s3 = new S3Provider().getS3Client();
             String bucket = "aero-data-bucket";
-            String key = "Base de Dados - AeroData.xls";
-            Path downloadPath = new File("downloaded-planilha.xls").toPath();
+            String key = "Base de Dados - AeroData.xlsx";
+            Path downloadPath = new File("downloaded-planilha.xlsx").toPath();
 
             // Valida bucket
             try {
