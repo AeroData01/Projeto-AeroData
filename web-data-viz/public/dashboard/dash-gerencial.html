@@ -5,107 +5,124 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard Analytics</title>
-  
+
   <link rel="stylesheet" href="styles.css" />
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  <link rel="icon" href="../assets/TechMentor-Logo.ico" />
+
+  <!-- Chart.js e Plugin -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-  <link rel="icon" href="../assets/TechMentor-Logo.ico">
-
 </head>
 
-<aside class="sidebar">
-  <div class="sidebar-top">
-    <a href="alerta.html" class="icon" title="Alertas">
-      <i class='bx bx-bell'></i> <!-- Ícone sino do Boxicons -->
-    </a>
-  </div>
+<body>
 
-  <div class="sidebar-bottom">
-    <a href="../index.html" class="icon" id="logout-icon" title="Sair">
-      <i class='bx bx-log-out'></i>
-    </a>
-  </div>
-</aside>
- 
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <a href="alerta.html" class="icon" title="Alertas"><i class="bx bx-bell"></i></a>
+    </div>
+    <div class="sidebar-bottom">
+      <a href="../index.html" class="icon" id="logout-icon" title="Sair"><i class="bx bx-log-out"></i></a>
+    </div>
+  </aside>
 
-    <main class="main-content">
-      
-      <header class="top-bar">
-        <div class="user-info">
-          <img src="../assets/ícone-conta.svg" alt="Ícone Conta">
-          <span>Vagner Silva </span>
-        </div>
-      </header>
+  <main class="main-content">
+    <header class="top-bar">
+      <div class="user-info">
+        <img src="../assets/ícone-conta.svg" alt="Ícone Conta" />
+        <span>Vagner Silva</span>
+      </div>
+    </header>
 
-      <section class="stats">
-        <div class="card">Taxa de Voos Atrasados<h3>21.52%</h3><h4>(3.820 voos atrasados)</h4></div>
-        <div class="card">Taxa de Cancelamentos<h3>11.19%</h3> <h4>(2.236 voos cancelados)</h4></div>
-        <div class="card">Rota com Mais Atrasos<h3>CHG-SDU</h3> <h4> (1.444 atrasos)</h4></div>
-        <div class="card">Rota com Mais Cancelamentos<h3>SDU-CGH</h3><h4>(1.006 cancelamentos)</h4></div>
-      </section>
+    <section class="stats">
+      <div class="card">
+        Taxa de Voos Atrasados
+        <h3>21.52%</h3>
+        <h4>(3.820 voos atrasados)</h4>
+      </div>
+      <div class="card">
+        Taxa de Cancelamentos
+        <h3>11.19%</h3>
+        <h4>(2.236 voos cancelados)</h4>
+      </div>
+      <div class="card">
+        Rota com Mais Atrasos
+        <h3>CHG-SDU</h3>
+        <h4>(1.444 atrasos)</h4>
+      </div>
+      <div class="card">
+        Rota com Mais Cancelamentos
+        <h3>SDU-CGH</h3>
+        <h4>(1.006 cancelamentos)</h4>
+      </div>
+    </section>
 
-      <section class="charts">
-        <div class="chart-card">
-          <canvas id="donutChart1" width="320" height="320"></canvas>
-        </div>
-        <div class="chart-card">
-          <canvas id="barChart1" width="320" height="200"></canvas>
-        </div>
-        <div class="chart-card">
-          <canvas id="barChart2" width="300" height="200"></canvas>
-        </div>
-      </section>
+    <section class="charts">
+      <div class="chart-card">
+        <canvas id="chartAtrasoMedio" width="320" height="320"></canvas>
+      </div>
+      <div class="chart-card">
+        <canvas id="chartCancelamentosMensais" width="320" height="200"></canvas>
+      </div>
+      <div class="chart-card">
+        <canvas id="chartDistribuicaoCompanhias" width="320" height="300"></canvas>
+      </div>
+      <div class="chart-card wide">
+        <canvas id="chartComparativo" width="700" height="300"></canvas>
+      </div>
+    </section>
 
-      <section class="chart-card">
-        <canvas id="doubleBarChart" width="700" height="300"></canvas>
-      </section>
-
-    </main>
-  </div>
+  </main>
 
   <script>
-    // Donut Chart - Tempo Médio de Atrasos (do leve ao crítico)
-    const donutChart1 = new Chart(document.getElementById('donutChart1'), {
-      type: 'doughnut',
+    // Gráfico 1: Atraso médio por companhia
+    new Chart(document.getElementById('chartAtrasoMedio'), {
+      type: 'bar',
       data: {
-        labels: ['30-60 min', '60-120 min', '120–240 min', '+240 min'],
+        labels: ['Gol', 'Latam', 'Azul', 'Voepass', 'Passaredo'],
         datasets: [{
-          data: [64.7, 27.0, 6.7, 1.6],
-          backgroundColor: ['#2563EB', '#1E40AF', '#F97316', '#DC2626'],  // Azul forte, laranja, vermelho
-          borderColor: '#fff',
-          borderWidth: 2
+          label: 'Tempo Médio de Atraso (min)',
+          data: [41, 39, 37, 32, 30],
+          backgroundColor: '#1E3A8A'
         }]
       },
       options: {
+        indexAxis: 'y',
         responsive: false,
         plugins: {
-          legend: { position: 'bottom' },
+          legend: { display: false },
           title: {
             display: true,
-            text: 'Tempo Médio de Atrasos 2023/24',
+            text: 'Top 5 Companhias Aéreas por Tempo de Atraso (min)',
             font: { size: 18, weight: 'bold' }
           },
           datalabels: {
-            color: '#fff',
-            font: { weight: 'bold', size: 14 },
-            formatter: (value) => `${value.toFixed(1)}%`
+            anchor: 'end',
+            align: 'right',
+            color: '#111',
+            font: { weight: 'bold' },
+            formatter: (value) => `${value} min`
+          }
+        },
+        scales: {
+          x: {
+            beginAtZero: true,
+            title: { display: true, text: 'Minutos' }
           }
         }
       },
       plugins: [ChartDataLabels]
     });
 
-    // Cancelamentos - azul escuro vibrante
-    const barChart1 = new Chart(document.getElementById('barChart1'), {
+    // Gráfico 2: Cancelamentos por mês
+    new Chart(document.getElementById('chartCancelamentosMensais'), {
       type: 'bar',
       data: {
-        labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
         datasets: [{
           label: 'Cancelamentos',
           data: [100, 105, 78, 77, 53, 50, 90, 83, 54, 90, 76, 45],
-          backgroundColor: '#1E40AF'  // azul mais forte
+          backgroundColor: '#1E40AF'
         }]
       },
       options: {
@@ -114,52 +131,82 @@
           legend: { display: false },
           title: {
             display: true,
-            text: 'Voos cancelados em 2024',
+            text: 'Voos Cancelados em 2024',
             font: { size: 18, weight: 'bold' }
           }
         }
       }
     });
 
-    // Atrasos - azul vibrante
-    const barChart2 = new Chart(document.getElementById('barChart2'), {
-      type: 'bar',
+    // Gráfico 3: Distribuição percentual por companhia
+    new Chart(document.getElementById('chartDistribuicaoCompanhias'), {
+      type: 'doughnut',
       data: {
-        labels: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+        labels: ['Gol', 'Latam', 'Azul', 'Voepass', 'Passaredo'],
         datasets: [{
-          label: 'Atrasos',
-          data: [131, 134, 107, 86, 136, 58, 84, 164, 205, 172, 235, 151],
-          backgroundColor: '#2563EB'  // azul vibrante
+          data: [25, 20, 22, 18, 15],
+          backgroundColor: ['#FF0000', '#00008B', '#0000FF', '#00B050', '#FFC000']
         }]
       },
       options: {
         responsive: false,
         plugins: {
-          legend: { display: false },
           title: {
             display: true,
-            text: 'Voos atrasados em 2024',
-            font: { size: 18, weight: 'bold' }
+            text: 'Participação Percentual de Voos por Companhia Aérea',
+            font: { size: 18 }
+          },
+          legend: { position: 'bottom' },
+          datalabels: {
+            formatter: (value, context) => {
+              const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+              return ((value / total) * 100).toFixed(1) + '%';
+            },
+            color: '#fff',
+            font: { weight: 'bold', size: 14 }
           }
         }
-      }
+      },
+      plugins: [ChartDataLabels]
     });
 
-    // Atrasos e Cancelamentos por Aeroporto - Azul forte e laranja
-    const doubleBarChart = new Chart(document.getElementById('doubleBarChart'), {
-      type: 'bar',
+    // Gráfico 4: Comparativo geral
+    new Chart(document.getElementById('chartComparativo'), {
+      type: 'line',
       data: {
-        labels: ['GRU', 'CGH', 'GIG', 'SDU'],
+        labels: ['Gol', 'Latam', 'Azul', 'Voepass', 'Passaredo'],
         datasets: [
           {
-            label: 'Atrasos',
-            data: [526, 1571, 345, 1377],
-            backgroundColor: '#1E40AF'  // azul escuro vibrante
+            label: 'Voos Cancelados',
+            data: [120, 150, 90, 30, 20],
+            borderColor: '#DC2626',
+            backgroundColor: '#DC2626',
+            fill: false,
+            tension: 0.3
           },
           {
-            label: 'Cancelamentos',
-            data: [88, 1003, 83, 1062],
-            backgroundColor: '#F97316'  // laranja vibrante
+            label: 'Voos',
+            data: [1000, 1200, 1100, 400, 350],
+            borderColor: '#1E3A8A',
+            backgroundColor: '#1E3A8A',
+            fill: false,
+            tension: 0.3
+          },
+          {
+            label: 'Voos Atrasados',
+            data: [210, 250, 180, 60, 50],
+            borderColor: '#F59E0B',
+            backgroundColor: '#F59E0B',
+            fill: false,
+            tension: 0.3
+          },
+          {
+            label: 'Voos Pontuais',
+            data: [670, 800, 830, 310, 280],
+            borderColor: '#10B981',
+            backgroundColor: '#10B981',
+            fill: false,
+            tension: 0.3
           }
         ]
       },
@@ -168,17 +215,24 @@
         plugins: {
           title: {
             display: true,
-            text: 'Atrasos e Cancelamentos por Aeroporto 2023/2024',
-            font: { size: 20, weight: 'bold' }
+            text: 'Comparativo de Voos por Companhia Aérea',
+            font: { size: 18, weight: 'bold' }
           },
           legend: { position: 'top' }
         },
         scales: {
-          y: { beginAtZero: true }
+          y: {
+            beginAtZero: true,
+            title: { display: true, text: 'Número de Voos' }
+          },
+          x: {
+            title: { display: true, text: 'Companhia Aérea' }
+          }
         }
       }
     });
   </script>
+
 </body>
 
 </html>
