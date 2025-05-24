@@ -1,36 +1,48 @@
 package sptech.school.log;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
-/**
- * Serviço de log customizado que imprime mensagens com timestamp e nível.
- */
 public class LogService {
-    // Formato do timestamp utilizado nos logs
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private final Connection connection;
 
     /**
-     * Método interno para formatar e imprimir a mensagem no console.
+     * Construtor que recebe a conexão do Main para reutilização da mesma transação.
      */
-    private void log(String level, String message) {
-        String timestamp = LocalDateTime.now().format(FORMATTER);
-        System.out.println("[" + timestamp + "] [" + level + "] " + message);
+    public LogService(Connection connection) {
+        this.connection = connection;
     }
 
-    public void info(String message) {
-        log("INFO", message);
+    public void info(String mensagem) {
+        String log = String.format("[%s] [INFO] %s", LocalDateTime.now(), mensagem);
+        System.out.println(log);
+        writeToDB("INFO", mensagem);
     }
 
-    public void warn(String message) {
-        log("WARN", message);
+    public void warn(String mensagem) {
+        String log = String.format("[%s] [WARN] %s", LocalDateTime.now(), mensagem);
+        System.out.println(log);
+        writeToDB("WARN", mensagem);
     }
 
-    public void error(String message) {
-        log("ERROR", message);
+    public void error(String mensagem) {
+        String log = String.format("[%s] [ERROR] %s", LocalDateTime.now(), mensagem);
+        System.err.println(log);
+        writeToDB("ERROR", mensagem);
     }
 
-    public void debug(String message) {
-        log("DEBUG", message);
+    private void writeToDB(String nivel, String mensagem) {
+        String sql = "INSERT INTO LogService (data_hora, nivel, mensagem) VALUES (?, ?, ?)";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setString(2, nivel);
+            ps.setString(3, mensagem);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -1,141 +1,101 @@
 package sptech.school;
 
+import sptech.school.db.DBConnectionProvider;
+import sptech.school.excel.LeitorPlanilha;
+import sptech.school.log.LogService;
+import sptech.school.model.Voo;
+import sptech.school.repository.VooRepository;
+import sptech.school.s3.S3Provider;
+
 import software.amazon.awssdk.core.sync.ResponseTransformer;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.GetObjectRequest;
-import software.amazon.awssdk.services.s3.model.HeadBucketRequest;
-import software.amazon.awssdk.services.s3.model.NoSuchBucketException;
-import software.amazon.awssdk.services.s3.model.S3Exception;
-import sptech.school.s3.S3Provider;
-import sptech.school.log.LogService;
-import sptech.school.excel.LeitorPlanilha;
-import sptech.school.model.Voo;
-import sptech.school.db.DBConnectionProvider;
-import sptech.school.repository.VooRepository;
+import software.amazon.awssdk.services.s3.model.*;
 
-import java.io.IOException;
-import java.io.InputStream;
+import org.apache.poi.util.IOUtils;
+
+import java.io.File;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.sql.SQLException;
 import java.util.List;
-import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        LogService logger = new LogService();
-        S3Client s3Client = new S3Provider().getS3Client();
+        // Ajuste para suportar arquivos grandes no Apache POI
+        IOUtils.setByteArrayMaxOverride(150_000_000);
+        System.setProperty("poi.ooxml.saxParserFactory", "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl");
 
-        String bucketName = "aero-data-bucket";
-        String key        = "Base_Aerodata (definitivo).xlsx";  // ou .xlsx
-        String localPath  = "downloaded-planilha.xlsx";
+        String bucket = "aero-data-bucket";
+        String key = "Base de Dados - AeroData.xlsx";
+        Path downloadPath = new File("downloaded-planilha.xlsx").toPath();
 
-        // 1) Verifica se o bucket existe
-        try {
-            s3Client.headBucket(HeadBucketRequest.builder()
-                .bucket(bucketName).build());
-        } catch (NoSuchBucketException e) {
-            logger.error("Bucket não existe: " + bucketName);
-            return;
-        } catch (S3Exception e) {
-            logger.error("Erro ao verificar bucket: " + e.getMessage());
-            return;
-        }
+        try (
+                Connection connection = new DBConnectionProvider().getConnection();
+                S3Client s3 = new S3Provider().getS3Client()
+        ) {
+            connection.setAutoCommit(false);
+            LogService logger = new LogService(connection);
 
-        // 2) Download da planilha (se ainda não existir)
-        if (Files.exists(Paths.get(localPath))) {
-            logger.info("Arquivo já existe localmente, pulando download: " + localPath);
-        } else {
+            logger.info("Iniciando ETL do AeroData");
+
+            // Validação do bucket
             try {
-                GetObjectRequest getReq = GetObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(key)
-                    .build();
-
-                InputStream is = s3Client.getObject(getReq, ResponseTransformer.toInputStream());
-                Files.copy(is, Paths.get(localPath));
-                logger.info("Planilha baixada do S3 para: " + localPath);
-            } catch (IOException | S3Exception e) {
-                logger.error("Erro ao baixar planilha do S3: " + e.getMessage());
+                logger.info("Validando bucket: " + bucket);
+                s3.headBucket(HeadBucketRequest.builder().bucket(bucket).build());
+            } catch (NoSuchBucketException e) {
+                logger.error("Bucket não encontrado: " + bucket);
+                return;
+            } catch (S3Exception e) {
+                logger.error("Erro ao validar bucket: " + e.awsErrorDetails().errorMessage());
                 return;
             }
-        }
 
-        // 3) Leitura e tratamento da planilha
-        List<Voo> voos;
-        try {
-            voos = LeitorPlanilha.lerVoos(localPath);
-            logger.info(voos.size() + " voos lidos da planilha.");
-        } catch (Exception e) {
-            logger.error("Erro ao ler planilha: " + e.getMessage());
-            return;
-        }
-
-        // 4) Persistência no banco de dados, inserindo apenas voos novos
-        try (Connection conexao = DBConnectionProvider.getConnection()) {
-            logger.info("Conexão com o banco estabelecida.");
-
-            // Cria tabela se necessário
-            try (Statement stmt = conexao.createStatement()) {
-                stmt.execute("""
-                    CREATE TABLE IF NOT EXISTS Voos (
-                        id INT AUTO_INCREMENT PRIMARY KEY,
-                        numero_voo VARCHAR(20),
-                        dia_referencia DATE,
-                        aeroporto_partida VARCHAR(255),
-                        sigla_aeroporto_partida VARCHAR(10),
-                        aeroporto_destino VARCHAR(255),
-                        sigla_aeroporto_destino VARCHAR(10),
-                        situacao_voo VARCHAR(50),
-                        situacao_partida VARCHAR(50),
-                        situacao_chegada VARCHAR(50),
-                        fk_companhia INT
-                    )
-                """);
-                logger.info("Tabela 'Voos' verificada/criada com sucesso.");
-            }
-
-            // Carrega chaves existentes (numero_voo|dia_referencia)
-            Set<String> existentes = new HashSet<>();
-            try (PreparedStatement ps = conexao.prepareStatement(
-                     "SELECT numero_voo, dia_referencia FROM Voos");
-                 ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    String numero = rs.getString("numero_voo");
-                    Date data     = rs.getDate("dia_referencia");
-                    existentes.add(numero + "|" + data);
-                }
-            }
-
-            // Filtra voos novos
-            List<Voo> novosVoos = new ArrayList<>();
-            for (Voo voo : voos) {
-                String chave = voo.getNumeroVoo() + "|" + voo.getDataReferencia();
-                if (!existentes.contains(chave)) {
-                    novosVoos.add(voo);
-                }
-            }
-
-            if (novosVoos.isEmpty()) {
-                logger.info("Nenhum voo novo para inserir. Todos já estão no banco.");
+            // Verifica se a planilha já existe localmente
+            if (Files.exists(downloadPath)) {
+                logger.info("Usando planilha local existente: " + downloadPath);
             } else {
-                logger.info(novosVoos.size() + " voos novos encontrados. Inserindo...");
-                new VooRepository().salvarVoos(conexao, novosVoos);
-                logger.info("Voos novos inseridos com sucesso.");
+                // Faz o download se não existir
+                try {
+                    logger.info("Baixando planilha do S3: " + key);
+                    s3.getObject(
+                            GetObjectRequest.builder().bucket(bucket).key(key).build(),
+                            ResponseTransformer.toFile(downloadPath)
+                    );
+                    logger.info("Planilha baixada com sucesso em: " + downloadPath);
+                } catch (S3Exception e) {
+                    logger.error("Erro no download da planilha: " + e.awsErrorDetails().errorMessage());
+                    return;
+                }
             }
 
-        } catch (Exception e) {
-            logger.error("Erro na persistência de dados: " + e.getMessage());
-            return;
-        }
+            // Leitura da planilha
+            logger.info("Lendo planilha...");
+            List<Voo> voos = new LeitorPlanilha().lerVoos(downloadPath.toString());
+            logger.info("Total de voos lidos: " + voos.size());
 
-        // 5) Só agora, se tudo deu certo:
-        logger.info("✅ ETL concluído com sucesso!");
+            // Persistência dos dados no banco
+            VooRepository repo = new VooRepository();
+            try {
+                logger.info("Persistindo voos no banco...");
+                repo.salvarVoos(connection, voos);
+                connection.commit();
+                logger.info("Voos persistidos com sucesso");
+            } catch (SQLException e) {
+                logger.error("Erro ao salvar voos: " + e.getMessage());
+                try {
+                    connection.rollback();
+                    logger.warn("Transação revertida (rollback)");
+                } catch (SQLException ex) {
+                    logger.error("Erro ao realizar rollback: " + ex.getMessage());
+                }
+            }
+
+            logger.info("ETL concluído com sucesso");
+
+        } catch (Exception e) {
+            System.err.println("Erro fatal no processo ETL: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

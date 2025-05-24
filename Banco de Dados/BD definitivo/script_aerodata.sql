@@ -55,6 +55,13 @@ CREATE TABLE Alertas (
 			REFERENCES Voos(id_voo)
 );
 
+CREATE TABLE LogService (
+	id_logs INT PRIMARY KEY AUTO_INCREMENT,
+    data_hora DATETIME,
+    nivel VARCHAR(8),
+    mensagem VARCHAR(255)
+);
+
 SHOW TABLES;
 
 INSERT INTO Companhia_Aerea (sigla_companhia, cnpj, razao_social, nome_fantasia, representante_legal)
