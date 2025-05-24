@@ -15,36 +15,28 @@
 
 </head>
 
-<body>
-  <div class="dashboard">
-   <aside class="sidebar">
-      <!-- <div class="sidebar-top">
-        <div class="icon" id="home-icon" title="Home">
-          <i class='bx bxs-home'></i>
-        </div>
-      </div> -->
+<aside class="sidebar">
+  <div class="sidebar-top">
+    <a href="alerta.html" class="icon" title="Alertas">
+      <i class='bx bx-bell'></i> <!-- Ícone sino do Boxicons -->
+    </a>
+  </div>
 
-      <div class="sidebar-bottom">
-        <div class="icon" id="logout-icon" title="Sair">
-          <a href="../index.html"><i class='bx bx-log-out'></i></a>
-        </div>
-      </div>
-    </aside>
-
+  <div class="sidebar-bottom">
+    <a href="../index.html" class="icon" id="logout-icon" title="Sair">
+      <i class='bx bx-log-out'></i>
+    </a>
+  </div>
+</aside>
+ 
 
     <main class="main-content">
+      
       <header class="top-bar">
         <div class="user-info">
-          <!-- <img src="../assets/vagner-deretor.png" alt="Profile" class="profile-img" /> -->
           <img src="../assets/ícone-conta.svg" alt="Ícone Conta">
           <span>Vagner Silva </span>
         </div>
-        <!-- <div class="date-picker">
-          <label>Selecionar período:</label>
-          <input type="date" value="2022-01-01" />
-          <span>até</span>
-          <input type="date" value="2022-12-31" />
-        </div> -->
       </header>
 
       <section class="stats">
@@ -74,14 +66,14 @@
   </div>
 
   <script>
-    // Donut Chart
+    // Donut Chart - Tempo Médio de Atrasos (do leve ao crítico)
     const donutChart1 = new Chart(document.getElementById('donutChart1'), {
       type: 'doughnut',
       data: {
         labels: ['30-60 min', '60-120 min', '120–240 min', '+240 min'],
         datasets: [{
           data: [64.7, 27.0, 6.7, 1.6],
-          backgroundColor: ['#93C5FD', '#3B82F6', '#1D4ED8', '#0B1536'],
+          backgroundColor: ['#2563EB', '#1E40AF', '#F97316', '#DC2626'],  // Azul forte, laranja, vermelho
           borderColor: '#fff',
           borderWidth: 2
         }]
@@ -105,7 +97,7 @@
       plugins: [ChartDataLabels]
     });
 
-    //  Cancelamentos
+    // Cancelamentos - azul escuro vibrante
     const barChart1 = new Chart(document.getElementById('barChart1'), {
       type: 'bar',
       data: {
@@ -113,7 +105,7 @@
         datasets: [{
           label: 'Cancelamentos',
           data: [100, 105, 78, 77, 53, 50, 90, 83, 54, 90, 76, 45],
-          backgroundColor: '#1D4ED8'
+          backgroundColor: '#1E40AF'  // azul mais forte
         }]
       },
       options: {
@@ -129,7 +121,7 @@
       }
     });
 
-    //  Atrasos
+    // Atrasos - azul vibrante
     const barChart2 = new Chart(document.getElementById('barChart2'), {
       type: 'bar',
       data: {
@@ -137,7 +129,7 @@
         datasets: [{
           label: 'Atrasos',
           data: [131, 134, 107, 86, 136, 58, 84, 164, 205, 172, 235, 151],
-          backgroundColor: '#3B82F6'
+          backgroundColor: '#2563EB'  // azul vibrante
         }]
       },
       options: {
@@ -153,7 +145,7 @@
       }
     });
 
-   // Cancelamentos por Aeroporto
+    // Atrasos e Cancelamentos por Aeroporto - Azul forte e laranja
     const doubleBarChart = new Chart(document.getElementById('doubleBarChart'), {
       type: 'bar',
       data: {
@@ -162,12 +154,12 @@
           {
             label: 'Atrasos',
             data: [526, 1571, 345, 1377],
-            backgroundColor: '#1D4ED8'
+            backgroundColor: '#1E40AF'  // azul escuro vibrante
           },
           {
             label: 'Cancelamentos',
             data: [88, 1003, 83, 1062],
-            backgroundColor: '#60A5FA'
+            backgroundColor: '#F97316'  // laranja vibrante
           }
         ]
       },

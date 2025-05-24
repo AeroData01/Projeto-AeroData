@@ -1,0 +1,116 @@
+/* Reset básico */
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f6f8;
+    color: #222;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 2rem;
+    min-height: 100vh;
+  }
+  
+  .alert-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  h1 {
+    margin-bottom: 1.5rem;
+    color: #1D4ED8;
+    font-weight: 700;
+    font-size: 2rem;
+  }
+  
+  .alert-legend {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+  
+  .alert-level {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    user-select: none;
+  }
+  
+  .color-box {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  }
+  
+  /* Cores */
+  .critical .color-box {
+    background-color: #DC2626; /* vermelho */
+  }
+  
+  .important .color-box {
+    background-color: #F97316; /* laranja */
+  }
+  
+  .warning .color-box {
+    background-color: #FBBF24; /* amarelo */
+  }
+  
+  .stable .color-box {
+    background-color: #22C55E; /* verde */
+  }
+  
+  /* Área dos alertas */
+  .alert-messages h2 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    color: #374151;
+    font-weight: 600;
+  }
+  
+  .alert-box {
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    background-color: #fafafa;
+    padding: 1rem 1.5rem;
+    height: 300px;
+    overflow-y: auto;
+    box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #444;
+    outline: none;
+  }
+  
+  .alert-box p {
+    margin: 0.5rem 0;
+  }
+  
+  .alert-box p strong {
+    color: inherit;
+  }
+  
+  /* Scroll bar customizada para navegadores Webkit */
+  .alert-box::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .alert-box::-webkit-scrollbar-thumb {
+    background-color: #60A5FA;
+    border-radius: 4px;
+  }
+  
+  .alert-box::-webkit-scrollbar-track {
+    background: #f0f0f0;
+  }
+  

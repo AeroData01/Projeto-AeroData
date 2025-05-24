@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Índice de Alerta</title>
+  <link rel="stylesheet" href="alerta.css" />
+</head>
+<body>
+  <main class="alert-container">
+    <h1>Índice de Alerta</h1>
+
+    <section class="alert-legend">
+      <div class="alert-level critical">
+        <span class="color-box"></span>
+        <span>Crítico</span>
+      </div>
+      <div class="alert-level important">
+        <span class="color-box"></span>
+        <span>Importante</span>
+      </div>
+      <div class="alert-level warning">
+        <span class="color-box"></span>
+        <span>Aviso</span>
+      </div>
+      <div class="alert-level stable">
+        <span class="color-box"></span>
+        <span>Estável</span>
+      </div>
+    </section>
+
+    <section class="alert-messages">
+      <h2>Alertas Recentes</h2>
+      <div class="alert-box" tabindex="0" aria-label="Caixa de alertas recentes">
+        <!-- Aqui você pode inserir os alertas dinamicamente -->
+        <p><strong>[Crítico]</strong> Voou 4 horas atrasado</p>
+        <p><strong>[Importante]</strong> 2 hora e 30 min de atraso</p>
+        <p><strong>[Aviso]</strong> Não voar do trajeto tal a tal.</p>
+        <p><strong>[Estável]</strong> Todas as operações dentro do esperado.</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
