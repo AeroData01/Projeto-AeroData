@@ -17,8 +17,14 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
@@ -55,7 +61,6 @@ public class Main {
             if (Files.exists(downloadPath)) {
                 logger.info("Usando planilha local existente: " + downloadPath);
             } else {
-                // Faz o download se não existir
                 try {
                     logger.info("Baixando planilha do S3: " + key);
                     s3.getObject(
@@ -74,20 +79,43 @@ public class Main {
             List<Voo> voos = new LeitorPlanilha().lerVoos(downloadPath.toString());
             logger.info("Total de voos lidos: " + voos.size());
 
-            // Persistência dos dados no banco
-            VooRepository repo = new VooRepository();
-            try {
-                logger.info("Persistindo voos no banco...");
-                repo.salvarVoos(connection, voos);
-                connection.commit();
-                logger.info("Voos persistidos com sucesso");
-            } catch (SQLException e) {
-                logger.error("Erro ao salvar voos: " + e.getMessage());
+            // Busca voos já existentes no banco
+            Set<String> existentes = new HashSet<>();
+            try (PreparedStatement ps = connection.prepareStatement(
+                    "SELECT numero_voo, dia_referencia FROM Voos");
+                 ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    String numero = rs.getString("numero_voo");
+                    Date data = rs.getDate("dia_referencia");
+                    existentes.add(numero + "|" + data);
+                }
+            }
+
+            // Filtra voos novos
+            List<Voo> novosVoos = new ArrayList<>();
+            for (Voo voo : voos) {
+                String chave = voo.getNumeroVoo() + "|" + voo.getDataReferencia();
+                if (!existentes.contains(chave)) {
+                    novosVoos.add(voo);
+                }
+            }
+
+            if (novosVoos.isEmpty()) {
+                logger.info("Nenhum voo novo para inserir. Todos já estão no banco.");
+            } else {
+                logger.info(novosVoos.size() + " voos novos encontrados. Inserindo...");
                 try {
-                    connection.rollback();
-                    logger.warn("Transação revertida (rollback)");
-                } catch (SQLException ex) {
-                    logger.error("Erro ao realizar rollback: " + ex.getMessage());
+                    new VooRepository().salvarVoos(connection, novosVoos);
+                    connection.commit();
+                    logger.info("Voos novos inseridos com sucesso.");
+                } catch (SQLException e) {
+                    logger.error("Erro ao salvar voos: " + e.getMessage());
+                    try {
+                        connection.rollback();
+                        logger.warn("Transação revertida (rollback)");
+                    } catch (SQLException ex) {
+                        logger.error("Erro ao realizar rollback: " + ex.getMessage());
+                    }
                 }
             }
 
