@@ -10,7 +10,6 @@
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
   <link rel="icon" href="../assets/TechMentor-Logo.ico" />
 
-  <!-- Chart.js e Plugin -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 </head>
@@ -36,6 +35,10 @@
 
     <section class="stats">
       <div class="card">
+        Total de Voos
+        <h3>17.780</h3>
+      </div>
+      <div class="card">
         Taxa de Voos Atrasados
         <h3>21.52%</h3>
         <h4>(3.820 voos atrasados)</h4>
@@ -59,59 +62,56 @@
 
     <section class="charts">
       <div class="chart-card">
-        <canvas id="chartAtrasoMedio" width="320" height="320"></canvas>
+        <canvas id="chartAtrasoMedio"></canvas>
       </div>
       <div class="chart-card">
-        <canvas id="chartCancelamentosMensais" width="320" height="200"></canvas>
+        <canvas id="chartCancelamentosMensais"></canvas>
       </div>
       <div class="chart-card">
-        <canvas id="chartDistribuicaoCompanhias" width="320" height="300"></canvas>
-      </div>
-      <div class="chart-card wide">
-        <canvas id="chartComparativo" width="700" height="300"></canvas>
+        <canvas id="chartAtrasosMensais"></canvas>
       </div>
     </section>
 
+    <!-- Novo layout de linha + rosca -->
+    <section class="chart-row-comparativo">
+      <div class="chart-card chart-pie">
+        <canvas id="chartDistribuicaoCompanhias"></canvas>
+      </div>
+      <div class="chart-card chart-line">
+        <canvas id="chartComparativo"></canvas>
+      </div>
+    </section>
   </main>
 
   <script>
-    // Gráfico 1: Atraso médio por companhia
+    // Gráfico 1: Top 3 companhias com mais atrasos
     new Chart(document.getElementById('chartAtrasoMedio'), {
       type: 'bar',
       data: {
-        labels: ['Gol', 'Latam', 'Azul', 'Voepass', 'Passaredo'],
-        datasets: [{
-          label: 'Tempo Médio de Atraso (min)',
-          data: [41, 39, 37, 32, 30],
-          backgroundColor: '#1E3A8A'
-        }]
+        labels: ['Gol', 'Latam', 'Azul'],
+        datasets: [
+          { label: '2023', data: [22, 18, 17], backgroundColor: '#1E40AF' },
+          { label: '2024', data: [20, 19, 16], backgroundColor: '#60A5FA' },
+          { label: '2025', data: [19, 17, 15], backgroundColor: '#93C5FD' }
+        ]
       },
       options: {
-        indexAxis: 'y',
-        responsive: false,
+        responsive: true,
         plugins: {
-          legend: { display: false },
           title: {
             display: true,
-            text: 'Top 5 Companhias Aéreas por Tempo de Atraso (min)',
+            text: 'Top 3 Companhias com Mais Atrasos (%) por Ano',
             font: { size: 18, weight: 'bold' }
           },
-          datalabels: {
-            anchor: 'end',
-            align: 'right',
-            color: '#111',
-            font: { weight: 'bold' },
-            formatter: (value) => `${value} min`
-          }
+          legend: { position: 'top' }
         },
         scales: {
-          x: {
+          y: {
             beginAtZero: true,
-            title: { display: true, text: 'Minutos' }
+            title: { display: true, text: 'Taxa de Atrasos (%)' }
           }
         }
-      },
-      plugins: [ChartDataLabels]
+      }
     });
 
     // Gráfico 2: Cancelamentos por mês
@@ -119,41 +119,75 @@
       type: 'bar',
       data: {
         labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-        datasets: [{
-          label: 'Cancelamentos',
-          data: [100, 105, 78, 77, 53, 50, 90, 83, 54, 90, 76, 45],
-          backgroundColor: '#1E40AF'
-        }]
+        datasets: [
+          { label: '2023', data: [90, 80, 70, 60, 85, 100, 110, 120, 130, 100, 90, 95], backgroundColor: '#EF4444' },
+          { label: '2024', data: [80, 70, 60, 50, 75, 90, 100, 110, 115, 95, 85, 90], backgroundColor: '#F87171' }
+        ]
       },
       options: {
-        responsive: false,
+        responsive: true,
         plugins: {
-          legend: { display: false },
           title: {
             display: true,
-            text: 'Voos Cancelados em 2024',
+            text: 'Cancelamentos por Mês - 2023 vs 2024',
             font: { size: 18, weight: 'bold' }
+          },
+          legend: { position: 'top' }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: { display: true, text: 'Cancelamentos' }
           }
         }
       }
     });
 
-    // Gráfico 3: Distribuição percentual por companhia
-    new Chart(document.getElementById('chartDistribuicaoCompanhias'), {
-      type: 'doughnut',
+    // Gráfico 3: Atrasos por mês
+    new Chart(document.getElementById('chartAtrasosMensais'), {
+      type: 'bar',
       data: {
-        labels: ['Gol', 'Latam', 'Azul', 'Voepass', 'Passaredo'],
-        datasets: [{
-          data: [25, 20, 22, 18, 15],
-          backgroundColor: ['#FF0000', '#00008B', '#0000FF', '#00B050', '#FFC000']
-        }]
+        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+        datasets: [
+          { label: '2023', data: [120, 130, 140, 100, 110, 90, 130, 140, 150, 160, 170, 180], backgroundColor: '#F59E0B' },
+          { label: '2024', data: [110, 120, 130, 95, 100, 85, 120, 130, 140, 150, 160, 165], backgroundColor: '#FCD34D' }
+        ]
       },
       options: {
-        responsive: false,
+        responsive: true,
         plugins: {
           title: {
             display: true,
-            text: 'Participação Percentual de Voos por Companhia Aérea',
+            text: 'Atrasos por Mês - 2023 vs 2024',
+            font: { size: 18, weight: 'bold' }
+          },
+          legend: { position: 'top' }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: { display: true, text: 'Atrasos' }
+          }
+        }
+      }
+    });
+
+    // Gráfico 4: Rosca - Participação SP-RJ
+    new Chart(document.getElementById('chartDistribuicaoCompanhias'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Gol', 'Latam', 'Azul'],
+        datasets: [{
+          data: [45, 35, 20],
+          backgroundColor: ['#DC2626', '#1D4ED8', '#3B82F6']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Participação no Mercado – Voos SP-RJ',
             font: { size: 18 }
           },
           legend: { position: 'bottom' },
@@ -170,15 +204,15 @@
       plugins: [ChartDataLabels]
     });
 
-    // Gráfico 4: Comparativo geral
+    // Gráfico 5: Comparativo de Voos (linha)
     new Chart(document.getElementById('chartComparativo'), {
       type: 'line',
       data: {
-        labels: ['Gol', 'Latam', 'Azul', 'Voepass', 'Passaredo'],
+        labels: ['Gol', 'Latam', 'Azul'],
         datasets: [
           {
             label: 'Voos Cancelados',
-            data: [120, 150, 90, 30, 20],
+            data: [120, 150, 90],
             borderColor: '#DC2626',
             backgroundColor: '#DC2626',
             fill: false,
@@ -186,7 +220,7 @@
           },
           {
             label: 'Voos',
-            data: [1000, 1200, 1100, 400, 350],
+            data: [1000, 1200, 1100],
             borderColor: '#1E3A8A',
             backgroundColor: '#1E3A8A',
             fill: false,
@@ -194,24 +228,16 @@
           },
           {
             label: 'Voos Atrasados',
-            data: [210, 250, 180, 60, 50],
+            data: [210, 250, 180],
             borderColor: '#F59E0B',
             backgroundColor: '#F59E0B',
-            fill: false,
-            tension: 0.3
-          },
-          {
-            label: 'Voos Pontuais',
-            data: [670, 800, 830, 310, 280],
-            borderColor: '#10B981',
-            backgroundColor: '#10B981',
             fill: false,
             tension: 0.3
           }
         ]
       },
       options: {
-        responsive: false,
+        responsive: true,
         plugins: {
           title: {
             display: true,
