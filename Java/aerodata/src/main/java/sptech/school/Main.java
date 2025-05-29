@@ -32,7 +32,7 @@ public class Main {
         IOUtils.setByteArrayMaxOverride(150_000_000);
         System.setProperty("poi.ooxml.saxParserFactory", "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl");
 
-        String bucket = "aero-data-bucket";
+        String bucket = "bucket-data-aero";
         String key = "Base de Dados - AeroData.xlsx";
         Path downloadPath = new File("downloaded-planilha.xlsx").toPath();
 
