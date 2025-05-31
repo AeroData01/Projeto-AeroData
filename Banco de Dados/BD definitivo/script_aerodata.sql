@@ -68,7 +68,7 @@ INSERT INTO Companhia_Aerea (sigla_companhia, cnpj, razao_social, nome_fantasia,
 VALUES 
 ('GLO', '03420957000130', 'VRG Linhas Aéreas S.A.', 'GOL', 'Celso Ferrer'),
 ('AZU', '09490781000156', 'Azul Linhas Aéreas Brasileiras S.A.', 'Azul', 'John Rodgerson'),
-('LAN', '02405658000162', 'TAM Linhas Aéreas S.A.', 'LATAM', 'Jerome Cadier');
+('TAM', '02405658000162', 'TAM Linhas Aéreas S.A.', 'LATAM', 'Jerome Cadier');
 
 
 
