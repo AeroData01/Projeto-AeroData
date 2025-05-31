@@ -40,7 +40,7 @@ public class LogService {
     }
 
     private void writeToDB(String nivel, String mensagem) {
-        String sql = "INSERT INTO log_service (data_hora, nivel, mensagem) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO LogService (data_hora, nivel, mensagem) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             Timestamp ts = Timestamp.valueOf(LocalDateTime.now().withNano(0));
             stmt.setTimestamp(1, ts);
