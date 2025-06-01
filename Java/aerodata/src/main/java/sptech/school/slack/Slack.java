@@ -11,8 +11,8 @@ public class Slack {
     private static final HttpClient client = HttpClient.newHttpClient();
 
     //  URL real do seu Webhook gerado pelo Slack
-    private static final String url = "https://hooks.slack.com/services/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";
-    
+   private static final String url = "https://hooks.slack.com/services/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";
+
 
     public static void enviarMensagem(String mensagem) throws IOException, InterruptedException {
         JSONObject json = new JSONObject();
