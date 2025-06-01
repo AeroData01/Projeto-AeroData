@@ -7,204 +7,136 @@
   <title>Dashboard Analytics</title>
 
   <link rel="stylesheet" href="styles.css" />
-  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-  <link rel="icon" href="../assets/TechMentor-Logo.ico" />
-
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 </head>
 
 <body>
 
   <aside class="sidebar">
     <div class="sidebar-top">
-      <a href="alerta.html" class="icon" title="Alertas"><i class="bx bx-bell"></i></a>
+      <a href="#" class="icon" title="Alertas"><i class="bx bx-bell"></i></a>
     </div>
     <div class="sidebar-bottom">
-      <a href="../index.html" class="icon" id="logout-icon" title="Sair"><i class="bx bx-log-out"></i></a>
+      <a href="#" class="icon" id="logout-icon" title="Sair"><i class="bx bx-log-out"></i></a>
     </div>
   </aside>
 
   <main class="main-content">
     <header class="top-bar">
       <div class="user-info">
-        <img src="../assets/ícone-conta.svg" alt="Ícone Conta" />
+        <img src="icone-conta.svg" alt="Ícone Conta" />
         <span>Vagner Silva</span>
       </div>
     </header>
 
     <section class="stats">
-      <div class="card">
-        Total de Voos
-        <h3>17.780</h3>
-      </div>
-      <div class="card">
-        Taxa de Voos Atrasados
-        <h3>21.52%</h3>
-        <h4>(3.820 voos atrasados)</h4>
-      </div>
-      <div class="card">
-        Taxa de Cancelamentos
-        <h3>11.19%</h3>
-        <h4>(2.236 voos cancelados)</h4>
-      </div>
-      <div class="card">
-        Rota com Mais Atrasos
-        <h3>CHG-SDU</h3>
-        <h4>(1.444 atrasos)</h4>
-      </div>
-      <div class="card">
-        Rota com Mais Cancelamentos
-        <h3>SDU-CGH</h3>
-        <h4>(1.006 cancelamentos)</h4>
-      </div>
+      <div class="card"><h4>Total de Voos</h4><h3>17.780</h3></div>
+      <div class="card"><h4>Taxa de Voos Atrasados</h4><h3>21.52%<br>(3.820 voos atrasados)</h3></div>
+      <div class="card"><h4>Taxa de Cancelamentos</h4><h3>11.19%<br>(2.236 voos cancelados)</h3></div>
+      <div class="card"><h4>Rota com Mais Atrasos</h4><h3><span style="color:#1e40af;">CHG-SDU</span><br>(1.444 atrasos)</h3></div>
+      <div class="card"><h4>Rota com Mais Cancelamentos</h4><h3><span style="color:#1e40af;">SDU-CGH</span><br>(1.006 cancelamentos)</h3></div>
     </section>
 
-    <section class="charts">
-      <div class="chart-card">
-        <canvas id="chartAtrasoMedio"></canvas>
-      </div>
-      <div class="chart-card">
-        <canvas id="chartCancelamentosMensais"></canvas>
-      </div>
-      <div class="chart-card">
-        <canvas id="chartAtrasosMensais"></canvas>
-      </div>
-    </section>
-
-    <!-- Novo layout de linha + rosca -->
-    <section class="chart-row-comparativo">
-      <div class="chart-card chart-pie">
-        <canvas id="chartDistribuicaoCompanhias"></canvas>
-      </div>
-      <div class="chart-card chart-line">
-        <canvas id="chartComparativo"></canvas>
-      </div>
+    <section class="charts-container">
+      <div class="chart-card"><canvas id="chartAtrasoMedio"></canvas></div>
+      <div class="chart-card"><canvas id="chartCancelamentosMensais"></canvas></div>
+      <div class="chart-card"><canvas id="chartAtrasosMensais"></canvas></div>
+      <div class="chart-card"><canvas id="chartDistribuicaoCompanhias"></canvas></div>
+      <div class="chart-card"><canvas id="chartComparativo"></canvas></div>
     </section>
   </main>
 
   <script>
-    // Gráfico 1: Top 3 companhias com mais atrasos
+    // Gráfico 1 – Atraso médio
     new Chart(document.getElementById('chartAtrasoMedio'), {
       type: 'bar',
       data: {
         labels: ['Gol', 'Latam', 'Azul'],
         datasets: [
           { label: '2023', data: [22, 18, 17], backgroundColor: '#1E40AF' },
-          { label: '2024', data: [20, 19, 16], backgroundColor: '#60A5FA' },
-          { label: '2025', data: [19, 17, 15], backgroundColor: '#93C5FD' }
+          { label: '2024', data: [20, 19, 16], backgroundColor: '#60A5FA' }
         ]
       },
       options: {
-        responsive: true,
+        responsive: false,
+        maintainAspectRatio: false,
         plugins: {
-          title: {
-            display: true,
-            text: 'Top 3 Companhias com Mais Atrasos (%) por Ano',
-            font: { size: 18, weight: 'bold' }
-          },
+          title: { display: true, text: 'Top 3 Companhias com Mais Atrasos (%) por Ano' },
           legend: { position: 'top' }
         },
         scales: {
-          y: {
-            beginAtZero: true,
-            title: { display: true, text: 'Taxa de Atrasos (%)' }
-          }
+          y: { beginAtZero: true, title: { display: true, text: 'Taxa de Atrasos (%)' } }
         }
       }
     });
 
-    // Gráfico 2: Cancelamentos por mês
+    // Gráfico 2 – Cancelamentos mensais
     new Chart(document.getElementById('chartCancelamentosMensais'), {
       type: 'bar',
       data: {
         labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
         datasets: [
-          { label: '2023', data: [90, 80, 70, 60, 85, 100, 110, 120, 130, 100, 90, 95], backgroundColor: '#EF4444' },
-          { label: '2024', data: [80, 70, 60, 50, 75, 90, 100, 110, 115, 95, 85, 90], backgroundColor: '#F87171' }
+          { label: '2023', data: [90, 80, 70, 60, 85, 100, 120, 110, 105, 100, 95, 85], backgroundColor: '#EF4444' },
+          { label: '2024', data: [80, 70, 60, 50, 75, 90, 110, 100, 95, 90, 85, 75], backgroundColor: '#F87171' }
         ]
       },
       options: {
-        responsive: true,
+        responsive: false,
+        maintainAspectRatio: false,
         plugins: {
-          title: {
-            display: true,
-            text: 'Cancelamentos por Mês - 2023 vs 2024',
-            font: { size: 18, weight: 'bold' }
-          },
+          title: { display: true, text: 'Cancelamentos por Mês - 2023 vs 2024' },
           legend: { position: 'top' }
         },
         scales: {
-          y: {
-            beginAtZero: true,
-            title: { display: true, text: 'Cancelamentos' }
-          }
+          y: { beginAtZero: true, title: { display: true, text: 'Cancelamentos' } }
         }
       }
     });
 
-    // Gráfico 3: Atrasos por mês
+    // Gráfico 3 – Atrasos mensais
     new Chart(document.getElementById('chartAtrasosMensais'), {
       type: 'bar',
       data: {
         labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
         datasets: [
-          { label: '2023', data: [120, 130, 140, 100, 110, 90, 130, 140, 150, 160, 170, 180], backgroundColor: '#F59E0B' },
-          { label: '2024', data: [110, 120, 130, 95, 100, 85, 120, 130, 140, 150, 160, 165], backgroundColor: '#FCD34D' }
+          { label: '2023', data: [120, 130, 115, 140, 110, 100, 130, 125, 140, 150, 160, 170], backgroundColor: '#F59E0B' },
+          { label: '2024', data: [110, 120, 105, 130, 100, 90, 120, 115, 130, 140, 150, 160], backgroundColor: '#FCD34D' }
         ]
       },
       options: {
-        responsive: true,
+        responsive: false,
+        maintainAspectRatio: false,
         plugins: {
-          title: {
-            display: true,
-            text: 'Atrasos por Mês - 2023 vs 2024',
-            font: { size: 18, weight: 'bold' }
-          },
+          title: { display: true, text: 'Atrasos por Mês - 2023 vs 2024' },
           legend: { position: 'top' }
         },
         scales: {
-          y: {
-            beginAtZero: true,
-            title: { display: true, text: 'Atrasos' }
-          }
+          y: { beginAtZero: true, title: { display: true, text: 'Atrasos' } }
         }
       }
     });
 
-    // Gráfico 4: Rosca - Participação SP-RJ
+    // Gráfico 4 – Rosca
     new Chart(document.getElementById('chartDistribuicaoCompanhias'), {
       type: 'doughnut',
       data: {
         labels: ['Gol', 'Latam', 'Azul'],
         datasets: [{
           data: [45, 35, 20],
-          backgroundColor: ['#DC2626', '#1D4ED8', '#3B82F6']
+          backgroundColor: ['#3B82F6', '#EF4444', '#10B981']
         }]
       },
       options: {
-        responsive: true,
+        responsive: false,
+        maintainAspectRatio: false,
         plugins: {
-          title: {
-            display: true,
-            text: 'Participação no Mercado – Voos SP-RJ',
-            font: { size: 18 }
-          },
-          legend: { position: 'bottom' },
-          datalabels: {
-            formatter: (value, context) => {
-              const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
-              return ((value / total) * 100).toFixed(1) + '%';
-            },
-            color: '#fff',
-            font: { weight: 'bold', size: 14 }
-          }
+          title: { display: true, text: 'Participação no Mercado – SP-RJ' },
+          legend: { position: 'bottom' }
         }
-      },
-      plugins: [ChartDataLabels]
+      }
     });
 
-    // Gráfico 5: Comparativo de Voos (linha)
+    // Gráfico 5 – Comparativo (linha)
     new Chart(document.getElementById('chartComparativo'), {
       type: 'line',
       data: {
@@ -237,28 +169,19 @@
         ]
       },
       options: {
-        responsive: true,
+        responsive: false,
+        maintainAspectRatio: false,
         plugins: {
-          title: {
-            display: true,
-            text: 'Comparativo de Voos por Companhia Aérea',
-            font: { size: 18, weight: 'bold' }
-          },
+          title: { display: true, text: 'Comparativo de Voos por Companhia' },
           legend: { position: 'top' }
         },
         scales: {
-          y: {
-            beginAtZero: true,
-            title: { display: true, text: 'Número de Voos' }
-          },
-          x: {
-            title: { display: true, text: 'Companhia Aérea' }
-          }
+          y: { beginAtZero: true, title: { display: true, text: 'Voos' } },
+          x: { title: { display: true, text: 'Companhias' } }
         }
       }
     });
   </script>
 
 </body>
-
 </html>
