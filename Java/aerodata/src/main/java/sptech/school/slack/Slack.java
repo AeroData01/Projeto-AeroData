@@ -14,18 +14,19 @@ public class Slack {
    private static final String url = System.getenv("SLACK_WEBHOOK_URL");
 
 
-    public static void enviarMensagem(String mensagem) throws IOException, InterruptedException {
-        JSONObject json = new JSONObject();
-        json.put("text", mensagem);
+  public static void enviarMensagem(String mensagem) throws IOException, InterruptedException {
+    JSONObject json = new JSONObject();
+    json.put("text", mensagem);
 
-        HttpRequest request = HttpRequest.newBuilder(URI.create(url))
-                .header("Content-Type", "application/json")
-                .POST(HttpRequest.BodyPublishers.ofString(json.toString()))
-                .build();
+    HttpRequest request = HttpRequest.newBuilder(URI.create(url))
+            .header("Content-Type", "application/json")
+            .POST(HttpRequest.BodyPublishers.ofString(json.toString()))
+            .build();
 
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        System.out.printf("Status: %s%n", response.statusCode());
-        System.out.printf("Response: %s%n", response.body());
-    }
+    System.out.println("📤 Slack: Mensagem enviada -> " + mensagem);
+    System.out.println("📨 Slack: Status " + response.statusCode() + " - " + response.body());
+}
+
 }
