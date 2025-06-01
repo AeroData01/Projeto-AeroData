@@ -87,7 +87,7 @@ public class Main {
                  ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     String numero = rs.getString("numero_voo");
-                    Date data = rs.getDate("dia_referencia");
+                    java.sql.Date data = rs.getDate("dia_referencia");
                     existentes.add(numero + "|" + data);
                 }
             }
