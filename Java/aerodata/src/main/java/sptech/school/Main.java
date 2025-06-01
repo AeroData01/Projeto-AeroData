@@ -17,19 +17,12 @@ import org.apache.poi.util.IOUtils;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.ArrayList;
+import java.sql.*;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        // Ajustes para Apache POI
+        // Ajuste do Apache POI para arquivos grandes
         IOUtils.setByteArrayMaxOverride(150_000_000);
         System.setProperty("poi.ooxml.saxParserFactory", "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl");
 
@@ -37,19 +30,20 @@ public class Main {
         String key = "Base de Dados - AeroData.xlsx";
         Path downloadPath = new File("downloaded-planilha.xlsx").toPath();
 
+        boolean inseriuComSucesso = false;
+
         try (
-                Connection connection = new DBConnectionProvider().getConnection();
-                S3Client s3 = new S3Provider().getS3Client()
+            Connection connection = new DBConnectionProvider().getConnection();
+            S3Client s3 = new S3Provider().getS3Client()
         ) {
             connection.setAutoCommit(false);
             LogService logger = new LogService(connection);
 
-            // 🔔 Slack - início
+            // 🔔 Slack: início
             Slack.enviarMensagem("🚀 Iniciando processo ETL do AeroData.");
-
             logger.info("Iniciando ETL do AeroData");
 
-            // Validação do bucket
+            // 📦 Validação do bucket
             try {
                 logger.info("Validando bucket: " + bucket);
                 s3.headBucket(HeadBucketRequest.builder().bucket(bucket).build());
@@ -63,14 +57,15 @@ public class Main {
                 return;
             }
 
+            // 📥 Download da planilha (se necessário)
             if (Files.exists(downloadPath)) {
                 logger.info("Usando planilha local existente: " + downloadPath);
             } else {
                 try {
                     logger.info("Baixando planilha do S3: " + key);
                     s3.getObject(
-                            GetObjectRequest.builder().bucket(bucket).key(key).build(),
-                            ResponseTransformer.toFile(downloadPath)
+                        GetObjectRequest.builder().bucket(bucket).key(key).build(),
+                        ResponseTransformer.toFile(downloadPath)
                     );
                     logger.info("Planilha baixada com sucesso em: " + downloadPath);
                 } catch (S3Exception e) {
@@ -80,13 +75,15 @@ public class Main {
                 }
             }
 
+            // 📊 Leitura e preparação dos dados
             logger.info("Lendo planilha...");
             List<Voo> voos = new LeitorPlanilha().lerVoos(downloadPath.toString());
             logger.info("Total de voos lidos: " + voos.size());
 
+            // 🗂️ Carrega voos existentes no banco
             Set<String> existentes = new HashSet<>();
             try (PreparedStatement ps = connection.prepareStatement(
-                    "SELECT numero_voo, dia_referencia FROM Voos");
+                "SELECT numero_voo, dia_referencia FROM Voos");
                  ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     String numero = rs.getString("numero_voo");
@@ -95,6 +92,7 @@ public class Main {
                 }
             }
 
+            // 🔍 Filtra apenas voos novos
             List<Voo> novosVoos = new ArrayList<>();
             for (Voo voo : voos) {
                 String chave = voo.getNumeroVoo() + "|" + voo.getDataReferencia();
@@ -103,6 +101,7 @@ public class Main {
                 }
             }
 
+            // 💾 Inserção no banco
             if (novosVoos.isEmpty()) {
                 logger.info("Nenhum voo novo para inserir.");
                 Slack.enviarMensagem("ℹ️ Nenhum voo novo foi encontrado para inserir.");
@@ -112,7 +111,7 @@ public class Main {
                     new VooRepository().salvarVoos(connection, novosVoos);
                     connection.commit();
                     logger.info("Voos inseridos com sucesso.");
-                    Slack.enviarMensagem("✅ " + novosVoos.size() + " voos inseridos com sucesso.");
+                    inseriuComSucesso = true;
                 } catch (SQLException e) {
                     logger.error("Erro ao salvar voos: " + e.getMessage());
                     Slack.enviarMensagem("❌ Erro ao salvar voos: " + e.getMessage());
@@ -123,6 +122,11 @@ public class Main {
                         logger.error("Erro ao fazer rollback: " + ex.getMessage());
                     }
                 }
+            }
+
+            // ✅ Mensagens finais do Slack
+            if (inseriuComSucesso) {
+                Slack.enviarMensagem("✅ " + novosVoos.size() + " voos inseridos com sucesso.");
             }
 
             logger.info("ETL concluído com sucesso.");
