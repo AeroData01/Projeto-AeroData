@@ -26,12 +26,17 @@ public class Main {
         IOUtils.setByteArrayMaxOverride(150_000_000);
         System.setProperty("poi.ooxml.saxParserFactory", "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl");
 
-        String bucket = "aero-data-bucket";
-        String key = "Base de Dados - AeroData.xlsx";
+        String bucket = System.getenv("S3_BUCKET");
+        String key = System.getenv("S3_OBJECT_KEY");
+
         Path downloadPath = new File("downloaded-planilha.xlsx").toPath();
 
         boolean inseriuComSucesso = false;
+        if (bucket == null || key == null) {
+        throw new IllegalArgumentException("Variáveis de ambiente S3_BUCKET ou S3_OBJECT_KEY não foram definidas.");
+        }
 
+        
         try (
             Connection connection = new DBConnectionProvider().getConnection();
             S3Client s3 = new S3Provider().getS3Client()
