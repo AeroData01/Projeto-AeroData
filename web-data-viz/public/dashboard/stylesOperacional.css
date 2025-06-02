@@ -1,11 +1,11 @@
-/* Reset e base */
+/* Reset geral */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
+body.dash-operacional {
   display: flex;
   height: 100vh;
   font-family: 'Inter', sans-serif;
@@ -31,7 +31,7 @@ body {
   font-size: 1.8rem;
 }
 
-/* Conteúdo principal */
+/* Main */
 .main-content {
   flex: 1;
   padding: 2rem;
@@ -59,12 +59,12 @@ body {
   border-radius: 50%;
 }
 
-/* Cards de estatísticas (KPIs) */
+/* KPIs */
 .stats {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
 }
 
 .card {
@@ -74,10 +74,6 @@ body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   text-align: center;
   transition: transform 0.2s;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 140px;
 }
 
 .card:hover {
@@ -85,39 +81,23 @@ body {
 }
 
 .card h3 {
-  font-size: 1.5rem;
-  margin: 0.3rem 0;
+  font-size: 1.4rem;
   color: #1e40af;
-  font-weight: bold;
+  margin: 0.3rem 0;
 }
 
 .card h4 {
-  font-size: 1rem;
-  margin: 0;
   color: #475569;
+  font-size: 1rem;
 }
 
-/* Responsivo */
-@media (max-width: 1000px) {
-  .stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .stats {
-    grid-template-columns: 1fr;
-  }
-}
-/* Grelha de gráficos */
+/* Gráficos */
 .charts {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   gap: 2rem;
-  margin-bottom: 3rem;
 }
 
-/* Cartões padrão */
 .chart-card {
   background-color: white;
   border-radius: 12px;
@@ -126,39 +106,27 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 320px;
+  height: 400px;
 }
 
-/* Gráficos em canvas */
+.chart-card.wide {
+  grid-column: span 2;
+  height: 460px;
+}
+
 .chart-card canvas {
   width: 100% !important;
   height: auto !important;
   max-height: 100%;
 }
 
-/* Cartão que ocupa 2 colunas + altura maior */
-.chart-card.wide {
-  grid-column: span 2;
-  height: 420px;
-}
-/* Estilo para os dois últimos gráficos */
-.chart-card:last-of-type,
-.chart-card:nth-last-child(2) {
-  height: 380px;
-}
+/* Responsivo */
+@media (max-width: 800px) {
+  .charts {
+    grid-template-columns: 1fr;
+  }
 
-/* Tamanho específico para rosca */
-#chartDistribuicaoCompanhias {
-  max-width: 280px !important;
-  max-height: 280px !important;
-}
-
-/* Linha comparativa (já ocupa duas colunas via .wide) */
-.chart-card.wide {
-  grid-column: span 2;
-  height: 380px; /* padronizado com a rosca */
-}
-
-.chart-card.wide canvas {
-  max-height: 95% !important;
+  .stats {
+    grid-template-columns: 1fr;
+  }
 }
