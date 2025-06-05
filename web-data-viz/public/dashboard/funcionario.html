@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Gerencial Completo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body onload="listarFuncionario()">
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <a href="../dashboard/dash-gerencial.html" title="Voltar"><img src="../assets/icon/icone-saindo.png" alt=""></a>
+    </div>
+  </aside>
+
+  <div class="container div-links">
+        <ul class="link-navbar">
+          <li>
+            <button id="botaoAbrirModalUsuario" onclick="abrirModalUsuario()">
+              <svg id="svgUsuario" class="a-nav" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                <path fill-rule="evenodd"
+                  d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
+              </svg>
+            </button>
+
+            <div id="modalUsuario" class="modal-usuario">
+              <div class="conteudo-usuario">
+                <a id="linkSair" class="link-sair" href="../index.html">Sair</a>
+              </div>
+            </div>
+
+
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="modalNovoFuncionario" class="modal-novo-funcionario">
+    <div class="conteudo-novo-funcionario">
+
+      <div class="modal-header">
+        <h1>Insira as informações do seu funcionário</h1>
+        <span onclick="fecharModal()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-lg"
+            viewBox="0 0 16 16">
+            <path
+              d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
+          </svg>
+        </span>
+      </div>
+
+      <div class="campos-novo-funcionario">
+        <div class="div-linha-novo-funcionario">
+          <label for="selectNovoTipo">Tipo da conta</label>
+          <select id="selectNovoTipo">
+            <option value="#">Selecione o tipo da conta</option>
+            <option value="gerencial">Diretor</option>
+            <option value="operacional">Gestor de malha aérea</option>
+          </select>
+        </div>
+
+        <div class="div-linha-novo-funcionario">
+          <label for="inputNovoNome">Nome</label>
+          <input type="text" id="inputNovoNome" placeholder="Insira o nome do funcionário">
+        </div>
+
+        <div class="div-linha-novo-funcionario">
+          <label for="inputNovoCpf">CPF</label>
+          <input type="text" id="inputNovoCpf" placeholder="Insira o CPF do funcionário">
+        </div>
+
+        <div class="div-linha-novo-funcionario">
+          <label for="inputNovoTelefone">Telefone</label>
+          <input type="text" id="inputNovoTelefone" placeholder="Insira o Telefone do funcionário">
+        </div>
+
+        <div class="div-linha-novo-funcionario">
+          <label for="inputNovoEmail">Email</label>
+          <input type="text" id="inputNovoEmail" placeholder="Insira o email do funcionário">
+        </div>
+        <div class="div-linha-novo-funcionario">
+          <label for="inputNovoSenha">Senha</label>
+          <input type="password" id="inputNovoSenha" placeholder="Insira a senha do funcionário">
+        </div>
+
+        <div class="div-linha-novo-funcionario">
+          <label for="inputNovoConfirmarSenha">Confirme a senha</label>
+          <input type="password" id="inputNovoConfirmarSenha" placeholder="Confirme a senha do seu funcionário">
+        </div>
+
+        <div id="divMensagem"></div>
+
+        <button class="botao-novo-funcionario" onclick="cadastrarFuncionario()">Cadastrar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-conteudo">
+    <div class="div-conteudo">
+      <div class="div-texto funcionario">
+        <h1>Funcionários</h1>
+        <p>Gerencie e cadastre seus funcionários por aqui!</p>
+        <button onclick="novoFuncionario()" class="botao-novo-funcionario">
+          Novo funcionário
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus-square"
+            viewBox="0 0 16 16">
+            <path
+              d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+            <path
+              d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="div-texto tabela" id="div_tabela">
+        <div class="div-tabela">
+          <table class="tabela-funcionarios">
+            <tbody id="tbody_tabela"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="div_modals"></div>
+    </div>
+  </div>
+  </div>
+
+</body>
+
+</html>
+
+<script src="./js/funcionario.js"></script>

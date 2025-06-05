@@ -15,6 +15,7 @@
       <a href="#" title="Alerta">🔔</a>
     </div>
     <div class="sidebar-bottom">
+      <a href="../dashboard/funcionario.html" title="Adicionar funcionário"><img src="../assets/icon/icone-add-funcionario.png" alt=""></a>
       <a href="#" title="Sair">⏻</a>
     </div>
   </aside>
@@ -23,7 +24,7 @@
     <header class="top-bar">
       <div class="user-info">
         <img src="https://via.placeholder.com/36" alt="Ícone Conta" />
-        <span>Vagner Silva</span>
+        <span id="b_usuario"></span>
       </div>
     </header>
 
@@ -62,136 +63,7 @@
   </main>
 
   <!-- Scripts dos gráficos -->
-  <script>
-    // Gráfico 1 – Atraso médio
-    new Chart(document.getElementById('chartAtrasoMedio'), {
-      type: 'bar',
-      data: {
-        labels: ['Gol', 'Latam', 'Azul'],
-        datasets: [
-          { label: '2023', data: [22, 18, 17], backgroundColor: '#1E40AF' },
-          { label: '2024', data: [20, 19, 16], backgroundColor: '#60A5FA' }
-        ]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          title: { display: true, text: 'Top 3 Companhias com Mais Atrasos (%) por Ano' },
-          legend: { position: 'top' }
-        },
-        scales: {
-          y: { beginAtZero: true, title: { display: true, text: 'Taxa de Atrasos (%)' } }
-        }
-      }
-    });
-
-    // Gráfico 2 – Cancelamentos mensais
-    new Chart(document.getElementById('chartCancelamentosMensais'), {
-      type: 'bar',
-      data: {
-        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-        datasets: [
-          { label: '2023', data: [90, 80, 70, 60, 85, 100, 120, 110, 105, 100, 95, 85], backgroundColor: '#EF4444' },
-          { label: '2024', data: [80, 70, 60, 50, 75, 90, 110, 100, 95, 90, 85, 75], backgroundColor: '#F87171' }
-        ]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          title: { display: true, text: 'Cancelamentos por Mês - 2023 vs 2024' },
-          legend: { position: 'top' }
-        },
-        scales: {
-          y: { beginAtZero: true, title: { display: true, text: 'Cancelamentos' } }
-        }
-      }
-    });
-
-    // Gráfico 3 – Atrasos mensais
-    new Chart(document.getElementById('chartAtrasosMensais'), {
-      type: 'bar',
-      data: {
-        labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-        datasets: [
-          { label: '2023', data: [120, 130, 115, 140, 110, 100, 130, 125, 140, 150, 160, 170], backgroundColor: '#F59E0B' },
-          { label: '2024', data: [110, 120, 105, 130, 100, 90, 120, 115, 130, 140, 150, 160], backgroundColor: '#FCD34D' }
-        ]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          title: { display: true, text: 'Atrasos por Mês - 2023 vs 2024' },
-          legend: { position: 'top' }
-        },
-        scales: {
-          y: { beginAtZero: true, title: { display: true, text: 'Atrasos' } }
-        }
-      }
-    });
-
-    // Gráfico 4 – Rosca
-    new Chart(document.getElementById('chartDistribuicaoCompanhias'), {
-      type: 'doughnut',
-      data: {
-        labels: ['Gol', 'Latam', 'Azul'],
-        datasets: [{
-          data: [45, 35, 20],
-          backgroundColor: ['#3B82F6', '#EF4444', '#10B981']
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          title: { display: true, text: 'Participação no Mercado – SP-RJ' },
-          legend: { position: 'bottom' }
-        }
-      }
-    });
-
-    // Gráfico 5 – Comparativo de voos
-    new Chart(document.getElementById('chartComparativo'), {
-      type: 'line',
-      data: {
-        labels: ['Gol', 'Latam', 'Azul'],
-        datasets: [
-          {
-            label: 'Voos Cancelados',
-            data: [120, 150, 90],
-            borderColor: '#DC2626',
-            backgroundColor: '#DC2626',
-            fill: false,
-            tension: 0.3
-          },
-          {
-            label: 'Voos',
-            data: [1000, 1200, 1100],
-            borderColor: '#1E3A8A',
-            backgroundColor: '#1E3A8A',
-            fill: false,
-            tension: 0.3
-          },
-          {
-            label: 'Voos Atrasados',
-            data: [210, 250, 180],
-            borderColor: '#F59E0B',
-            backgroundColor: '#F59E0B',
-            fill: false,
-            tension: 0.3
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          title: { display: true, text: 'Comparativo de Voos por Companhia' },
-          legend: { position: 'top' }
-        },
-        scales: {
-          y: { beginAtZero: true, title: { display: true, text: 'Voos' } },
-          x: { title: { display: true, text: 'Companhias' } }
-        }
-      }
-    });
-  </script>
+  <script src="js/dash-gerencial.js"></script>
+  <script src="../js/sessao.js"></script>
 </body>
 </html>

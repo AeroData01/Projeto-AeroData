@@ -166,12 +166,11 @@
                 resposta.json().then(json => {
                     console.log(json);
                     console.log(JSON.stringify(json));
+                    sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.CPF_USUARIO = json.cpf;
                     sessionStorage.CARGO_USUARIO = json.cargo;
-                    // sessionStorage.CPF_USUARIO = json.cpf;
-                    // sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
-
+                    sessionStorage.COMPANHIA_USUARIO = json.companhia;
                     setTimeout(() => {
                             console.log("Cargo recebido:", json.cargo, "| tipo:", typeof json.cargo);
 

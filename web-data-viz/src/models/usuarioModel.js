@@ -13,7 +13,11 @@ function autenticar(email, senha) {  // <-- Aqui troquei "senhaHash" por "senha"
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha);
     
     var instrucaoSql = `
-        SELECT cpf, email, cargo FROM Usuario WHERE email = '${email}' AND senha = '${senhaHash}';
+        SELECT u.nome, u.cpf, u.email, u.cargo, c.nome_fantasia AS companhia 
+        FROM Usuario u
+        JOIN Companhia_Aerea c
+            ON c.sigla_companhia = u.fk_sigla_companhia
+        WHERE email = '${email}' AND senha = '${senhaHash}';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -25,14 +29,47 @@ function cadastrar(nome, cpf, email, telefone, tipoConta, tipoCompanhia, senha) 
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha);
     
     var instrucaoSql = `
-        INSERT INTO Usuario (cpf, nome, cargo, email, senha, telefone, fk_companhia) VALUES 
-            ('${cpf}', '${nome}', '${tipoConta}', '${email}', '${senhaHash}', '${telefone}', ${tipoCompanhia});
+        INSERT INTO Usuario (cpf, nome, cargo, email, senha, telefone, fk_sigla_companhia) VALUES 
+            ('${cpf}', '${nome}', '${tipoConta}', '${email}', '${senhaHash}', '${telefone}', '${tipoCompanhia}');
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
+function listarFuncionario(tipoCompanhia) {
+    var instrucaoSql = `
+        SELECT u.cpf, u.nome, u.email, u.cargo, c.nome_fantasia 
+        FROM Usuario u
+        JOIN Companhia_Aerea c
+            ON c.sigla_companhia = u.fk_sigla_companhia 
+        WHERE cargo LIKE "operacional" AND c.nome_fantasia LIKE '${tipoCompanhia}'
+    ;`
+
+    return database.executar(instrucaoSql);
+}
+
+function excluirFuncionario(cpf) {
+    var instrucaoSql = `
+    DELETE FROM Usuario
+    WHERE cpf = ${cpf}
+    ;`
+
+    return database.executar(instrucaoSql);
+}
+
+function atualizarFuncionario(nome, email, cpf) {
+    var instrucaoSql = `
+    UPDATE Usuario SET nome = '${nome}', email = '${email}, cpf = '${cpf}' 
+    WHERE cpf = ${cpf}
+    ;`
+
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    listarFuncionario,
+    excluirFuncionario,
+    atualizarFuncionario
 };

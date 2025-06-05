@@ -24,6 +24,7 @@ var empresasRouter = require("./src/routes/empresas");
 var quizRouter = require("./src/routes/quiz")
 var kpi1Router = require("./src/routes/kpi1")
 var kpi2Router = require("./src/routes/kpi2")
+var vooRouter = require("./src/routes/voos")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -40,6 +41,7 @@ app.use("/aquarios", aquariosRouter);
 app.use("/empresas", empresasRouter);
 app.use("/kpi1", kpi1Router);
 app.use("/kpi2", kpi2Router);
+app.use("/voos", vooRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`

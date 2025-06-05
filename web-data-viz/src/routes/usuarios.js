@@ -12,5 +12,17 @@ router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
 
+router.post("/listarFuncionario", function (req, res) {
+    usuarioController.listarFuncionario(req, res);
+});
+
+router.delete("/excluirFuncionario", function (req, res) {
+    usuarioController.excluirFuncionario(req, res);
+});
+
+router.put("/atualizarUsuario", function (req, res) {
+    usuarioController.atualizarUsuario(req, res);
+});
+
 
 module.exports = router;
