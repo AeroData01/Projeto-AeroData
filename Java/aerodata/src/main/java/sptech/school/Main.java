@@ -50,29 +50,32 @@ public class Main {
             logger.info("Iniciando ETL do AeroData");
 
             // 📦 Validação do bucket
-              try {
-        s3.headBucket(HeadBucketRequest.builder().bucket(bucket).build());
-        log.info("Bucket {} válido!", bucket);
-    } catch (S3Exception e) {
-        System.err.println("→ Código HTTP   : " + e.statusCode());
-        System.err.println("→ Error Code    : " + e.awsErrorDetails().errorCode());
-        System.err.println("→ Mensagem      : " + e.awsErrorDetails().errorMessage());
-        System.err.println("→ Request ID    : " + e.requestId());
-        throw new IllegalArgumentException(
-            "Falha ao acessar o bucket S3. Veja acima o status e o errorCode.", e);
-    }
-            try {
-                logger.info("Validando bucket: " + bucket);
-                s3.headBucket(HeadBucketRequest.builder().bucket(bucket).build());
-            } catch (NoSuchBucketException e) {
-                logger.error("Bucket não encontrado: " + bucket);
-                Slack.enviarMensagem("❌ Bucket não encontrado: " + bucket);
-                return;
-            } catch (S3Exception e) {
-                logger.error("Erro ao validar bucket: " + e.awsErrorDetails().errorMessage());
-                Slack.enviarMensagem("❌ Erro ao validar bucket: " + e.awsErrorDetails().errorMessage());
-                return;
-            }
+             try {
+    // diagnóstico
+    s3.headBucket(HeadBucketRequest.builder().bucket(bucket).build());
+    log.info("Bucket {} válido!", bucket);
+
+    // validação “oficial” (já coberta pelo headBucket acima)
+    logger.info("Validando bucket: " + bucket);
+
+} catch (NoSuchBucketException e) {
+    // bucket não existe
+    logger.error("Bucket não encontrado: " + bucket);
+    Slack.enviarMensagem("❌ Bucket não encontrado: " + bucket);
+    return;
+
+} catch (S3Exception e) {
+    // diagnóstico extra
+    System.err.println("→ Código HTTP   : " + e.statusCode());
+    System.err.println("→ Error Code    : " + e.awsErrorDetails().errorCode());
+    System.err.println("→ Mensagem      : " + e.awsErrorDetails().errorMessage());
+    System.err.println("→ Request ID    : " + e.requestId());
+
+    // publicação de erro no Slack
+    logger.error("Erro ao validar bucket: " + e.awsErrorDetails().errorMessage());
+    Slack.enviarMensagem("❌ Erro ao validar bucket: " + e.awsErrorDetails().errorMessage());
+    return;
+}
 
             // 📥 Download da planilha (se necessário)
             if (Files.exists(downloadPath)) {
