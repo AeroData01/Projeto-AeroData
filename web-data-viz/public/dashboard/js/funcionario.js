@@ -330,8 +330,8 @@ function fecharModal() {
     modal.style.display = "none";
 }
 
-function abrirModalExcluirUsuario(idFuncionario) {
-    var textoModal = 'modalExcluirUsuario' + idFuncionario;
+function abrirModalExcluirUsuario(cpfFuncionario) {
+    var textoModal = 'modalExcluirUsuario' + cpfFuncionario;
 
     var modal = document.getElementById(textoModal);
 
@@ -345,7 +345,7 @@ function abrirModalExcluirUsuario(idFuncionario) {
 
 }
 
-function excluirUsuario(idFuncionario) {
+function excluirUsuario(cpfFuncionario) {
     fetch("/usuarios/excluirFuncionario", {
         method: "DELETE",
         headers: {
@@ -353,7 +353,7 @@ function excluirUsuario(idFuncionario) {
         },
         body: JSON.stringify({
             //recebe o funcionário a ser excluído
-            idFuncionario: idFuncionario,
+            cpfFuncionario: cpfFuncionario,
         }),
     })
         .then(function (resposta) {
@@ -374,20 +374,20 @@ function excluirUsuario(idFuncionario) {
     return false;
 }
 
-function negarExclusao(idFuncionario) {
-    var textoModal = 'modalExcluirUsuario' + idFuncionario;
+function negarExclusao(cpfFuncionario) {
+    var textoModal = 'modalExcluirUsuario' + cpfFuncionario;
 
     var modal = document.getElementById(textoModal);
 
     modal.style.display = "none";
 }
 
-function habilitarEditarUsuario(idFuncionario) {
-    var textoNome = `inputNomeFuncionario${idFuncionario}`;
-    var textoEmail = `inputEmailFuncionario${idFuncionario}`;
-    var textoCpf = `inputCpfFuncionario${idFuncionario}`;
-    var textoBotaoHabilitar = `botaoHabilitar${idFuncionario}`;
-    var textoBotaoConfirmar = `botaoConfirmar${idFuncionario}`;
+function habilitarEditarUsuario(cpfFuncionario) {
+    var textoNome = `inputNomeFuncionario${cpfFuncionario}`;
+    var textoEmail = `inputEmailFuncionario${cpfFuncionario}`;
+    var textoCpf = `inputCpfFuncionario${cpfFuncionario}`;
+    var textoBotaoHabilitar = `botaoHabilitar${cpfFuncionario}`;
+    var textoBotaoConfirmar = `botaoConfirmar${cpfFuncionario}`;
 
     var inputNome = document.getElementById(textoNome);
     var inputEmail = document.getElementById(textoEmail);
@@ -420,14 +420,14 @@ function habilitarEditarUsuario(idFuncionario) {
     }
 }
 
-function editarUsuario(idUsuario) {
-    var textoNomeFuncionario = `inputNomeFuncionario${idUsuario}`;
-    var textoEmailFuncionario = `inputEmailFuncionario${idUsuario}`;
+function editarUsuario(cpfFuncionario) {
+    var textoNomeFuncionario = `inputNomeFuncionario${cpfFuncionario}`;
+    var textoEmailFuncionario = `inputEmailFuncionario${cpfFuncionario}`;
 
     var emailNovo = document.getElementById(textoEmailFuncionario).value;
     var nomeNovo = document.getElementById(textoNomeFuncionario).value;
 
-    fetch("/usuarios/atualizarUsuario", {
+    fetch("/usuarios/atualizarFuncionario", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -435,7 +435,7 @@ function editarUsuario(idUsuario) {
         body: JSON.stringify({
             nome: nomeNovo,
             email: emailNovo,
-            id_usuario: idUsuario
+            cpf: cpf
         })
     }).then(function (resposta) {
         if (resposta.ok) {

@@ -12,7 +12,7 @@ function validarSessao() {
     }
 }
 
-validarSessao();
+// validarSessao();
 
 function limparSessao() {
     sessionStorage.clear();

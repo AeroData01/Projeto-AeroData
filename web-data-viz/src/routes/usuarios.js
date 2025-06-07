@@ -20,8 +20,8 @@ router.delete("/excluirFuncionario", function (req, res) {
     usuarioController.excluirFuncionario(req, res);
 });
 
-router.put("/atualizarUsuario", function (req, res) {
-    usuarioController.atualizarUsuario(req, res);
+router.put("/atualizarFuncionario", function (req, res) {
+    usuarioController.atualizarFuncionario(req, res);
 });
 
 

@@ -59,8 +59,8 @@ function excluirFuncionario(cpf) {
 
 function atualizarFuncionario(nome, email, cpf) {
     var instrucaoSql = `
-    UPDATE Usuario SET nome = '${nome}', email = '${email}, cpf = '${cpf}' 
-    WHERE cpf = ${cpf}
+    UPDATE Usuario SET nome = '${nome}', email = '${email}', cpf = '${cpf}' 
+    WHERE cpf = '${cpf}'
     ;`
 
     return database.executar(instrucaoSql);
