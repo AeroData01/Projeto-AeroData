@@ -50,28 +50,28 @@ public class Main {
             logger.info("Iniciando ETL do AeroData");
 
             // 📦 Validação do bucket
-     try {
-    // diagnosticar endpoint e credenciais
-    s3.headBucket(HeadBucketRequest.builder().bucket(bucket).build());
-    logger.info("Bucket " + bucket + " válido!");
+            try {
+            // diagnosticar endpoint e credenciais
+            s3.headBucket(HeadBucketRequest.builder().bucket(bucket).build());
+            logger.info("Bucket " + bucket + " válido!");
 
-} catch (NoSuchBucketException e) {
-    // bucket não existe (404)
-    logger.error("Bucket não encontrado: " + bucket);
-    Slack.enviarMensagem("❌ Bucket não encontrado: " + bucket);
-    return;
+           } catch (NoSuchBucketException e) {
+            // bucket não existe (404)
+            logger.error("Bucket não encontrado: " + bucket);
+            Slack.enviarMensagem("❌ Bucket não encontrado: " + bucket);
+            return;
 
-} catch (S3Exception e) {
-    // diagnóstico extra
-    System.err.println("→ Código HTTP   : " + e.statusCode());
-    System.err.println("→ Error Code    : " + e.awsErrorDetails().errorCode());
-    System.err.println("→ Mensagem      : " + e.awsErrorDetails().errorMessage());
-    System.err.println("→ Request ID    : " + e.requestId());
+           } catch (S3Exception e) {
+            // diagnóstico extra
+            System.err.println("→ Código HTTP   : " + e.statusCode());
+            System.err.println("→ Error Code    : " + e.awsErrorDetails().errorCode());
+            System.err.println("→ Mensagem      : " + e.awsErrorDetails().errorMessage());
+            System.err.println("→ Request ID    : " + e.requestId());
 
-    logger.error("Erro ao validar bucket: " + e.awsErrorDetails().errorMessage());
-    Slack.enviarMensagem("❌ Erro ao validar bucket: " + e.awsErrorDetails().errorMessage());
-    return;
-}
+            logger.error("Erro ao validar bucket: " + e.awsErrorDetails().errorMessage());
+            Slack.enviarMensagem("❌ Erro ao validar bucket: " + e.awsErrorDetails().errorMessage());
+            return;
+           }
 
             // 📥 Download da planilha (se necessário)
             if (Files.exists(downloadPath)) {
