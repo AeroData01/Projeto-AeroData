@@ -50,28 +50,22 @@ public class Main {
             logger.info("Iniciando ETL do AeroData");
 
             // 📦 Validação do bucket
-             try {
-    // diagnóstico
+          try {
+    // diagnóstica o endpoint e credenciais
     s3.headBucket(HeadBucketRequest.builder().bucket(bucket).build());
-    log.info("Bucket {} válido!", bucket);
-
-    // validação “oficial” (já coberta pelo headBucket acima)
-    logger.info("Validando bucket: " + bucket);
-
+    logger.info("Bucket {} válido!", bucket);
 } catch (NoSuchBucketException e) {
-    // bucket não existe
+    // bucket não existe (404)
     logger.error("Bucket não encontrado: " + bucket);
     Slack.enviarMensagem("❌ Bucket não encontrado: " + bucket);
     return;
-
 } catch (S3Exception e) {
-    // diagnóstico extra
+    // qualquer outro erro do S3 (400, 403, etc)
     System.err.println("→ Código HTTP   : " + e.statusCode());
     System.err.println("→ Error Code    : " + e.awsErrorDetails().errorCode());
     System.err.println("→ Mensagem      : " + e.awsErrorDetails().errorMessage());
     System.err.println("→ Request ID    : " + e.requestId());
 
-    // publicação de erro no Slack
     logger.error("Erro ao validar bucket: " + e.awsErrorDetails().errorMessage());
     Slack.enviarMensagem("❌ Erro ao validar bucket: " + e.awsErrorDetails().errorMessage());
     return;
