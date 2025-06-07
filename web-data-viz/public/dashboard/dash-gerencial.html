@@ -9,21 +9,21 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body>
+<body onload="validarSessao()">
   <aside class="sidebar">
     <div class="sidebar-top">
       <a href="#" title="Alerta">🔔</a>
     </div>
     <div class="sidebar-bottom">
       <a href="../dashboard/funcionario.html" title="Adicionar funcionário"><img src="../assets/icon/icone-add-funcionario.png" alt=""></a>
-      <a href="#" title="Sair">⏻</a>
+      <a href="../index.html" title="Sair">⏻</a>
     </div>
   </aside>
 
   <main class="main-content">
     <header class="top-bar">
       <div class="user-info">
-        <img src="https://via.placeholder.com/36" alt="Ícone Conta" />
+        <img src="../assets/ícone-conta.svg" alt="Ícone Conta" />
         <span id="b_usuario"></span>
       </div>
     </header>
@@ -32,22 +32,22 @@
     <section class="stats">
       <div class="card">
         <h4>Total de Voos</h4>
-        <h3>17.780</h3>
+        <h3 id="kpiTotalVoos"></h3>
       </div>
       <div class="card">
         <h4>Taxa de Voos Atrasados</h4>
-        <h3>21.52%</h3>
-        <h4>(3.820 voos)</h4>
+        <h3 id="kpiTaxaAtraso"></h3>
+        <h4 id="kpiTotalAtrasos"></h4>
       </div>
       <div class="card">
         <h4>Taxa de Cancelamentos</h4>
-        <h3>11.19%</h3>
-        <h4>(2.236 voos)</h4>
+        <h3 id="kpiTaxaCancelamento"></h3>
+        <h4 id="kpiTotalCancelados"></h4>
       </div>
       <div class="card">
         <h4>Rota com Mais Atrasos</h4>
-        <h3>CHG-SDU</h3>
-        <h4>(1.444 atrasos)</h4>
+        <h3 id="kpiRotaMaisAtrasos"></h3>
+        <h4 id="kpiTotalAtrasosNaMaisAtrasada"></h4>
       </div>
     </section>
 
@@ -58,7 +58,7 @@
       <div class="chart-card"><canvas id="chartAtrasosMensais"></canvas></div>
       <div class="chart-card"><canvas id="chartDistribuicaoCompanhias"></canvas></div>
       <!-- Gráfico 5 com layout especial -->
-      <div class="chart-card wide"><canvas id="chartComparativo"></canvas></div>
+      <!-- <div class="chart-card wide"><canvas id="chartComparativo"></canvas></div> -->
     </section>
   </main>
 

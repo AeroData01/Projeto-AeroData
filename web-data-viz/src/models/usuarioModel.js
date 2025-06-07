@@ -42,7 +42,7 @@ function listarFuncionario(tipoCompanhia) {
         FROM Usuario u
         JOIN Companhia_Aerea c
             ON c.sigla_companhia = u.fk_sigla_companhia 
-        WHERE cargo LIKE "operacional" AND c.nome_fantasia LIKE ${tipoCompanhia}
+        WHERE cargo LIKE "operacional" AND u.fk_sigla_companhia LIKE '${tipoCompanhia}'
     ;`
 
     return database.executar(instrucaoSql);
@@ -51,7 +51,7 @@ function listarFuncionario(tipoCompanhia) {
 function excluirFuncionario(cpf) {
     var instrucaoSql = `
     DELETE FROM Usuario
-    WHERE cpf = ${cpf}
+    WHERE cpf = '${cpf}'
     ;`
 
     return database.executar(instrucaoSql);
@@ -59,7 +59,7 @@ function excluirFuncionario(cpf) {
 
 function atualizarFuncionario(nome, email, cpf) {
     var instrucaoSql = `
-    UPDATE Usuario SET nome = '${nome}', email = '${email}', cpf = '${cpf}' 
+    UPDATE Usuario SET nome = '${nome}', email = '${email}' 
     WHERE cpf = '${cpf}'
     ;`
 

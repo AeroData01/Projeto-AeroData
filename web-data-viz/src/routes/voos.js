@@ -11,4 +11,17 @@ router.get("/listarCancelamentosMensais/:nome_fantasia", function (req, res) {
     vooController.listarCancelamentosMensais(req, res);
 });
 
+router.get("/listarAtrasosMensais/:nome_fantasia", function (req, res) {
+    vooController.listarAtrasosMensais(req, res);
+});
+
+router.get("/listarTotalVoosPorCompanhia", function (req, res) {
+    vooController.listarTotalVoosPorCompanhia(req, res);
+});
+
+router.get("/listarKpisGerencial/:nome_fantasia", function (req, res) {
+    vooController.listarKpisGerencial(req, res);
+});
+
+
 module.exports = router;

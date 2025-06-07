@@ -216,6 +216,20 @@ var vezesClicadas = 0;
 
 function listarFuncionario() {
     var tipoCompanhia = sessionStorage.COMPANHIA_USUARIO;
+
+    switch (sessionStorage.COMPANHIA_USUARIO) {
+        case "Azul":
+            tipoCompanhia = "AZU";
+            break;
+        case "GOL":
+            tipoCompanhia = "GLO";
+            break;
+        case "LATAM":
+            tipoCompanhia = "TAM";
+            break;
+        default:
+            tipoCompanhia = null;
+    }
     // Enviando o valor para função no Model
     fetch("/usuarios/listarFuncionario", {
         method: "POST",
@@ -223,7 +237,7 @@ function listarFuncionario() {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            // atributo do JSON recebe a id do usuário logado atualmente, ou seja, o supervisor
+            
             tipoCompanhiaServer: tipoCompanhia
         }),
     })
@@ -353,7 +367,7 @@ function excluirUsuario(cpfFuncionario) {
         },
         body: JSON.stringify({
             //recebe o funcionário a ser excluído
-            cpfFuncionario: cpfFuncionario,
+            cpfServer: cpfFuncionario,
         }),
     })
         .then(function (resposta) {
@@ -361,7 +375,7 @@ function excluirUsuario(cpfFuncionario) {
 
             if (resposta.ok) {
                 alert(`Funcionário excluído com sucesso!`);
-                listarFuncionarios();
+                listarFuncionario();
             } else {
                 alert(`Houve um erro ao excluir o funcionário`);
             }
@@ -435,14 +449,14 @@ function editarUsuario(cpfFuncionario) {
         body: JSON.stringify({
             nome: nomeNovo,
             email: emailNovo,
-            cpf: cpf
+            cpfServer: cpfFuncionario
         })
     }).then(function (resposta) {
         if (resposta.ok) {
 
             console.log(resposta);
             alert('Funcionário atualizado com sucesso!')
-            listarFuncionarios();
+            listarFuncionario();
         } else {
 
             console.log("Houve um erro ao atualizar o funcionário!");
