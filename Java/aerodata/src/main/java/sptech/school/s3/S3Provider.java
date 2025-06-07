@@ -11,13 +11,13 @@ public class S3Provider {
         // Lê a região de ambiente ou utiliza a padrão
         String regionEnv = System.getenv("AWS_REGION");
         Region region = (regionEnv != null && !regionEnv.isBlank())
-            ? Region.of(regionEnv)
-            : DEFAULT_REGION;
+                ? Region.of(regionEnv)
+                : DEFAULT_REGION;
 
         return S3Client.builder()
-                       .region(region)
-                       .credentialsProvider(DefaultCredentialsProvider.create())
-                       .build();
+                .region(region)
+                .credentialsProvider(DefaultCredentialsProvider.create())
+                .build();
     }
 }
 
