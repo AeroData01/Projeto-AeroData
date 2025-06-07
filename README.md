@@ -7,7 +7,7 @@ O AeroData é um projeto que utiliza dados da ANAC sobre atrasos e cancelamentos
 ### 📊 Análise e Visualização
 • Dashboard dinâmica com indicadores de atrasos e cancelamentos  
 • KPIs estratégicos para apoio à decisão  
-• Site institucional na nuvem AWS
+• Site institucional na nuvem AWS <br>
 • Envio de notificações via Slack
 
 ### 🔄 Processamento de Dados
@@ -27,10 +27,10 @@ O AeroData é um projeto que utiliza dados da ANAC sobre atrasos e cancelamentos
 • BPMN – Processo de negócio detalhado  
 • MER – Modelo lógico de dados  
 • Digrama de classes (Java)
-• Matriz de rastreabilidade de requisitos  
+• Matriz de rastreabilidade de requisitos <br>
 • Diagrama de solução (arquitetura de referência técnica) <br>
 • Wireframes das telas do sistema <br>
-• Diagrama de Sequência (HTTP)
+• Diagrama de Sequência (HTTP) <br>
 • Metodologia documentada  
 • Documentação de visita/pesquisa  
 • Backlog e planner 
