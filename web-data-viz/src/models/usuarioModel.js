@@ -30,7 +30,7 @@ function cadastrar(nome, cpf, email, telefone, tipoConta, tipoCompanhia, senha) 
     
     var instrucaoSql = `
         INSERT INTO Usuario (cpf, nome, cargo, email, senha, telefone, fk_sigla_companhia) VALUES 
-            ('${cpf}', '${nome}', '${tipoConta}', '${email}', '${senhaHash}', '${telefone}', '${tipoCompanhia}');
+            ('${cpf}', '${nome}', '${tipoConta}', '${email}', '${senhaHash}', '${telefone}', ${tipoCompanhia});
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
@@ -42,7 +42,7 @@ function listarFuncionario(tipoCompanhia) {
         FROM Usuario u
         JOIN Companhia_Aerea c
             ON c.sigla_companhia = u.fk_sigla_companhia 
-        WHERE cargo LIKE "operacional" AND c.nome_fantasia LIKE '${tipoCompanhia}'
+        WHERE cargo LIKE "operacional" AND c.nome_fantasia LIKE ${tipoCompanhia}
     ;`
 
     return database.executar(instrucaoSql);
