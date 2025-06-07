@@ -8,11 +8,13 @@ public class S3Provider {
     private static final Region DEFAULT_REGION = Region.US_EAST_1;
 
     public S3Client getS3Client() {
-        // Lê a região de ambiente ou utiliza a padrão
         String regionEnv = System.getenv("AWS_REGION");
-        Region region = (regionEnv != null && !regionEnv.isBlank())
-                ? Region.of(regionEnv)
-                : DEFAULT_REGION;
+        Region region;
+        if (regionEnv != null && !regionEnv.isBlank()) {
+            region = Region.of(regionEnv);
+        } else {
+            region = DEFAULT_REGION;
+        }
 
         return S3Client.builder()
                 .region(region)
@@ -20,6 +22,7 @@ public class S3Provider {
                 .build();
     }
 }
+
 
     /* VERSÃO LOCAL!!!
     private final AwsSessionCredentials credentials;
