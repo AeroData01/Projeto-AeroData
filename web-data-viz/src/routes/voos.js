@@ -19,6 +19,10 @@ router.get("/listarTotalVoosPorCompanhia", function (req, res) {
     vooController.listarTotalVoosPorCompanhia(req, res);
 });
 
+router.get("/listarMediaAtrasoPorCompanhia/:nome_fantasia", function (req, res) {
+    vooController.listarMediaAtrasoPorCompanhia(req, res);
+});
+
 router.get("/listarKpisGerencial/:nome_fantasia", function (req, res) {
     vooController.listarKpisGerencial(req, res);
 });

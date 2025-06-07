@@ -16,17 +16,14 @@
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <!-- Scripts -->
-    <script src="./js/sessao.js"></script>
-
 </head>
 
 <body>
 
     <!-- Header -->
     <header class="header backAzul">
-        <img class ="logo" src="./assets/icon/logo Branco.png" alt="Logo">
-        
+        <img class="logo" src="./assets/icon/logo Branco.png" alt="Logo">
+
         <ul class="navbar">
             <li>
                 <a href="index.html">Home</a>
@@ -61,7 +58,7 @@
                 <h1>Login</h1>
                 <p>Bem-Vindo de volta!</p>
                 <!-- <img class="imgLogin" src="./assets/icon/logo png.png" alt=""> -->
-                
+
                 <span>Não é membro ainda? </span> <a href="cadastro.html">Cadastre-se aqui!</a>
             </div>
 
@@ -83,7 +80,7 @@
                 </div>
 
                 <button onclick="entrar()" class="form-button" type="button">Entrar</button>
-                
+
                 <!-- 
                 Versão original com a função entrar() funcionando:
 
@@ -94,7 +91,7 @@
         </div>
 
         <!-- NÃO MEXER NESSE LOADING POIS É BUGADO -->
-        <div id="div_aguardar" >
+        <div id="div_aguardar">
             <!-- <img src="./assets/circle-loading.gif" id="loading-gif"> -->
         </div>
 
@@ -110,9 +107,9 @@
 
 <script>
     function revealHidePasswordInput() {
-        var passwordInput = document.getElementById("senha_input"); 
-        var eyeButton = document.getElementById("eyeButton1"); 
-    
+        var passwordInput = document.getElementById("senha_input");
+        var eyeButton = document.getElementById("eyeButton1");
+
         if (passwordInput.type === "password") {
             passwordInput.type = "text"; // Mostra a senha
             eyeButton.classList.remove("fa-eye-slash");
@@ -123,11 +120,6 @@
             eyeButton.classList.add("fa-eye-slash");
         }
     }
-</script>
-
-
-<script>
-
 
     function entrar() {
         aguardar();
@@ -172,19 +164,19 @@
                     sessionStorage.CARGO_USUARIO = json.cargo;
                     sessionStorage.COMPANHIA_USUARIO = json.companhia;
                     setTimeout(() => {
-                            console.log("Cargo recebido:", json.cargo, "| tipo:", typeof json.cargo);
+                        console.log("Cargo recebido:", json.cargo, "| tipo:", typeof json.cargo);
 
-                            const cargo = String(json.cargo).toLowerCase().trim();
+                        const cargo = String(json.cargo).toLowerCase().trim();
 
-                            if (cargo === "gerencial") {
-                                window.location.href = "./dashboard/dash-gerencial.html";
-                            } else {
-                                window.location.href = "./dashboard/dash-operacional.html";
-                            }
+                        if (cargo === "gerencial") {
+                            window.location.href = "./dashboard/dash-gerencial.html";
+                        } else {
+                            window.location.href = "./dashboard/dash-operacional.html";
+                        }
 
-                            // window.location = "./quizCavalos.html"; Caso eu queira que va para o quiz direto
+                        // window.location = "./quizCavalos.html"; Caso eu queira que va para o quiz direto
 
-                            }, 1000); // apenas para exibir o loading
+                    }, 1000); // apenas para exibir o loading
 
 
                 });
@@ -210,6 +202,11 @@
 
     function sumirMensagem() {
         cardErro.style.display = "none"
+    }
+
+    function aguardar() {
+        var divAguardar = document.getElementById("div_aguardar");
+        divAguardar.style.display = "flex";
     }
 
 </script>

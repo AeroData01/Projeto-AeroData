@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard SP e RJ - Operações</title>
-  <link rel="stylesheet" href="stylesOperacional.css">
+  <link rel="stylesheet" href="styles.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -14,9 +14,12 @@
 <body class="dash-operacional">
   <div class="dashboard">
     <aside class="sidebar">
-      <div class="sidebar-bottom">
+      <div class="sidebar-top">
         <div class="icon" title="Sair">
-          <a href="#"><i class='bx bx-log-out'></i></a>
+          <a onclick="limparSessao()">⏻</a>
+        </div>
+        <div class="sidebar-bottom">
+          <a href="" src="../assets/icon/icone-bloco-de-anotacoes.png" title="Observações"></a>
         </div>
       </div>
     </aside>
@@ -25,15 +28,16 @@
       <header class="top-bar">
         <div class="user-info">
           <img src="../assets/ícone-conta.svg" alt="Conta">
-          <span>Angela Almeida</span>
+          <span id="b_usuario"></span>
         </div>
       </header>
 
       <section class="stats">
-        <div class="card">Companhia com Mais Atrasos<h3>Latam</h3><h4>(2.301 atrasos)</h4></div>
-        <div class="card">Companhia com Mais Cancelamentos<h3>Gol</h3><h4>(1.754 cancelamentos)</h4></div>
-        <div class="card">Pontualidade Média Azul<h3>91,2%</h3></div>
-        <div class="card">Participação no SP-RJ<h3>Latam: 45% • Gol: 35% • Azul: 20%</h3></div>
+        <div class="card">Rota com mais atraso<h3>Latam</h3><h4>(2.301 atrasos)</h4></div>
+        <div class="card">Rota com mais cancelamento<h3>Gol</h3><h4>(1.754 cancelamentos)</h4></div>
+        <div class="card">Aeroporto com mais atraso<h3>91,2%</h3></div>
+        <div class="card">Aeroporto com mais cancelamento<h3>Latam: 45% • Gol: 35% • Azul: 20%</h3></div>
+        <div class="card">Pontualidade em % da companhia Aerea<h3>Latam: 45% • Gol: 35% • Azul: 20%</h3></div>
       </section>
 
       <section class="charts" style="gap: 1.5rem; margin-top: 2rem;">
@@ -56,187 +60,8 @@
     </main>
   </div>
 
-  <script>
-  
-   // Gráfico de Barras Horizontal - Tempo Médio de Atrasos
-new Chart(document.getElementById('donutChart'), {
-  type: 'bar',
-  data: {
-    labels: ['30-60 min', '60-120 min', '120–240 min', '+240 min'],
-    datasets: [{
-      label: 'Distribuição (%)',
-      data: [64.7, 27.0, 6.7, 1.6],
-      backgroundColor: ['#93C5FD', '#3B82F6', '#1D4ED8', '#0B1536'],
-      borderRadius: 6
-    }]
-  },
-  options: {
-    indexAxis: 'y', // barras horizontais
-    responsive: false,
-    plugins: {
-      legend: { display: false },
-      title: {
-        display: true,
-        text: 'Tempo Médio de Atrasos 2023/24',
-        font: { size: 18, weight: 'bold' }
-      },
-      datalabels: {
-        color: '#000',
-        anchor: 'end',
-        align: 'right',
-        font: { weight: 'bold', size: 14 },
-        formatter: (value) => `${value.toFixed(1)}%`
-      }
-    },
-    scales: {
-      x: {
-        ticks: { beginAtZero: true, max: 100 }
-      }
-    }
-  },
-  plugins: [ChartDataLabels]
-});
+  <script src="./js/dash-operacional.js"></script>
+  <script src="../js/sessao.js"></script>
 
-
-    // Atrasos por Rota
-    new Chart(document.getElementById('lineChartAtrasos'), {
-      type: 'line',
-      data: {
-        labels: ['GRU-SDU', 'GRU-GIG', 'CGH-SDU', 'CGH-GIG', 'SDU-CGH', 'SDU-GRU', 'GIG-GRU', 'GIG-CGH'],
-        datasets: [
-          {
-            label: 'Gol',
-            data: [180, 70, 700, 65, 500, 90, 110, 50],
-            borderColor: '#FFCC00',
-            backgroundColor: '#FFCC00',
-            fill: false,
-            tension: 0.3
-          },
-          {
-            label: 'Azul',
-            data: [100, 45, 320, 30, 280, 50, 90, 20],
-            borderColor: '#00ADEF',
-            backgroundColor: '#00ADEF',
-            fill: false,
-            tension: 0.3
-          },
-          {
-            label: 'Latam',
-            data: [98, 33, 424, 32, 428, 29, 58, 17],
-            borderColor: '#CC092F',
-            backgroundColor: '#CC092F',
-            fill: false,
-            tension: 0.3
-          }
-        ]
-      },
-      options: {
-        responsive: false,
-        plugins: {
-          title: {
-            display: true,
-            text: 'Atrasos por Rota ',
-            font: { size: 18, weight: 'bold' }
-          },
-          legend: {
-            position: 'bottom',
-            onClick: Chart.defaults.plugins.legend.onClick
-          }
-        }
-      }
-    });
-
-    // Cancelamentos por Rota
-    new Chart(document.getElementById('lineChartCancelamentos'), {
-      type: 'line',
-      data: {
-        labels: ['GRU-SDU', 'GRU-GIG', 'CGH-SDU', 'CGH-GIG', 'SDU-CGH', 'SDU-GRU', 'GIG-GRU', 'GIG-CGH'],
-        datasets: [
-          {
-            label: 'Gol',
-            data: [25, 20, 458, 22, 506, 30, 18, 16],
-            borderColor: '#FFCC00',
-            borderWidth: 5,
-            backgroundColor: '#FFCC00',
-            fill: false,
-            tension: 0.3
-          },
-          {
-            label: 'Azul',
-            data: [10, 8, 150, 7, 160, 12, 15, 9],
-            borderColor: '#00ADEF',
-            backgroundColor: '#00ADEF',
-            borderWidth: 5,
-            fill: false,
-            tension: 0.3
-          },
-          {
-            label: 'Latam',
-            data: [10, 15, 350, 16, 340, 14, 10, 15],
-            borderColor: '#CC092F',
-            borderWidth: 5,
-            backgroundColor: '#CC092F',
-            fill: false,
-            tension: 0.3
-          }
-        ]
-      },
-      options: {
-        responsive: false,
-        plugins: {
-          title: {
-            display: true,
-            
-            text: 'Cancelamentos por Rota ',
-            font: { size: 27, weight: 'bold' }
-          },
-          legend: {
-            position: 'bottom',
-            onClick: Chart.defaults.plugins.legend.onClick
-          }
-        },
-  scales: {
-    x: {
-      ticks: {
-        font: {
-          size: 20 // ou 16, 18 etc.
-        }
-      }
-    },
-    y: {
-      ticks: {
-        font: {
-          size: 14
-        }
-      }
-    }
-  }
-}
-      
-    });
-
-    // Atrasos por Companhia
-    new Chart(document.getElementById('barChartCompanhias'), {
-      type: 'bar',
-      data: {
-        labels: ['Azul', 'Gol', 'Latam'],
-        datasets: [{
-          label: 'Atrasos (%)',
-          data: [11.2, 14.8, 19.4],
-          backgroundColor: ['#00ADEF', '#FFCC00', '#CC092F']
-        }]
-      },
-      options: {
-        plugins: {
-          title: {
-            display: true,
-            text: 'Atrasos por Companhia Aérea - 2024',
-            font: { size: 18, weight: 'bold' }
-          },
-          legend: { display: false }
-        }
-      }
-    });
-  </script>
 </body>
 </html>

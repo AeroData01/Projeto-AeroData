@@ -61,11 +61,23 @@ function listarKpisGerencial(req, res) {
         })
 }
 
+function listarMediaAtrasoPorCompanhia(req, res) {
+    var nome_fantasia = req.params.nome_fantasia;
+    vooModel.listarMediaAtrasoPorCompanhia(nome_fantasia)
+        .then(function (resultado) {
+            if (resultado.length >= 1) {
+                res.json(resultado);
+            } else {
+                res.status(204).send("Não foram encontrados dados");
+            }
+        })
+}
 
 module.exports = {
     listarTop3CompanhiasComMaisAtrasos,
     listarCancelamentosMensais,
     listarAtrasosMensais,
     listarTotalVoosPorCompanhia,
-    listarKpisGerencial
+    listarKpisGerencial,
+    listarMediaAtrasoPorCompanhia
 }

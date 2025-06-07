@@ -79,6 +79,46 @@ function listarTotalVoosPorCompanhia() {
     return database.executar(instrucaoSql);
 }
 
+function listarMediaAtrasoPorCompanhia(nome_fantasia) {
+    var instrucaoSql = `
+   SELECT 
+    YEAR(v.dia_referencia) AS ano,
+    c.sigla_companhia,
+    c.nome_fantasia,
+    ROUND(AVG(
+        COALESCE(CASE 
+            WHEN v.situacao_partida LIKE 'Atraso <15%' THEN 10
+            WHEN v.situacao_partida LIKE 'Atraso 15-30%' THEN 22.5
+            WHEN v.situacao_partida LIKE 'Atraso 30-60%' THEN 45
+            WHEN v.situacao_partida LIKE 'Atraso >60%' THEN 75
+        END, 0)
+        +
+        COALESCE(CASE 
+            WHEN v.situacao_chegada LIKE 'Atraso <15%' THEN 10
+            WHEN v.situacao_chegada LIKE 'Atraso 15-30%' THEN 22.5
+            WHEN v.situacao_chegada LIKE 'Atraso 30-60%' THEN 45
+            WHEN v.situacao_chegada LIKE 'Atraso >60%' THEN 75
+        END, 0)
+    ) / 2, 2) AS tempo_medio_atraso_minutos
+    FROM Voos v
+    JOIN Companhia_Aerea c ON v.fk_companhia = c.sigla_companhia
+    WHERE YEAR(v.dia_referencia) IN (2023, 2024)
+    AND (
+        v.situacao_partida LIKE 'Atraso%' 
+        OR v.situacao_chegada LIKE 'Atraso%'
+    )
+    AND c.nome_fantasia = '${nome_fantasia}'
+    GROUP BY 
+        YEAR(v.dia_referencia), 
+        c.sigla_companhia, 
+        c.nome_fantasia
+    ORDER BY 
+    ano,
+    tempo_medio_atraso_minutos DESC;`;
+
+    return database.executar(instrucaoSql);
+}
+
 function listarKpisGerencial(nome_fantasia) {
     var instrucaoSql = `
     SELECT
@@ -152,5 +192,6 @@ module.exports = {
     listarCancelamentosMensais,
     listarAtrasosMensais,
     listarTotalVoosPorCompanhia,
-    listarKpisGerencial
+    listarKpisGerencial,
+    listarMediaAtrasoPorCompanhia
 };
