@@ -50,7 +50,7 @@ public class Main {
             logger.info("Iniciando ETL do AeroData");
 
             // 📦 Validação do bucket
-            try {
+         try {
             // diagnosticar endpoint e credenciais
             s3.headBucket(HeadBucketRequest.builder().bucket(bucket).build());
             logger.info("Bucket " + bucket + " válido!");
