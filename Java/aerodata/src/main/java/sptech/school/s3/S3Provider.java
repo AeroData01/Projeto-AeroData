@@ -5,13 +5,24 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 
 public class S3Provider {
+    private static final Region DEFAULT_REGION = Region.US_EAST_1;
 
     public S3Client getS3Client() {
+        String regionEnv = System.getenv("AWS_REGION");
+        Region region;
+        if (regionEnv != null && !regionEnv.isBlank()) {
+            region = Region.of(regionEnv);
+        } else {
+            region = DEFAULT_REGION;
+        }
+
         return S3Client.builder()
-                .region(Region.US_EAST_1)
+                .region(region)
                 .credentialsProvider(DefaultCredentialsProvider.create())
                 .build();
     }
+}
+
 
     /* VERSÃO LOCAL!!!
     private final AwsSessionCredentials credentials;
@@ -31,4 +42,4 @@ public class S3Provider {
                 .build();
     }
     */
-}
+
