@@ -17,10 +17,10 @@ O AeroData é um projeto que utiliza dados da ANAC sobre atrasos e cancelamentos
 • Logs em Java com detalhamento da carga e leitura salvando em BD
 
 ### ☁️ Infraestrutura e Deploy
-• Instância EC2 Linux Ubuntu para execução do sistema
-• Site instucional com 3 CRUDs Web
+• Instância EC2 Linux Ubuntu para execução do sistema <br>
+• Site instucional com 3 CRUDs Web <br>
 • Docker compose com 3 containers (Java, Node, MySQL)  
-• Shell script de instalação do ambiente
+• Shell script de instalação do ambiente <br>
 • Java (JAR) com execução automática via cron  
 
 ### 📁 Modelagem e Documentação
@@ -28,8 +28,8 @@ O AeroData é um projeto que utiliza dados da ANAC sobre atrasos e cancelamentos
 • MER – Modelo lógico de dados  
 • Digrama de classes (Java)
 • Matriz de rastreabilidade de requisitos  
-• Diagrama de solução (arquitetura de referência técnica) 
-• Wireframes das telas do sistema 
+• Diagrama de solução (arquitetura de referência técnica) <br>
+• Wireframes das telas do sistema <br>
 • Diagrama de Sequência (HTTP)
 • Metodologia documentada  
 • Documentação de visita/pesquisa  
@@ -40,7 +40,7 @@ O AeroData é um projeto que utiliza dados da ANAC sobre atrasos e cancelamentos
 
 • **Linguagens:** HTML, CSS, JavaScript, Java e SQL  
 • **Banco de Dados:** MySQL (em container) e H2 (para testes locais)  
-• **Infraestrutura:**  AWS (EC2 Linux, S3), Docker e Docker Compose
+• **Infraestrutura:**  AWS (EC2 Linux, S3), Docker e Docker Compose <br>
 • **Gestão do Projeto:** Trello, Backlog e GitHub  
 • **Automação:**  Shell Script e Crontab (Linux) para execução periódica do JAR  
 • **Modelagem:** BPMN, MER, Matriz de Rastreabilidade e Diagrama de Classes 
