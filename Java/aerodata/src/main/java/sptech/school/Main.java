@@ -17,7 +17,10 @@ import org.apache.poi.util.IOUtils;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
 public class Main {
@@ -28,15 +31,13 @@ public class Main {
 
         String bucket = System.getenv("S3_BUCKET");
         String key = System.getenv("S3_OBJECT_KEY");
-
         Path downloadPath = new File("downloaded-planilha.xlsx").toPath();
-
         boolean inseriuComSucesso = false;
+
         if (bucket == null || key == null) {
-        throw new IllegalArgumentException("Variáveis de ambiente S3_BUCKET ou S3_OBJECT_KEY não foram definidas.");
+            throw new IllegalArgumentException("Variáveis de ambiente S3_BUCKET ou S3_OBJECT_KEY não foram definidas.");
         }
 
-        
         try (
             Connection connection = new DBConnectionProvider().getConnection();
             S3Client s3 = new S3Provider().getS3Client()
@@ -81,14 +82,25 @@ public class Main {
             }
 
             // 📊 Leitura e preparação dos dados
-            logger.info("Lendo planilha...");
+            logger.info("🔄 Iniciando leitura da planilha...");
+            long startRead = System.currentTimeMillis();
+
             List<Voo> voos = new LeitorPlanilha().lerVoos(downloadPath.toString());
-            logger.info("Total de voos lidos: " + voos.size());
+
+            long endRead = System.currentTimeMillis();
+            int totalLidos = voos.size();
+            double duracaoReadSeg = (endRead - startRead) / 1000.0;
+            double mediaReadPorSeg = totalLidos / (duracaoReadSeg > 0 ? duracaoReadSeg : 1);
+
+            logger.info(String.format(
+                "✅ Leitura concluída: %d registros em %d ms (média: %.2f registros/s)",
+                totalLidos, (endRead - startRead), mediaReadPorSeg
+            ));
 
             // 🗂️ Carrega voos existentes no banco
             Set<String> existentes = new HashSet<>();
             try (PreparedStatement ps = connection.prepareStatement(
-                "SELECT numero_voo, dia_referencia FROM Voos");
+                     "SELECT numero_voo, dia_referencia FROM Voos");
                  ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     String numero = rs.getString("numero_voo");
@@ -108,14 +120,27 @@ public class Main {
 
             // 💾 Inserção no banco
             if (novosVoos.isEmpty()) {
-                logger.info("Nenhum voo novo para inserir.");
+                logger.info("ℹ️ Nenhum voo novo para inserir.");
                 Slack.enviarMensagem("ℹ️ Nenhum voo novo foi encontrado para inserir.");
             } else {
-                logger.info(novosVoos.size() + " voos novos encontrados. Inserindo...");
+                int totalNovos = novosVoos.size();
+                logger.info("🔄 " + totalNovos + " voos novos encontrados. Iniciando carga...");
+
+                long startLoad = System.currentTimeMillis();
                 try {
                     new VooRepository().salvarVoos(connection, novosVoos);
                     connection.commit();
-                    logger.info("Voos inseridos com sucesso.");
+
+                    long endLoad = System.currentTimeMillis();
+                    double duracaoLoadSeg = (endLoad - startLoad) / 1000.0;
+                    double mediaLoadPorSeg = totalNovos / (duracaoLoadSeg > 0 ? duracaoLoadSeg : 1);
+
+                    logger.info(String.format(
+                        "✅ Carga concluída: %d registros em %d ms (média: %.2f registros/s)",
+                        totalNovos, (endLoad - startLoad), mediaLoadPorSeg
+                    ));
+
+                    logger.info("✅ Voos inseridos com sucesso.");
                     inseriuComSucesso = true;
                 } catch (SQLException e) {
                     logger.error("Erro ao salvar voos: " + e.getMessage());
