@@ -50,6 +50,17 @@ public class Main {
             logger.info("Iniciando ETL do AeroData");
 
             // 📦 Validação do bucket
+              try {
+        s3.headBucket(HeadBucketRequest.builder().bucket(bucket).build());
+        log.info("Bucket {} válido!", bucket);
+    } catch (S3Exception e) {
+        System.err.println("→ Código HTTP   : " + e.statusCode());
+        System.err.println("→ Error Code    : " + e.awsErrorDetails().errorCode());
+        System.err.println("→ Mensagem      : " + e.awsErrorDetails().errorMessage());
+        System.err.println("→ Request ID    : " + e.requestId());
+        throw new IllegalArgumentException(
+            "Falha ao acessar o bucket S3. Veja acima o status e o errorCode.", e);
+    }
             try {
                 logger.info("Validando bucket: " + bucket);
                 s3.headBucket(HeadBucketRequest.builder().bucket(bucket).build());
