@@ -27,5 +27,20 @@ router.get("/listarKpisGerencial/:nome_fantasia", function (req, res) {
     vooController.listarKpisGerencial(req, res);
 });
 
+router.get("/listarKpisOperacional/:nome_fantasia", function (req, res) {
+    vooController.listarKpisOperacional(req, res);
+});
+
+router.get("/listarRotasComMaisAtraso/:nome_fantasia", function (req, res) {
+    vooController.listarRotasComMaisAtraso(req, res);
+});
+
+router.get("/listarRotasComMaisCancelamentos/:nome_fantasia", function (req, res) {
+    vooController.listarRotasComMaisCancelamentos(req, res);
+});
+
+router.get("/listarAeroportosComMaisAtrasosECancelamentos/:nome_fantasia", function (req, res) {
+    vooController.listarAeroportosComMaisAtrasosECancelamentos(req, res);
+});
 
 module.exports = router;

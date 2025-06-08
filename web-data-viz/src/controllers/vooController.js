@@ -73,11 +73,63 @@ function listarMediaAtrasoPorCompanhia(req, res) {
         })
 }
 
+function listarRotasComMaisAtraso(req, res) {
+    var nome_fantasia = req.params.nome_fantasia;
+    vooModel.listarRotasComMaisAtraso(nome_fantasia)
+        .then(function (resultado) {
+            if (resultado.length >= 1) {
+                res.json(resultado);
+            } else {
+                res.status(204).send("Não foram encontrados dados");
+            }
+        })
+}
+
+function listarRotasComMaisCancelamentos(req, res) {
+    var nome_fantasia = req.params.nome_fantasia;
+    vooModel.listarRotasComMaisCancelamentos(nome_fantasia)
+        .then(function (resultado) {
+            if (resultado.length >= 1) {
+                res.json(resultado);
+            } else {
+                res.status(204).send("Não foram encontrados dados");
+            }
+        })
+}
+
+function listarAeroportosComMaisAtrasosECancelamentos(req, res) {
+    var nome_fantasia = req.params.nome_fantasia;
+    vooModel.listarAeroportosComMaisAtrasosECancelamentos(nome_fantasia)
+        .then(function (resultado) {
+            if (resultado.length >= 1) {
+                res.json(resultado);
+            } else {
+                res.status(204).send("Não foram encontrados dados");
+            }
+        })
+}
+
+function listarKpisOperacional(req, res) {
+    var nome_fantasia = req.params.nome_fantasia;
+    vooModel.listarKpisOperacional(nome_fantasia)
+        .then(function (resultado) {
+            if (resultado.length >= 1) {
+                res.json(resultado);
+            } else {
+                res.status(204).send("Não foram encontrados dados");
+            }
+        })
+}
+
 module.exports = {
     listarTop3CompanhiasComMaisAtrasos,
     listarCancelamentosMensais,
     listarAtrasosMensais,
     listarTotalVoosPorCompanhia,
     listarKpisGerencial,
-    listarMediaAtrasoPorCompanhia
+    listarKpisOperacional,
+    listarMediaAtrasoPorCompanhia,
+    listarRotasComMaisAtraso,
+    listarRotasComMaisCancelamentos,
+    listarAeroportosComMaisAtrasosECancelamentos
 }

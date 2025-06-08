@@ -1,27 +1,23 @@
 var express = require("express");
 var router = express.Router();
 
-var usuarioController = require("../controllers/usuarioController");
+var anotacaoController = require("../controllers/anotacaoController");
 
-//Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
+//Recebendo os dados do html e direcionando para a função cadastrar de anotacaoController.js
 router.post("/cadastrar", function (req, res) {
-    usuarioController.cadastrar(req, res);
+    anotacaoController.cadastrar(req, res);
 })
 
-router.post("/autenticar", function (req, res) {
-    usuarioController.autenticar(req, res);
+router.post("/listarObservacao", function (req, res) {
+    anotacaoController.listarObservacao(req, res);
 });
 
-router.post("/listarFuncionario", function (req, res) {
-    usuarioController.listarFuncionario(req, res);
+router.delete("/excluirObservacao", function (req, res) {
+    anotacaoController.excluirObservacao(req, res);
 });
 
-router.delete("/excluirFuncionario", function (req, res) {
-    usuarioController.excluirFuncionario(req, res);
-});
-
-router.put("/atualizarFuncionario", function (req, res) {
-    usuarioController.atualizarFuncionario(req, res);
+router.put("/atualizarObservacao", function (req, res) {
+    anotacaoController.atualizarObservacao(req, res);
 });
 
 

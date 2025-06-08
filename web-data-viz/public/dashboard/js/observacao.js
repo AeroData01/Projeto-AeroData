@@ -1,92 +1,17 @@
 
 
-function cadastrarFuncionario() {
-    var tipoVar = document.getElementById("selectNovoTipo").value;
-    var nomeVar = document.getElementById("inputNovoNome").value;
-    var cpfVar = document.getElementById("inputNovoCpf").value;
-    var telefoneVar = document.getElementById("inputNovoTelefone").value;
-    var emailVar = document.getElementById("inputNovoEmail").value;
-    var senhaVar = document.getElementById("inputNovoSenha").value;
-    var confirmacaoSenhaVar = document.getElementById("inputNovoConfirmarSenha").value;
-    var tipoCompanhiaVar = "";
-
-    switch (sessionStorage.COMPANHIA_USUARIO) {
-        case "Azul":
-            tipoCompanhiaVar = "AZU";
-            break;
-        case "GOL":
-            tipoCompanhiaVar = "GLO";
-            break;
-        case "LATAM":
-            tipoCompanhiaVar = "TAM";
-            break;
-        default:
-            tipoCompanhiaVar = null;
-    }
-
-
-    // aguardar();
-
-    var caracteresEspeciais = ['!', '@', '#', '$', '%', '&', '*'];
-
-
-    function possuiCaracteresEspeciais(string) {
-        for (var contador = 0; contador < caracteresEspeciais.length; contador++) {
-            if (string.includes(caracteresEspeciais[contador])) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    if (nomeVar === "" || cpfVar === "" || telefoneVar == "" || emailVar === "" || tipoVar == "" || senhaVar === "" || confirmacaoSenhaVar === "") {
-        exibirErro("Erro! Todos os campos devem ser preenchidos!");
-        finalizarAguardar();
-        return false;
-
-    } else if (nomeVar.length <= 2) {
-        exibirErro("Erro! O campo nome precisa de ao menos 3 letras!");
-        finalizarAguardar();
-        return false;
-
-    } else if (possuiCaracteresEspeciais(nomeVar)) {
-        exibirErro("Erro! O campo nome não deve possuir caracteres especiais!");
-        finalizarAguardar();
-        return false;
-
-    } else if (cpfVar.length !== 11) {
+function cadastrarObservacao() {
+    var dataVar = document.getElementById("inputNovaData").value;
+    var descricaoVar = document.getElementById("inputNovaDescricao").value;
+    var cpfVar = sessionStorage.CPF_USUARIO;
+    
+    if (cpfVar.length !== 11) {
         exibirErro("Erro! O CPF deve conter exatamente 11 números!");
-        finalizarAguardar();
         return false;
-
-    } else if (!emailVar.includes('@')) {
-        exibirErro("Erro! O campo e-mail deve possuir um '@'!");
-        finalizarAguardar();
-        return false;
-
-    } else if (telefoneVar.length < 10 || telefoneVar.length > 11) {
-        exibirErro("Erro! O telefone deve ter entre 10 e 11 dígitos (DDD + número)!");
-        finalizarAguardar();
-        return false;
-
-    } else if (senhaVar.length <= 5) {
-        exibirErro("Erro! A senha deve conter ao menos 6 caracteres!");
-        finalizarAguardar();
-        return false;
-
-    } else if (!possuiCaracteresEspeciais(senhaVar)) {
-        exibirErro("Erro! A senha deve conter ao menos 1 caractere especial!");
-        finalizarAguardar();
-        return false;
-
-    } else if (senhaVar !== confirmacaoSenhaVar) {
-        exibirErro("Erro! As senhas não coincidem!");
-        finalizarAguardar();
-        return false;
-
+    } else if(descricaoVar.length > 255 || descricaoVar.length <= 0) {
+        exibirErro("Erro! O CPF deve conter exatamente 11 números!");
     } else {
-        exibirCadastroRealizado("Cadastro realizado com sucesso!");
-        // setInterval(sumirMensagem, 5000);
+        exibirCadastroRealizado("Observação cadastrada com sucesso!");
     }
 
     function exibirErro(mensagem) {
@@ -107,47 +32,28 @@ function cadastrarFuncionario() {
     }
 
     // Enviando o valor da nova input
-    fetch("/usuarios/cadastrar", {
+    fetch("/anotacao/cadastrar", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            // crie um atributo que recebe o valor recuperado aqui
-            // Agora vá para o arquivo routes/usuario.js
-            nomeServer: nomeVar,
             cpfServer: cpfVar,
-            emailServer: emailVar,
-            telefoneServer: telefoneVar,
-            tipoContaServer: tipoVar,
-            tipoCompanhiaServer: tipoCompanhiaVar,
-            senhaServer: senhaVar,
-
-            // idEmpresaVincularServer: idEmpresaVincular
+            dataObservacao: dataVar,
+            descricaoObservacao: descricaoVar,
         }),
     })
         .then(function (resposta) {
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                cardErro.style.display = "block";
-
-                mensagem_erro.innerHTML =
-                    "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-                setTimeout(() => {
-                    ''
-                    window.location = "login.html";
-                }, "2000");
-
-                limparFormulario();
+                alert("Anotação cadastrada com sucesso!")
             } else {
-                throw "Houve um erro ao tentar realizar o cadastro!";
+                throw "Houve um erro ao tentar realizar o cadastro da anotação!";
             }
         })
         .catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
-            finalizarAguardar();
         });
 
     return false;
@@ -163,16 +69,14 @@ var vezesClicadas = 0;
 function listarObservacao() {
     var cpf = sessionStorage.CPF_USUARIO;
 
-    console.log(cpf)
     // Enviando o valor para função no Model
-    fetch("/usuarios/listarObservacao", {
+    fetch("/anotacao/listarObservacao", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            
-            fk_usuario: cpf
+            cpfServer: cpf
         }),
     })
         .then(function (resposta) {
@@ -191,22 +95,24 @@ function listarObservacao() {
                     var modalsExclusao = '';
                     console.log(tamanho_lista);
                     for (var i = 0; i < tamanho_lista; i++) {
-                        var cpf = json[i].cpf;
-                        var dataObservacao = json[i].data_observacao;
+                        var dataObservacao = json[i].data_observacao.split('T')[0];
+                        console.log(dataObservacao);
                         var descricaoObservacao = json[i].descricao;
+                        var idObservacao = json[i].id_observacao;
+
                         tabela += `
             <tr>
             <td>
-            <input type="text" value="${dataObservacao}" disabled id="inputDataObservacao${cpf}">
+            <input type="date" value="${dataObservacao}" disabled id="inputDataObservacao${idObservacao}">
             </td>
             <td>
-            <input type="text" value="${descricaoObservacao}" disabled id="inputDescricaoObervacao${cpf}">
+            <input type="text" value="${descricaoObservacao}" disabled id="inputDescricaoObervacao${idObservacao}">
             </td>
             <td>
-            <button class="btn-confirmar-edicao" id="botaoConfirmar${cpf}" onclick="editarUsuario(${cpf})">
+            <button class="btn-confirmar-edicao" id="botaoConfirmar${idObservacao}" onclick="editarUsuario(${idObservacao})">
               Salvar alterações
             </button>
-            <button id="botaoHabilitar${cpf}" onclick="habilitarEditarUsuario(${cpf})">
+            <button id="botaoHabilitar${idObservacao}" onclick="habilitarEditarUsuario(${idObservacao})">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
             class="bi bi-pencil-square" viewBox="0 0 16 16">
             <path
@@ -217,7 +123,7 @@ function listarObservacao() {
             </button>
             </td>
             <td>
-            <button onclick="abrirModalExcluirUsuario(${cpf})">
+            <button onclick="abrirModalExcluirUsuario(${idObservacao})">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
             viewBox="0 0 16 16">
             <path
@@ -230,23 +136,24 @@ function listarObservacao() {
             </tr>
             `;
                         modalsExclusao += `
-            <div id="modalExcluirUsuario${cpf}" class="modal-excluir-usuario">
+            <div id="modalExcluirUsuario${idObservacao}" class="modal-excluir-usuario">
               <div class="conteudo-excluir-usuario">
                 <h1>Você tem certeza que deseja excluir essa anotação?</h1>
                 <div class="container-botao-confirmacao">
-                  <button onclick="excluirObservacao(${cpf})">Sim</button>
-                  <button onclick="negarExclusao(${cpf})">Não</button>
+                  <button onclick="excluirObservacao(${idObservacao})">Sim</button>
+                  <button onclick="negarExclusao(${idObservacao})">Não</button>
                 </div>
              </div>
             </div>`
                     }
                     tbody_tabela.innerHTML =
-                        `<tr class="tabela-header">
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Editar</th>
-                <th>Excluir</th>
-              </tr>` +
+                        `
+                <tr class="tabela-header">
+                    <th>Data</th>
+                    <th>Descrição</th>
+                    <th>Editar</th>
+                    <th>Excluir</th>
+                </tr>` +
                         tabela;
                     div_modals.innerHTML = modalsExclusao;
                 });
@@ -254,7 +161,6 @@ function listarObservacao() {
         })
         .catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
-            //finalizarAguardar();
         });
 
     return false;
@@ -278,8 +184,8 @@ function fecharModal() {
     modal.style.display = "none";
 }
 
-function abrirModalExcluirUsuario(cpfFuncionario) {
-    var textoModal = 'modalExcluirUsuario' + cpfFuncionario;
+function abrirModalExcluirUsuario(idObservacao) {
+    var textoModal = 'modalExcluirUsuario' + idObservacao;
 
     var modal = document.getElementById(textoModal);
 
@@ -293,52 +199,50 @@ function abrirModalExcluirUsuario(cpfFuncionario) {
 
 }
 
-function excluirUsuario(cpfFuncionario) {
-    fetch("/usuarios/excluirFuncionario", {
+function excluirObservacao(idObservacao) {
+    fetch("/anotacao/excluirObservacao", {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
             //recebe o funcionário a ser excluído
-            cpfServer: cpfFuncionario,
+            idObservacaoServer: idObservacao,
         }),
     })
         .then(function (resposta) {
             console.log("resposta: ", resposta);
 
             if (resposta.ok) {
-                alert(`Funcionário excluído com sucesso!`);
-                listarFuncionario();
+                alert(`Observação excluído com sucesso!`);
+                listarObservacao();
             } else {
-                alert(`Houve um erro ao excluir o funcionário`);
+                alert(`Houve um erro ao excluir a observação`);
             }
         })
         .catch(function (resposta) {
             console.log(`#ERRO: ${resposta}`);
-            finalizarAguardar();
         });
 
     return false;
 }
 
-function negarExclusao(cpfFuncionario) {
-    var textoModal = 'modalExcluirUsuario' + cpfFuncionario;
+function negarExclusao(idObservacao) {
+    var textoModal = 'modalExcluirUsuario' + idObservacao;
 
     var modal = document.getElementById(textoModal);
 
     modal.style.display = "none";
 }
 
-function habilitarEditarUsuario(cpfFuncionario) {
-    var textoNome = `inputNomeFuncionario${cpfFuncionario}`;
-    var textoEmail = `inputEmailFuncionario${cpfFuncionario}`;
-    var textoCpf = `inputCpfFuncionario${cpfFuncionario}`;
-    var textoBotaoHabilitar = `botaoHabilitar${cpfFuncionario}`;
-    var textoBotaoConfirmar = `botaoConfirmar${cpfFuncionario}`;
+function habilitarEditarUsuario(idObservacao) {
+    var textoData = `inputDataObservacao${idObservacao}`;
+    var textoDescricao = `inputDescricaoObervacao${idObservacao}`;
+    var textoBotaoHabilitar = `botaoHabilitar${idObservacao}`;
+    var textoBotaoConfirmar = `botaoConfirmar${idObservacao}`;
 
-    var inputNome = document.getElementById(textoNome);
-    var inputEmail = document.getElementById(textoEmail);
+    var inputNome = document.getElementById(textoData);
+    var inputEmail = document.getElementById(textoDescricao);
     var botaoConfirmar = document.getElementById(textoBotaoConfirmar);
     var botaoHabilitar = document.getElementById(textoBotaoHabilitar);
 
@@ -368,32 +272,32 @@ function habilitarEditarUsuario(cpfFuncionario) {
     }
 }
 
-function editarUsuario(cpfFuncionario) {
-    var textoNomeFuncionario = `inputNomeFuncionario${cpfFuncionario}`;
-    var textoEmailFuncionario = `inputEmailFuncionario${cpfFuncionario}`;
+function editarUsuario(idObservacao) {
+    var textoDescricao = `inputDescricaoObervacao${idObservacao}`;
+    var textoData = `inputDataObservacao${idObservacao}`;
 
-    var emailNovo = document.getElementById(textoEmailFuncionario).value;
-    var nomeNovo = document.getElementById(textoNomeFuncionario).value;
+    var dataNova = document.getElementById(textoData).value;
+    var observacaoNova = document.getElementById(textoDescricao).value;
 
-    fetch("/usuarios/atualizarFuncionario", {
+    fetch("/anotacao/atualizarObservacao", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            nome: nomeNovo,
-            email: emailNovo,
-            cpfServer: cpfFuncionario
+            dtObservacaoServer: dataNova,
+            descricao: observacaoNova,
+            idObservacao: idObservacao
         })
     }).then(function (resposta) {
         if (resposta.ok) {
 
             console.log(resposta);
-            alert('Funcionário atualizado com sucesso!')
-            listarFuncionario();
+            alert('Observação atualizada com sucesso!')
+            listarObservacao();
         } else {
 
-            console.log("Houve um erro ao atualizar o funcionário!");
+            console.log("Houve um erro ao atualizar a observação!");
 
             resposta.text().then(texto => {
                 console.error(texto);

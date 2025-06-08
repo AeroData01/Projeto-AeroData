@@ -199,6 +199,174 @@ function listarKpisGerencial(nome_fantasia) {
     return database.executar(instrucaoSql);
 }
 
+function listarRotasComMaisAtraso(nome_fantasia) {
+  var instrucaoSql = `
+  SELECT 
+    CONCAT(sigla_aeroporto_partida, '-', sigla_aeroporto_destino) AS rota,
+    COUNT(*) AS total_atrasos,
+    YEAR(v.dia_referencia) AS ano
+   FROM Voos V
+   JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
+   WHERE (situacao_partida LIKE 'Atraso%' OR situacao_chegada LIKE 'Atraso%') 
+     AND C.nome_fantasia = '${nome_fantasia}'
+   GROUP BY sigla_aeroporto_partida, sigla_aeroporto_destino, YEAR(v.dia_referencia) 
+   ORDER BY COUNT(*) DESC;`
+
+   return database.executar(instrucaoSql);
+}
+
+function listarRotasComMaisCancelamentos(nome_fantasia) {
+  var instrucaoSql = `
+  SELECT 
+    CONCAT(sigla_aeroporto_partida, '-', sigla_aeroporto_destino) AS rota,
+    COUNT(*) AS total_cancelamentos,
+    YEAR(v.dia_referencia) AS ano
+   FROM Voos V
+   JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
+   WHERE situacao_voo = 'CANCELADO' 
+     AND C.nome_fantasia = '${nome_fantasia}'
+   GROUP BY sigla_aeroporto_partida, sigla_aeroporto_destino, YEAR(v.dia_referencia)
+   ORDER BY COUNT(*) DESC`
+
+   return database.executar(instrucaoSql);
+}
+
+function listarAeroportosComMaisAtrasosECancelamentos(nome_fantasia) {
+  var instrucaoSql = `
+  SELECT 
+  aeroporto,
+  SUM(total_atrasos) AS total_atrasos,
+  SUM(total_cancelamentos) AS total_cancelamentos
+  FROM (
+  SELECT 
+    V.sigla_aeroporto_partida AS aeroporto,
+    CASE 
+      WHEN situacao_partida LIKE 'Atraso%' OR situacao_chegada LIKE 'Atraso%' THEN 1 ELSE 0 
+    END AS total_atrasos,
+    CASE 
+      WHEN situacao_voo = 'CANCELADO' THEN 1 ELSE 0 
+    END AS total_cancelamentos
+  FROM Voos V
+  JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
+  WHERE C.nome_fantasia = '${nome_fantasia}'
+
+  UNION ALL
+
+  SELECT 
+    V.sigla_aeroporto_destino AS aeroporto,
+    CASE 
+      WHEN situacao_partida LIKE 'Atraso%' OR situacao_chegada LIKE 'Atraso%' THEN 1 ELSE 0 
+    END AS total_atrasos,
+    0 AS total_cancelamentos -- cancelamento só é relevante na partida
+  FROM Voos V
+  JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
+  WHERE C.nome_fantasia = '${nome_fantasia}'
+  ) AS rotas
+  GROUP BY aeroporto
+  ORDER BY (SUM(total_atrasos) + SUM(total_cancelamentos)) DESC;`;
+
+   return database.executar(instrucaoSql);
+}
+
+function listarKpisOperacional(nome_fantasia) {
+  var instrucaoSql = `
+  WITH 
+  voos_companhia AS (
+    SELECT 
+      COUNT(*) AS voos_realizados,
+      SUM(CASE 
+            WHEN situacao_partida LIKE 'Atraso%' OR situacao_chegada LIKE 'Atraso%' 
+            THEN 1 ELSE 0 
+          END) AS voos_atrasados
+    FROM Voos V
+    JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
+    WHERE C.nome_fantasia = '${nome_fantasia}'
+      AND situacao_voo <> 'CANCELADO'
+  ),
+  cancelamentos_aeroporto AS (
+    SELECT 
+      V.sigla_aeroporto_partida AS nome,
+      COUNT(*) AS total,
+      'maior_cancelamento_aeroporto' AS tipo
+    FROM Voos V
+    JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
+    WHERE C.nome_fantasia = '${nome_fantasia}'
+      AND situacao_voo = 'CANCELADO'
+    GROUP BY V.sigla_aeroporto_partida
+    ORDER BY total DESC
+    LIMIT 1
+  ),
+  atrasos_aeroporto AS (
+    SELECT 
+      aeroporto AS nome,
+      SUM(total_atrasos) AS total,
+      'maior_atraso_aeroporto' AS tipo
+    FROM (
+      SELECT V.sigla_aeroporto_partida AS aeroporto,
+            CASE WHEN situacao_partida LIKE 'Atraso%' OR situacao_chegada LIKE 'Atraso%' THEN 1 ELSE 0 END AS total_atrasos
+      FROM Voos V
+      JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
+      WHERE C.nome_fantasia = '${nome_fantasia}'
+      
+      UNION ALL
+
+      SELECT V.sigla_aeroporto_destino AS aeroporto,
+            CASE WHEN situacao_partida LIKE 'Atraso%' OR situacao_chegada LIKE 'Atraso%' THEN 1 ELSE 0 END AS total_atrasos
+      FROM Voos V
+      JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
+      WHERE C.nome_fantasia = '${nome_fantasia}'
+    ) AS atrasos
+    GROUP BY aeroporto
+    ORDER BY total DESC
+    LIMIT 1
+  ),
+  atrasos_rota AS (
+    SELECT 
+      CONCAT(sigla_aeroporto_partida, '-', sigla_aeroporto_destino) AS nome,
+      COUNT(*) AS total,
+      'maior_atraso_rota' AS tipo
+    FROM Voos V
+    JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
+    WHERE C.nome_fantasia = '${nome_fantasia}'
+      AND (situacao_partida LIKE 'Atraso%' OR situacao_chegada LIKE 'Atraso%')
+    GROUP BY sigla_aeroporto_partida, sigla_aeroporto_destino
+    ORDER BY total DESC
+    LIMIT 1
+  ),
+  cancelamentos_rota AS (
+    SELECT 
+      CONCAT(sigla_aeroporto_partida, '-', sigla_aeroporto_destino) AS nome,
+      COUNT(*) AS total,
+      'maior_cancelamento_rota' AS tipo
+    FROM Voos V
+    JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
+    WHERE C.nome_fantasia = '${nome_fantasia}'
+      AND situacao_voo = 'CANCELADO'
+    GROUP BY sigla_aeroporto_partida, sigla_aeroporto_destino
+    ORDER BY total DESC
+    LIMIT 1
+  ),
+  eficiencia AS (
+    SELECT 
+      CONCAT(ROUND((1 - voos_atrasados * 1.0 / voos_realizados) * 100, 2), '%') AS nome,
+      NULL AS total,
+      'eficiencia_da_companhia' AS tipo
+    FROM voos_companhia
+  )
+
+  SELECT * FROM cancelamentos_aeroporto
+  UNION ALL
+  SELECT * FROM atrasos_aeroporto
+  UNION ALL
+  SELECT * FROM atrasos_rota
+  UNION ALL
+  SELECT * FROM cancelamentos_rota
+  UNION ALL
+  SELECT * FROM eficiencia;
+  `;
+
+  return database.executar(instrucaoSql);
+}
 
 module.exports = {
     listarTop3CompanhiasComMaisAtrasos,
@@ -206,5 +374,9 @@ module.exports = {
     listarAtrasosMensais,
     listarTotalVoosPorCompanhia,
     listarKpisGerencial,
-    listarMediaAtrasoPorCompanhia
+    listarKpisOperacional,
+    listarMediaAtrasoPorCompanhia,
+    listarRotasComMaisAtraso,
+    listarRotasComMaisCancelamentos,
+    listarAeroportosComMaisAtrasosECancelamentos
 };

@@ -167,8 +167,6 @@ function cadastrarFuncionario() {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            // crie um atributo que recebe o valor recuperado aqui
-            // Agora vá para o arquivo routes/usuario.js
             nomeServer: nomeVar,
             cpfServer: cpfVar,
             emailServer: emailVar,
@@ -176,25 +174,11 @@ function cadastrarFuncionario() {
             tipoContaServer: tipoVar,
             tipoCompanhiaServer: tipoCompanhiaVar,
             senhaServer: senhaVar,
-
-            // idEmpresaVincularServer: idEmpresaVincular
         }),
     })
         .then(function (resposta) {
-            console.log("resposta: ", resposta);
-
             if (resposta.ok) {
-                cardErro.style.display = "block";
-
-                mensagem_erro.innerHTML =
-                    "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-                setTimeout(() => {
-                    ''
-                    window.location = "login.html";
-                }, "2000");
-
-                limparFormulario();
+                listarFuncionario();
             } else {
                 throw "Houve um erro ao tentar realizar o cadastro!";
             }
@@ -237,7 +221,7 @@ function listarFuncionario() {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            
+
             tipoCompanhiaServer: tipoCompanhia
         }),
     })

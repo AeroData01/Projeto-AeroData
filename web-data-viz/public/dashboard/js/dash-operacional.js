@@ -3,6 +3,36 @@ window.onload = function () {
     gerarGraficoAtrasosPorRota();
     gerarGraficoCancelamentosPorRota();
     gerarGraficoAtrasosPorCompanhia();
+    carregarKpis();
+}
+
+function carregarKpis() {
+    var nome_fantasia = sessionStorage.COMPANHIA_USUARIO;
+    fetch(`../voos/listarKpisOperacional/${nome_fantasia}`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(response => {
+        response.json().then(json => {
+            var maior_cancelamento_aeroporto = json[0];
+            var maior_atraso_aeroporto = json[1];
+            var maior_atraso_rota = json[2];
+            var maior_cancelamento_rota = json[3];
+            var eficiencia_companhia = json[4];
+
+            document.getElementById("nome_rota_mais_atraso").innerHTML = maior_atraso_rota.nome;
+            document.getElementById("total_rota_mais_atraso").innerHTML = maior_atraso_rota.total;
+            document.getElementById("nome_rota_mais_cancelamento").innerHTML = maior_cancelamento_rota.nome;
+            document.getElementById("total_rota_mais_cancelamento").innerHTML = maior_cancelamento_rota.total;
+            document.getElementById("nome_aeroporto_mais_atraso").innerHTML = maior_atraso_aeroporto.nome;
+            document.getElementById("total_aeroporto_mais_atraso").innerHTML = maior_atraso_aeroporto.total;
+            document.getElementById("nome_aeroporto_mais_cancelamento").innerHTML = maior_cancelamento_aeroporto.nome;
+            document.getElementById("total_aeroporto_mais_cancelamento").innerHTML = maior_cancelamento_aeroporto.total;
+            document.getElementById("pontualidade_companhia").innerHTML = eficiencia_companhia.nome;
+
+        })
+    })
 }
 
 function gerarGraficoTempoMedio() {
@@ -56,147 +86,143 @@ function gerarGraficoTempoMedio() {
 
 function gerarGraficoAtrasosPorRota() {
     // Atrasos por Rota
-    new Chart(document.getElementById('donutChart'), {
-        type: 'line',
-        data: {
-            labels: ['GRU-SDU', 'GRU-GIG', 'CGH-SDU', 'CGH-GIG', 'SDU-CGH', 'SDU-GRU', 'GIG-GRU', 'GIG-CGH'],
-            datasets: [
-                {
-                    label: 'Gol',
-                    data: [180, 70, 700, 65, 500, 90, 110, 50],
-                    borderColor: '#FFCC00',
-                    backgroundColor: '#FFCC00',
-                    fill: false,
-                    tension: 0.3
+    var nome_fantasia = sessionStorage.COMPANHIA_USUARIO;
+    fetch(`../voos/listarRotasComMaisAtraso/${nome_fantasia}`, {
+        method: "GET"
+    }).then(response => {
+        response.json().then(json => {
+            var rotas = json.map(j => `${j.rota} - ${j.ano}`);
+            var atrasos = json.map(j => j.total_atrasos);
+
+            new Chart(document.getElementById('donutChart'), {
+                type: 'bar',
+                data: {
+                    labels: rotas,
+                    datasets: [
+                        {
+                            label: nome_fantasia,
+                            data: atrasos,
+                            borderColor: '#FFCC00',
+                            backgroundColor: '#FFCC00'
+                        }
+                    ]
                 },
-                {
-                    label: 'Azul',
-                    data: [100, 45, 320, 30, 280, 50, 90, 20],
-                    borderColor: '#00ADEF',
-                    backgroundColor: '#00ADEF',
-                    fill: false,
-                    tension: 0.3
-                },
-                {
-                    label: 'Latam',
-                    data: [98, 33, 424, 32, 428, 29, 58, 17],
-                    borderColor: '#CC092F',
-                    backgroundColor: '#CC092F',
-                    fill: false,
-                    tension: 0.3
+                options: {
+                    responsive: false,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: Math.max(...atrasos) + 10
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Total de atrasos por Rota(2023/2024)',
+                            font: { size: 18, weight: 'bold' }
+                        },
+                        legend: {
+                            position: 'bottom',
+                            onClick: Chart.defaults.plugins.legend.onClick
+                        }
+                    }
                 }
-            ]
-        },
-        options: {
-            responsive: false,
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Atrasos por Rota ',
-                    font: { size: 18, weight: 'bold' }
-                },
-                legend: {
-                    position: 'bottom',
-                    onClick: Chart.defaults.plugins.legend.onClick
-                }
-            }
-        }
-    });
+            })
+        })
+    })
 }
 
 function gerarGraficoCancelamentosPorRota() {
     // Cancelamentos por Rota
-    new Chart(document.getElementById('lineChartCancelamentos'), {
-        type: 'line',
-        data: {
-            labels: ['GRU-SDU', 'GRU-GIG', 'CGH-SDU', 'CGH-GIG', 'SDU-CGH', 'SDU-GRU', 'GIG-GRU', 'GIG-CGH'],
-            datasets: [
-                {
-                    label: 'Gol',
-                    data: [25, 20, 458, 22, 506, 30, 18, 16],
-                    borderColor: '#FFCC00',
-                    borderWidth: 5,
-                    backgroundColor: '#FFCC00',
-                    fill: false,
-                    tension: 0.3
-                },
-                {
-                    label: 'Azul',
-                    data: [10, 8, 150, 7, 160, 12, 15, 9],
-                    borderColor: '#00ADEF',
-                    backgroundColor: '#00ADEF',
-                    borderWidth: 5,
-                    fill: false,
-                    tension: 0.3
-                },
-                {
-                    label: 'Latam',
-                    data: [10, 15, 350, 16, 340, 14, 10, 15],
-                    borderColor: '#CC092F',
-                    borderWidth: 5,
-                    backgroundColor: '#CC092F',
-                    fill: false,
-                    tension: 0.3
-                }
-            ]
-        },
-        options: {
-            responsive: false,
-            plugins: {
-                title: {
-                    display: true,
-
-                    text: 'Cancelamentos por Rota ',
-                    font: { size: 27, weight: 'bold' }
-                },
-                legend: {
-                    position: 'bottom',
-                    onClick: Chart.defaults.plugins.legend.onClick
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        font: {
-                            size: 20 // ou 16, 18 etc.
+    var nome_fantasia = sessionStorage.COMPANHIA_USUARIO;
+    fetch(`../voos/listarRotasComMaisCancelamentos/${nome_fantasia}`, {
+        method: "GET"
+    }).then(response => {
+        response.json().then(json => {
+            var rotas = json.map(j => `${j.rota} - ${j.ano}`);
+            var cancelamentos = json.map(j => j.total_cancelamentos);
+            new Chart(document.getElementById('lineChartCancelamentos'), {
+                type: 'bar',
+                data: {
+                    labels: rotas,
+                    datasets: [
+                        {
+                            label: nome_fantasia,
+                            data: cancelamentos,
+                            borderColor: '#FFCC00',
+                            backgroundColor: '#FFCC00',
                         }
-                    }
+                    ]
                 },
-                y: {
-                    ticks: {
-                        font: {
-                            size: 14
+                options: {
+                    indexAxis: 'y',
+                    responsive: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Cancelamentos por Rota ',
+                        },
+                        legend: {
+                            position: 'bottom',
+                            onClick: Chart.defaults.plugins.legend.onClick
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: Math.max(...cancelamentos) + 10
                         }
                     }
                 }
-            }
-        }
-
+            })
+        })
     });
-
 }
 
 function gerarGraficoAtrasosPorCompanhia() {
     // Atrasos por Companhia
-    new Chart(document.getElementById('barChartCompanhias'), {
-        type: 'bar',
-        data: {
-            labels: ['Azul', 'Gol', 'Latam'],
-            datasets: [{
-                label: 'Atrasos (%)',
-                data: [11.2, 14.8, 19.4],
-                backgroundColor: ['#00ADEF', '#FFCC00', '#CC092F']
-            }]
-        },
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Atrasos por Companhia Aérea - 2024',
-                    font: { size: 18, weight: 'bold' }
+    // Cancelamentos por Rota
+    var nome_fantasia = sessionStorage.COMPANHIA_USUARIO;
+    fetch(`../voos/listarAeroportosComMaisAtrasosECancelamentos/${nome_fantasia}`, {
+        method: "GET"
+    }).then(response => {
+        response.json().then(json => {
+            var aeroportos = json.map(j => j.aeroporto);
+            var atrasos = json.map(j => j.total_atrasos);
+            var cancelamentos = json.map(j => j.total_cancelamentos);
+
+            var labels = aeroportos;
+            var datasets = [
+                {
+                    label: 'Atrasos',
+                    data: atrasos,
+                    backgroundColor: '#00ADEF'
                 },
-                legend: { display: false }
-            }
-        }
+                {
+                    label: 'Cancelamentos',
+                    data: cancelamentos,
+                    backgroundColor: '#FFCC00'
+                }
+            ];
+
+            new Chart(document.getElementById('barChartCompanhias'), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: datasets
+                },
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Aeroportos com mais cancelamentos e atrasos 2023 + 2024  ',
+                            font: { size: 18, weight: 'bold' }
+                        },
+                        legend: { display: false }
+                    }
+                }
+            })
+        })
     });
 }

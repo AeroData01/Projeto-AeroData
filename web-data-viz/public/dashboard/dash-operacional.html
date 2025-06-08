@@ -34,11 +34,11 @@
       </header>
 
       <section class="stats">
-        <div class="card">Rota com mais atraso<h3>Latam</h3><h4>(2.301 atrasos)</h4></div>
-        <div class="card">Rota com mais cancelamento<h3>Gol</h3><h4>(1.754 cancelamentos)</h4></div>
-        <div class="card">Aeroporto com mais atraso<h3>91,2%</h3></div>
-        <div class="card">Aeroporto com mais cancelamento<h3>Latam: 45% • Gol: 35% • Azul: 20%</h3></div>
-        <div class="card">Pontualidade em % da companhia Aerea<h3>Latam: 45% • Gol: 35% • Azul: 20%</h3></div>
+        <div class="card">Rota com mais atraso<h3 id="nome_rota_mais_atraso"></h3><h4 id="total_rota_mais_atraso"></h4></div>
+        <div class="card">Rota com mais cancelamento<h3 id="nome_rota_mais_cancelamento"></h3><h4 id="total_rota_mais_cancelamento"></h4></div>
+        <div class="card">Aeroporto com mais atraso<h3 id="nome_aeroporto_mais_atraso"></h3><h4 id="total_aeroporto_mais_atraso"></h4></div>
+        <div class="card">Aeroporto com mais cancelamento<h3 id="nome_aeroporto_mais_cancelamento"></h3><h4 id="total_aeroporto_mais_cancelamento"></h4></div>
+        <div class="card">Pontualidade em % da companhia Aerea<h3 id="pontualidade_companhia"></h3></div>
       </section>
 
       <section class="charts" style="gap: 1.5rem; margin-top: 2rem;">
@@ -51,10 +51,10 @@
         </div>
 
         <div class="chart-card">
-          <canvas id="lineChartCancelamentos" width="1000" height="800"></canvas>
+          <canvas id="lineChartCancelamentos" width="600" height="500"></canvas>
         </div>
 
-        <div class="chart-card wide" style="max-width: 1000px; margin: 0 auto;">
+        <div class="chart-card wide" style="margin: 0 auto;">
           <canvas id="barChartCompanhias"></canvas>
         </div>
       </section>
