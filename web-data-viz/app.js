@@ -26,6 +26,7 @@ var kpi1Router = require("./src/routes/kpi1")
 var kpi2Router = require("./src/routes/kpi2")
 var vooRouter = require("./src/routes/voos")
 var anotacaoRouter = require("./src/routes/anotacao")
+var feedbackRouter = require("./src/routes/feedbacks")
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -44,6 +45,7 @@ app.use("/kpi1", kpi1Router);
 app.use("/kpi2", kpi2Router);
 app.use("/voos", vooRouter);
 app.use("/anotacao", anotacaoRouter);
+app.use("/feedback", feedbackRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`

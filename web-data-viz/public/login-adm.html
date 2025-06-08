@@ -21,27 +21,8 @@
 <body>
 
     <!-- Header -->
-    <header class="header backAzul">
-        <img class="logo" src="./assets/icon/logo Branco.png" alt="Logo">
+    <header class="header backAzul"></header>
 
-        <ul class="navbar">
-            <li>
-                <a href="index.html">Home</a>
-            </li>
-            <li>|</li>
-            <li class="agora">
-                <a href="login.html">Login</a>
-            </li>
-            <li>
-                <a href="cadastro.html">Cadastre-se</a>
-            </li>
-        </ul>
-
-    </header>
-
-    <!-- Login Campos -->
-
-    <!-- Alerta de Erro -->
     <div class="login">
         <div class="alerta_erro">
             <div class="card_erro" id="cardErro">
@@ -55,11 +36,7 @@
         <div class="login-container">
 
             <div class="login-text">
-                <h1>Login</h1>
-                <p>Bem-Vindo de volta!</p>
-                <!-- <img class="imgLogin" src="./assets/icon/logo png.png" alt=""> -->
-
-                <span>Não é membro ainda? </span> <a href="cadastro.html">Cadastre-se aqui!</a>
+                <h1>Login de Administrador</h1>
             </div>
 
             <div class="form-container">
@@ -81,23 +58,9 @@
 
                 <button onclick="entrar()" class="form-button" type="button">Entrar</button>
 
-                <!-- 
-                Versão original com a função entrar() funcionando:
-
-                <button onclick="entrar()" class="form-button" type="button">Entrar</button> 
-                -->
-
             </div>
         </div>
-
-        <!-- NÃO MEXER NESSE LOADING POIS É BUGADO -->
-        <div id="div_aguardar">
-            <!-- <img src="./assets/circle-loading.gif" id="loading-gif"> -->
-        </div>
-
-        <!-- Mensagens de erro -->
-        <!-- <div id="div_erros_login"></div> -->
-
+        <div id="div_aguardar"></div>
     </div>
 
 
@@ -140,7 +103,7 @@
         console.log("FORM LOGIN: ", emailVar);
         console.log("FORM SENHA: ", senhaVar);
 
-        fetch("/usuarios/autenticar", {
+        fetch("/usuarios/autenticarAdmin", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -162,29 +125,12 @@
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.CPF_USUARIO = json.cpf;
                     sessionStorage.CARGO_USUARIO = json.cargo;
-                    sessionStorage.COMPANHIA_USUARIO = json.companhia;
                     setTimeout(() => {
-                        console.log("Cargo recebido:", json.cargo, "| tipo:", typeof json.cargo);
-
-                        const cargo = String(json.cargo).toLowerCase().trim();
-
-                        if (cargo === "gerencial") {
-                            window.location.href = "./dashboard/dash-gerencial.html";
-                        } else {
-                            window.location.href = "./dashboard/dash-operacional.html";
-                        }
-
-                        
-
-                    }, 1000); // apenas para exibir o loading
-
-
+                        window.location.href = "./private/feedback.html";
+                    }, 1000); 
                 });
 
             } else {
-
-                console.log("Houve um erro ao tentar realizar o login!");
-
                 resposta.text().then(texto => {
                     console.error(texto);
                     cardErro.style.display = "block"

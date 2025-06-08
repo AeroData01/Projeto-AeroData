@@ -1,7 +1,8 @@
 
-DROP DATABASE aerodata;
+DROP DATABASE if exists aerodata;
 CREATE DATABASE IF NOT EXISTS aerodata;
 USE aerodata;
+
 
 CREATE TABLE Companhia_Aerea (
 	sigla_companhia CHAR(3) PRIMARY KEY,
@@ -16,7 +17,7 @@ CREATE TABLE Usuario (
     nome VARCHAR(100),
     cargo VARCHAR(45),
     CONSTRAINT chk_cargo
-        CHECK (cargo IN ('gerencial', 'operacional')),
+        CHECK (cargo IN ('gerencial', 'operacional', 'admin')),
     email VARCHAR(50) UNIQUE,
     senha CHAR(64), -- Armazena hash SHA-256
     telefone CHAR(11),
@@ -65,6 +66,31 @@ CREATE TABLE LogService (
     data_hora DATETIME,
     nivel VARCHAR(8),
     mensagem VARCHAR(255)
+);
+
+CREATE TABLE Observacao (
+id_observacao INT PRIMARY KEY AUTO_INCREMENT,
+data_observacao DATE,
+descricao VARCHAR(255),
+fk_usuario CHAR(11),
+
+CONSTRAINT fk_ObsUsuario
+	FOREIGN KEY (fk_usuario)
+		REFERENCES Usuario(cpf)
+);
+
+CREATE TABLE feedback (
+id_feedback INT PRIMARY KEY AUTO_INCREMENT,
+nota int,
+informacao varchar(255),
+fk_criador char(11),
+
+constraint chk_nota
+check (nota >= 0 and nota <= 10),
+
+CONSTRAINT fk_criadorUsuario
+	FOREIGN KEY (fk_criador)
+		REFERENCES Usuario(cpf)
 );
 
 SHOW TABLES;

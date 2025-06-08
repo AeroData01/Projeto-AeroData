@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard SP e RJ - Operações</title>
   <link rel="stylesheet" href="styles.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -20,11 +21,16 @@
         </div>
         <br>
         <div class="icon">
-          <a href="./observacao.html" title="Observações"><img src="../assets/icon/icone-bloco-de-anotacoes2.png" width="30px" height="30px"></a>
+          <a href="./observacao.html" title="Observações"><img src="../assets/icon/icone-bloco-de-anotacoes2.png"
+              width="30px" height="30px"></a>
+        </div>
+        <div class="icon">
+          <a href="../dashboard/feedback.html" title="Gerenciar feedbacks"><img src="../assets/icon/bater-papo.png"
+              width="30px" height="30px"></a>
         </div>
       </div>
     </aside>
- 
+
     <main class="main-content">
       <header class="top-bar">
         <div class="user-info">
@@ -34,11 +40,20 @@
       </header>
 
       <section class="stats">
-        <div class="card">Rota com mais atraso<h3 id="nome_rota_mais_atraso"></h3><h4 id="total_rota_mais_atraso"></h4></div>
-        <div class="card">Rota com mais cancelamento<h3 id="nome_rota_mais_cancelamento"></h3><h4 id="total_rota_mais_cancelamento"></h4></div>
-        <div class="card">Aeroporto com mais atraso<h3 id="nome_aeroporto_mais_atraso"></h3><h4 id="total_aeroporto_mais_atraso"></h4></div>
-        <div class="card">Aeroporto com mais cancelamento<h3 id="nome_aeroporto_mais_cancelamento"></h3><h4 id="total_aeroporto_mais_cancelamento"></h4></div>
-        <div class="card">Pontualidade em % da companhia Aerea<h3 id="pontualidade_companhia"></h3></div>
+        <div class="card">Rota com mais atraso<h3 id="nome_rota_mais_atraso"></h3>
+          <h4 id="total_rota_mais_atraso"></h4>
+        </div>
+        <div class="card">Rota com mais cancelamento<h3 id="nome_rota_mais_cancelamento"></h3>
+          <h4 id="total_rota_mais_cancelamento"></h4>
+        </div>
+        <div class="card">Aeroporto com mais atraso<h3 id="nome_aeroporto_mais_atraso"></h3>
+          <h4 id="total_aeroporto_mais_atraso"></h4>
+        </div>
+        <div class="card">Aeroporto com mais cancelamento<h3 id="nome_aeroporto_mais_cancelamento"></h3>
+          <h4 id="total_aeroporto_mais_cancelamento"></h4>
+        </div>
+        <div class="card">Pontualidade em % da companhia Aerea<h3 id="pontualidade_companhia"></h3>
+        </div>
       </section>
 
       <section class="charts" style="gap: 1.5rem; margin-top: 2rem;">
@@ -65,4 +80,5 @@
   <script src="../js/sessao.js"></script>
 
 </body>
+
 </html>

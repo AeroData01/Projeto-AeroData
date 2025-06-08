@@ -12,6 +12,10 @@ router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
 
+router.post("/autenticarAdmin", function (req, res) {
+    usuarioController.autenticarAdmin(req, res);
+});
+
 router.post("/listarFuncionario", function (req, res) {
     usuarioController.listarFuncionario(req, res);
 });

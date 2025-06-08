@@ -1,38 +1,33 @@
 var database = require("../database/config");
 
-// HASH DE SENHA
-const crypto = require('crypto');
-
-function gerarHash(senha) {
-    return crypto.createHash('sha256').update(senha).digest('hex');
-}
-
-function autenticar(email, senha) {  // <-- Aqui troquei "senhaHash" por "senha"
-    const senhaHash = gerarHash(senha);  // <-- Você esqueceu de gerar o hash aqui.
-
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha);
-    
+function autenticar(email, senha) { 
     var instrucaoSql = `
         SELECT u.nome, u.cpf, u.email, u.cargo, c.nome_fantasia AS companhia 
         FROM Usuario u
         JOIN Companhia_Aerea c
             ON c.sigla_companhia = u.fk_sigla_companhia
-        WHERE email = '${email}' AND senha = '${senhaHash}';
+        WHERE email = '${email}' AND senha = MD5('${senha}');
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function autenticarAdmin(email, senha) { 
+    var instrucaoSql = `
+        SELECT u.nome, u.cpf, u.email, u.cargo
+        FROM Usuario u
+        WHERE email = '${email}' AND senha = MD5('${senha}') AND cargo = 'admin';
     `;
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
 function cadastrar(nome, cpf, email, telefone, tipoConta, tipoCompanhia, senha) {
-    const senhaHash = gerarHash(senha);
-
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha);
-    
     var instrucaoSql = `
         INSERT INTO Usuario (cpf, nome, cargo, email, senha, telefone, fk_sigla_companhia) VALUES 
-            ('${cpf}', '${nome}', '${tipoConta}', '${email}', '${senhaHash}', '${telefone}', '${tipoCompanhia}');
+            ('${cpf}', '${nome}', '${tipoConta}', '${email}', MD5('${senha}'), '${telefone}', ${tipoCompanhia});
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+
     return database.executar(instrucaoSql);
 }
 
@@ -68,6 +63,7 @@ function atualizarFuncionario(nome, email, cpf) {
 
 module.exports = {
     autenticar,
+    autenticarAdmin,
     cadastrar,
     listarFuncionario,
     excluirFuncionario,
