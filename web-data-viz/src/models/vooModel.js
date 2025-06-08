@@ -122,7 +122,9 @@ function listarMediaAtrasoPorCompanhia(nome_fantasia) {
 function listarKpisGerencial(nome_fantasia) {
     var instrucaoSql = `
     SELECT
-  (SELECT COUNT(*) FROM Voos) AS total_voos,
+  (SELECT COUNT(*) FROM Voos V
+  JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
+   WHERE C.nome_fantasia = '${nome_fantasia}') AS total_voos,
 
   ROUND((
     SELECT COUNT(*) 
@@ -130,7 +132,13 @@ function listarKpisGerencial(nome_fantasia) {
     JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
     WHERE (situacao_partida LIKE 'Atraso%' OR situacao_chegada LIKE 'Atraso%') 
       AND C.nome_fantasia = '${nome_fantasia}'
-  ) * 100.0 / (SELECT COUNT(*) FROM Voos), 2) AS taxa_voos_atrasados_percentual,
+  ) * 100.0 / (
+      SELECT COUNT(*) 
+      FROM Voos V
+      JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
+      WHERE C.nome_fantasia = '${nome_fantasia}'
+    ), 
+    2) AS taxa_voos_atrasados_percentual,
 
   (SELECT COUNT(*) 
    FROM Voos V
@@ -145,7 +153,12 @@ function listarKpisGerencial(nome_fantasia) {
     JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
     WHERE situacao_voo = 'Cancelado' 
       AND C.nome_fantasia = '${nome_fantasia}'
-  ) * 100.0 / (SELECT COUNT(*) FROM Voos), 2) AS taxa_voos_cancelados_percentual,
+  ) * 100.0 / (SELECT COUNT(*) 
+      FROM Voos V
+      JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
+      WHERE C.nome_fantasia = '${nome_fantasia}'
+    ), 
+    2) AS taxa_voos_cancelados_percentual,
 
   (SELECT COUNT(*) 
    FROM Voos V
