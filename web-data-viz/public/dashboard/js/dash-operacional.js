@@ -122,7 +122,7 @@ function gerarGraficoAtrasosPorRota() {
                             label: nome_fantasia,
                             data: atrasos,
                             borderColor: '#FFCC00',
-                            backgroundColor: '#FFCC00'
+                            backgroundColor: '#1e1a8f'
                         }
                     ]
                 },
@@ -169,8 +169,8 @@ function gerarGraficoCancelamentosPorRota() {
                         {
                             label: nome_fantasia,
                             data: cancelamentos,
-                            borderColor: '#FFCC00',
-                            backgroundColor: '#FFCC00',
+                            borderColor: '#c7690c',
+                            backgroundColor: '#c7690c',
                         }
                     ]
                 },
@@ -222,12 +222,12 @@ function gerarGraficoAtrasosPorCompanhia() {
                 {
                     label: 'Atrasos',
                     data: atrasos,
-                    backgroundColor: '#00ADEF'
+                    backgroundColor: '#FFCC00'
                 },
                 {
                     label: 'Cancelamentos',
                     data: cancelamentos,
-                    backgroundColor: '#FFCC00'
+                    backgroundColor: '#a81313'
                 }
             ];
 
