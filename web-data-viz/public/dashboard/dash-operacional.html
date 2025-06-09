@@ -9,6 +9,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 </head>
@@ -21,12 +24,12 @@
         <div class="icon" style="padding-bottom: 15px; padding-left: 3px;">
           <a href="./observacao.html" title="Observações"><i class="fa-solid fa-file-lines"></i></a>
         </div>
-        <div class="icon" style="height: 675px;">
+        <div class="icon" style="height: 800px;">
           <a href="../dashboard/feedback.html" title="Gerenciar feedbacks"><i class="fa-solid fa-face-laugh-beam"></i></a>
         </div>
         <div class="sidebar-bottom">
-          <a onclick="limparSessao()" title="Sair"><i class="fa-solid fa-right-from-bracket"></i></a>
-        </div>
+      <a onclick="limparSessao()" title="Sair" style="cursor: pointer;"><i class="fa-solid fa-right-from-bracket"></i></a>
+    </div>
       </div>
     </aside>
 
@@ -56,20 +59,20 @@
       </section>
 
       <div class="charts-operacional">
-      <section class="charts" style="gap: 1.5rem; margin-top: 2rem;">
+      <section class="charts" >
         <div class="chart-card">
-          <canvas id="donutChart" style="height: 200px !important;"></canvas>
+          <canvas id="donutChart" ></canvas>
         </div>
 
         <div class="chart-card">
-          <canvas id="lineChartAtrasos" width="600" height="500"></canvas>
+          <canvas id="lineChartAtrasos"></canvas>
         </div>
 
-        <div class="chart-card" style="width: 100%;">
-          <canvas id="lineChartCancelamentos" width="600" height="500"></canvas>
+        <div class="chart-card">
+          <canvas id="lineChartCancelamentos"></canvas>
         </div>
 
-        <div class="chart-card wide" style="margin: 0 auto;">
+        <div class="chart-card wide" >
           <canvas id="barChartCompanhias"></canvas>
         </div>
         </section>
