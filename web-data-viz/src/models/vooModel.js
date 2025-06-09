@@ -82,7 +82,7 @@ function listarTotalVoosPorCompanhia() {
 function listarMediaAtrasoPorCompanhia(nome_fantasia) {
     var instrucaoSql = `
    SELECT 
-    YEAR(v.dia_referencia) AS ano,
+    YEAR(V.dia_referencia) AS ano,
     c.sigla_companhia,
     c.nome_fantasia,
     ROUND(AVG(
@@ -102,14 +102,14 @@ function listarMediaAtrasoPorCompanhia(nome_fantasia) {
     ) / 2, 2) AS tempo_medio_atraso_minutos
     FROM Voos v
     JOIN Companhia_Aerea c ON v.fk_companhia = c.sigla_companhia
-    WHERE YEAR(v.dia_referencia) IN (2023, 2024)
+    WHERE YEAR(V.dia_referencia) IN (2023, 2024)
     AND (
         v.situacao_partida LIKE 'Atraso%' 
         OR v.situacao_chegada LIKE 'Atraso%'
     )
     AND c.nome_fantasia = '${nome_fantasia}'
     GROUP BY 
-        YEAR(v.dia_referencia), 
+        YEAR(V.dia_referencia), 
         c.sigla_companhia, 
         c.nome_fantasia
     ORDER BY 
@@ -204,12 +204,12 @@ function listarRotasComMaisAtraso(nome_fantasia) {
   SELECT 
     CONCAT(sigla_aeroporto_partida, '-', sigla_aeroporto_destino) AS rota,
     COUNT(*) AS total_atrasos,
-    YEAR(v.dia_referencia) AS ano
+    YEAR(V.dia_referencia) AS ano
    FROM Voos V
    JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
    WHERE (situacao_partida LIKE 'Atraso%' OR situacao_chegada LIKE 'Atraso%') 
      AND C.nome_fantasia = '${nome_fantasia}'
-   GROUP BY sigla_aeroporto_partida, sigla_aeroporto_destino, YEAR(v.dia_referencia) 
+   GROUP BY sigla_aeroporto_partida, sigla_aeroporto_destino, YEAR(V.dia_referencia) 
    ORDER BY COUNT(*) DESC;`
 
    return database.executar(instrucaoSql);
@@ -220,12 +220,12 @@ function listarRotasComMaisCancelamentos(nome_fantasia) {
   SELECT 
     CONCAT(sigla_aeroporto_partida, '-', sigla_aeroporto_destino) AS rota,
     COUNT(*) AS total_cancelamentos,
-    YEAR(v.dia_referencia) AS ano
+    YEAR(V.dia_referencia) AS ano
    FROM Voos V
    JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
    WHERE situacao_voo = 'CANCELADO' 
      AND C.nome_fantasia = '${nome_fantasia}'
-   GROUP BY sigla_aeroporto_partida, sigla_aeroporto_destino, YEAR(v.dia_referencia)
+   GROUP BY sigla_aeroporto_partida, sigla_aeroporto_destino, YEAR(V.dia_referencia)
    ORDER BY COUNT(*) DESC`
 
    return database.executar(instrucaoSql);
