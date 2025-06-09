@@ -29,7 +29,6 @@ function gerarGraficoAtrasoMedio() {
     // Gráfico 1 – Atraso médio
     fetch("../voos/listarTop3CompanhiasComMaisAtrasos", {
         method: "GET",
-
     }).then(function (resposta) {
         resposta.json().then(json => {
             let companhias = [];
@@ -38,13 +37,13 @@ function gerarGraficoAtrasoMedio() {
                 label: '2023',
                 data: [],
                 backgroundColor: '#1E40AF'
-            }
+            };
 
             let dataset_2024 = {
                 label: '2024',
                 data: [],
                 backgroundColor: '#60A5FA'
-            }
+            };
 
             json.forEach(voo => {
                 if (voo.ano == '2023') dataset_2023.data.push(voo.porcentagem_atrasos);
@@ -65,17 +64,34 @@ function gerarGraficoAtrasoMedio() {
                 options: {
                     responsive: true,
                     plugins: {
-                        title: { display: true, text: 'Top 3 Companhias com Mais Atrasos (%) por Ano' },
-                        legend: { position: 'top' }
+                        title: {
+                            display: true,
+                            text: 'Atrasos por Companhia Aérea',
+                            font: {
+                                size: 19
+                            }
+                        },
+                        legend: {
+                            position: 'top'
+                        }
                     },
                     scales: {
-                        y: { beginAtZero: true, title: { display: true, text: 'Taxa de Atrasos (%)' } }
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Taxa de Atrasos (%)'
+                            }
+                        }
                     }
                 }
             });
-        })
-    })
+        });
+    }).catch(err => {
+        console.error('Erro ao carregar dados de atraso médio:', err);
+    });
 }
+
 
 // Gráfico 2 – Cancelamentos mensais
 function gerarGraficoCancelamentosMensais() {
@@ -83,7 +99,6 @@ function gerarGraficoCancelamentosMensais() {
 
     fetch(`../voos/listarCancelamentosMensais/${nome_fantasia}`, {
         method: "GET",
-
     }).then(function (resposta) {
         resposta.json().then(json => {
             const meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
@@ -91,12 +106,10 @@ function gerarGraficoCancelamentosMensais() {
             let data_2023 = []
             let data_2024 = []
 
-
             for (i = 1; i <= 12; i++) {
                 data_2023.push(0);
                 data_2024.push(0);
             }
-
 
             json.forEach(voo => {
                 if (voo.ano == '2023') data_2023[voo.mes - 1] = voo.total_voos_cancelados;
@@ -106,13 +119,13 @@ function gerarGraficoCancelamentosMensais() {
             let dataset_2023 = {
                 label: '2023',
                 data: data_2023,
-                backgroundColor: '#EF4444'
+                backgroundColor: 'purple'
             }
 
             let dataset_2024 = {
                 label: '2024',
                 data: data_2024,
-                backgroundColor: '#F87171'
+                backgroundColor: 'pink'
             }
 
             new Chart(document.getElementById('chartCancelamentosMensais'), {
@@ -127,56 +140,70 @@ function gerarGraficoCancelamentosMensais() {
                 options: {
                     responsive: true,
                     plugins: {
-                        title: { display: true, text: `Cancelamentos por Mês na ${sessionStorage.COMPANHIA_USUARIO} - 2023 vs 2024` },
-                        legend: { position: 'top' }
+                        title: {
+                            display: true,
+                            text: `Cancelamentos por Mês na ${sessionStorage.COMPANHIA_USUARIO}`,
+                            font: {
+                                size: 19  
+                            }
+                        },
+                        legend: {
+                            position: 'top'
+                        }
                     },
                     scales: {
-                        y: { beginAtZero: true, title: { display: true, text: 'Cancelamentos' } }
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Cancelamentos'
+                            }
+                        }
                     }
                 }
             });
         });
-    })
-
+    });
 }
+
 
 // Gráfico 3 – Atrasos mensais
 function gerarGraficoAtrasosMensais() {
-
     var nome_fantasia = sessionStorage.COMPANHIA_USUARIO;
 
     fetch(`../voos/listarAtrasosMensais/${nome_fantasia}`, {
         method: "GET",
-
     }).then(function (resposta) {
         resposta.json().then(json => {
             const meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
-            let data_2023 = []
-            let data_2024 = []
+            let data_2023 = [];
+            let data_2024 = [];
 
-            for (i = 1; i <= 12; i++) {
+            for (let i = 1; i <= 12; i++) {
                 data_2023.push(0);
                 data_2024.push(0);
             }
 
-
             json.forEach(voo => {
-                if (voo.ano == '2023') data_2023[voo.mes - 1] = voo.total_voos_atrasados;
-                else data_2024[voo.mes - 1] = voo.total_voos_atrasados;
+                if (voo.ano == '2023') {
+                    data_2023[voo.mes - 1] = voo.total_voos_atrasados;
+                } else {
+                    data_2024[voo.mes - 1] = voo.total_voos_atrasados;
+                }
             });
 
             let dataset_2023 = {
                 label: '2023',
                 data: data_2023,
                 backgroundColor: '#F59E0B'
-            }
+            };
 
             let dataset_2024 = {
                 label: '2024',
                 data: data_2024,
                 backgroundColor: '#3B82F6'
-            }
+            };
 
             new Chart(document.getElementById('chartAtrasosMensais'), {
                 type: 'line',
@@ -190,24 +217,42 @@ function gerarGraficoAtrasosMensais() {
                 options: {
                     responsive: true,
                     plugins: {
-                        title: { display: true, text: `Atrasos por Mês na ${sessionStorage.COMPANHIA_USUARIO} - 2023 vs 2024` },
-                        legend: { position: 'top' }
+                        title: {
+                            display: true,
+                            text: `Atrasos por Mês na ${sessionStorage.COMPANHIA_USUARIO}`,
+                            font: {
+                                size: 19,               // tamanho da fonte em pixels
+                                family: 'Arial, sans-serif', // opcional: família de fonte
+                                weight: 'bold'         // opcional: peso da fonte
+                            }
+                        },
+                        legend: {
+                            position: 'top'
+                        }
                     },
                     scales: {
-                        y: { beginAtZero: true, title: { display: true, text: 'Atrasos' } }
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Atrasos'
+                            }
+                        }
                     }
                 }
             });
-        })
-    })
+        });
+    }).catch(err => {
+        console.error('Erro ao carregar dados de atrasos mensais:', err);
+    });
 }
+
 
 // Gráfico 4 – Rosca
 function gerarGraficoDistribuicaoCompanhias() {
 
     fetch(`../voos/listarTotalVoosPorCompanhia`, {
         method: "GET",
-
     }).then(function (resposta) {
         resposta.json().then(json => {
             let companhias = [];
@@ -216,26 +261,38 @@ function gerarGraficoDistribuicaoCompanhias() {
                 companhias.push(voo.companhia);
                 totalVoos.push(voo.total_voos);
             });
+
             new Chart(document.getElementById('chartDistribuicaoCompanhias'), {
                 type: 'doughnut',
                 data: {
                     labels: companhias,
                     datasets: [{
                         data: totalVoos,
-                        backgroundColor: ['#3B82F6', '#EF4444', '#10B981']
+                        backgroundColor: ['#050652', '#eb741a', '#e31919']
                     }]
                 },
                 options: {
                     responsive: true,
                     plugins: {
-                        title: { display: true, text: 'Participação no Mercado – SP-RJ' },
-                        legend: { position: 'bottom' }
+                        title: {
+                            display: true,
+                            text: 'Quantidade de Voos por Companhia Aérea 2023/2024',
+                            font: {
+                                size: 19
+                            }
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
                     }
                 }
             });
-        })
-    })
+        });
+    }).catch(err => {
+        console.error('Erro ao carregar dados de distribuição de companhias:', err);
+    });
 }
+
 
 function gerarGraficoComparativoDeVoos() {
     // Gráfico 5 – Comparativo de voos

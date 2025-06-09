@@ -178,11 +178,11 @@ function voltar() {
     console.log("Empresa do usuário: ", empresa);
 
     if (cargo === "gerencial") {
-        window.location.href = "../dash-gerencial.html";
+        window.location.href = "./dash-gerencial.html";
     }  else if (cargo === "operacional") {
-        window.location.href = "../dash-operacional.html";
+        window.location.href = "./dash-operacional.html";
     } else  {
-        window.location.href = "../dash-admin.html";
+        window.location.href = "./dash-admin.html";
     }
 
 }

@@ -25,7 +25,7 @@ function autenticarAdmin(email, senha) {
 function cadastrar(nome, cpf, email, telefone, tipoConta, tipoCompanhia, senha) {
     var instrucaoSql = `
         INSERT INTO Usuario (cpf, nome, cargo, email, senha, telefone, fk_sigla_companhia) VALUES 
-            ('${cpf}', '${nome}', '${tipoConta}', '${email}', MD5('${senha}'), '${telefone}', ${tipoCompanhia});
+            ('${cpf}', '${nome}', '${tipoConta}', '${email}', MD5('${senha}'), '${telefone}', '${tipoCompanhia}');
     `;
 
     return database.executar(instrucaoSql);

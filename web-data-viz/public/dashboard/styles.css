@@ -119,7 +119,7 @@ body {
 /* Grelha de gráficos */
 .charts {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
   gap: 2rem;
   margin-bottom: 3rem;
 }
@@ -317,7 +317,7 @@ body {
 /* -------------- HOME ------------------- */
 
 .container-conteudo {
-    width: 100%;
+    width: 1400px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -893,8 +893,8 @@ body {
     justify-content: center;
     gap: 20px;
     align-items: center;
-    background-color: #F8FFFB;
-    color: #0e1b47;
+    background-color: #0e1b47;
+    color: #ffffff;
     border: none;
     width: 50%;
     padding: 15px;
