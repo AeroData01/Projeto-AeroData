@@ -118,9 +118,7 @@ function gerarGraficoTempoMedio() {
     .catch(err => console.error('Erro ao gerar gráfico:', err));
 }
 
-
 function gerarGraficoAtrasosPorRota() {
-    // Atrasos por Rota
     var nome_fantasia = sessionStorage.COMPANHIA_USUARIO;
     fetch(`../voos/listarRotasComMaisAtraso/${nome_fantasia}`, {
         method: "GET"
@@ -129,18 +127,18 @@ function gerarGraficoAtrasosPorRota() {
             var rotas = json.map(j => `${j.rota} - ${j.ano}`);
             var atrasos = json.map(j => j.total_atrasos);
 
+            Chart.register(ChartDataLabels);
+
             new Chart(document.getElementById('donutChart'), {
                 type: 'bar',
                 data: {
                     labels: rotas,
-                    datasets: [
-                        {
-                            label: nome_fantasia,
-                            data: atrasos,
-                            borderColor: '#FFCC00',
-                            backgroundColor: '#1e1a8f'
-                        }
-                    ]
+                    datasets: [{
+                        label: nome_fantasia,
+                        data: atrasos,
+                        borderColor: '#FFCC00',
+                        backgroundColor: '#add8e6'
+                    }]
                 },
                 options: {
                     responsive: false,
@@ -160,16 +158,21 @@ function gerarGraficoAtrasosPorRota() {
                         legend: {
                             position: 'bottom',
                             onClick: Chart.defaults.plugins.legend.onClick
+                        },
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'right',
+                            color: 'black',
+                            formatter: v => v
                         }
                     }
                 }
-            })
-        })
-    })
+            });
+        });
+    });
 }
 
 function gerarGraficoCancelamentosPorRota() {
-    // Cancelamentos por Rota
     var nome_fantasia = sessionStorage.COMPANHIA_USUARIO;
     fetch(`../voos/listarRotasComMaisCancelamentos/${nome_fantasia}`, {
         method: "GET"
@@ -177,39 +180,44 @@ function gerarGraficoCancelamentosPorRota() {
         response.json().then(json => {
             var rotas = json.map(j => `${j.rota} - ${j.ano}`);
             var cancelamentos = json.map(j => j.total_cancelamentos);
+
+            Chart.register(ChartDataLabels);
+
             new Chart(document.getElementById('lineChartCancelamentos'), {
                 type: 'bar',
                 data: {
                     labels: rotas,
-                    datasets: [
-                        {
-                            label: nome_fantasia,
-                            data: cancelamentos,
-                            borderColor: '#c7690c',
-                            backgroundColor: '#c7690c',
-                        }
-                    ]
+                    datasets: [{
+                        label: nome_fantasia,
+                        data: cancelamentos,
+                        borderColor: '#c7690c',
+                        backgroundColor: '#3678c7'
+                    }]
                 },
                 options: {
                     indexAxis: 'y',
                     responsive: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Cancelamentos por Rota - 2023/2024',
-                            font: {
-                                size: 19
-                            }
-                        },
-                        legend: {
-                            position: 'bottom',
-                            onClick: Chart.defaults.plugins.legend.onClick
-                        }
-                    },
                     scales: {
                         x: {
                             beginAtZero: true,
                             max: Math.max(...cancelamentos) + 10
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Cancelamentos por Rota - 2023/2024',
+                            font: { size: 19 }
+                        },
+                        legend: {
+                            position: 'bottom',
+                            onClick: Chart.defaults.plugins.legend.onClick
+                        },
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'right',
+                            color: 'black',
+                            formatter: v => v
                         }
                     }
                 }
@@ -221,9 +229,8 @@ function gerarGraficoCancelamentosPorRota() {
 }
 
 
+
 function gerarGraficoAtrasosPorCompanhia() {
-    // Atrasos por Companhia
-    // Cancelamentos por Rota
     var nome_fantasia = sessionStorage.COMPANHIA_USUARIO;
     fetch(`../voos/listarAeroportosComMaisAtrasosECancelamentos/${nome_fantasia}`, {
         method: "GET"
@@ -238,14 +245,16 @@ function gerarGraficoAtrasosPorCompanhia() {
                 {
                     label: 'Atrasos',
                     data: atrasos,
-                    backgroundColor: '#FFCC00'
+                    backgroundColor: '#49668a'
                 },
                 {
                     label: 'Cancelamentos',
                     data: cancelamentos,
-                    backgroundColor: '#a81313'
+                    backgroundColor: '#1179fa'
                 }
             ];
+
+            Chart.register(ChartDataLabels);
 
             new Chart(document.getElementById('barChartCompanhias'), {
                 type: 'bar',
@@ -257,13 +266,23 @@ function gerarGraficoAtrasosPorCompanhia() {
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Aeroportos com Mais Cancelamentos e Atrasos - 2023/2024  ',
+                            text: 'Aeroportos com Mais Cancelamentos e Atrasos - 2023/2024',
                             font: { size: 19 }
                         },
-                        legend: { display: false }
+                        legend: {
+                            position: 'top'
+                        },
+                        datalabels: {
+                            anchor: 'end',
+                            align: 'top',
+                            color: 'black',
+                            formatter: v => v
+                        }
                     }
                 }
-            })
-        })
+            });
+        });
     });
 }
+
+   
