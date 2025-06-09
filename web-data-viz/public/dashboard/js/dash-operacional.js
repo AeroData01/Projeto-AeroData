@@ -7,30 +7,49 @@ window.onload = function () {
 }
 
 function carregarKpis() {
-    var nome_fantasia = sessionStorage.COMPANHIA_USUARIO;
-    fetch(`../voos/listarKpisOperacional/${nome_fantasia}`, {
-        method: "GET",
-    }).then(response => {
-        response.json().then(json => {
-            var maior_cancelamento_aeroporto = json[0];
-            var maior_atraso_aeroporto = json[1];
-            var maior_atraso_rota = json[2];
-            var maior_cancelamento_rota = json[3];
-            var eficiencia_companhia = json[4];
+  // 1) Pega o nome da companhia de forma segura
+  const nomeFantasia = sessionStorage.getItem('COMPANHIA_USUARIO');
+  if (!nomeFantasia) {
+    console.error('COMPANHIA_USUARIO não definido em sessionStorage');
+    return;
+  }
 
-            document.getElementById("nome_rota_mais_atraso").innerHTML = maior_atraso_rota.nome;
-            document.getElementById("total_rota_mais_atraso").innerHTML = maior_atraso_rota.total;
-            document.getElementById("nome_rota_mais_cancelamento").innerHTML = maior_cancelamento_rota.nome;
-            document.getElementById("total_rota_mais_cancelamento").innerHTML = maior_cancelamento_rota.total;
-            document.getElementById("nome_aeroporto_mais_atraso").innerHTML = maior_atraso_aeroporto.nome;
-            document.getElementById("total_aeroporto_mais_atraso").innerHTML = maior_atraso_aeroporto.total;
-            document.getElementById("nome_aeroporto_mais_cancelamento").innerHTML = maior_cancelamento_aeroporto.nome;
-            document.getElementById("total_aeroporto_mais_cancelamento").innerHTML = maior_cancelamento_aeroporto.total;
-            document.getElementById("pontualidade_companhia").innerHTML = eficiencia_companhia.nome;
+  // 2) Monta a URL absoluta para não depender de ../ ou do local do arquivo
+  const url = `${window.location.origin}/voos/listarKpisOperacional/${nomeFantasia}`;
+  console.log('Fetch operacional →', url);
 
-        })
+  // 3) Faz o fetch com tratamento de status
+  fetch(url, { method: 'GET' })
+    .then(res => {
+      if (!res.ok) throw new Error(`Erro na requisição (${res.status})`);
+      return res.json();
     })
+    .then(json => {
+      // 4) Desestrutura o array de KPIs
+      const [
+        maior_cancelamento_aeroporto,
+        maior_atraso_aeroporto,
+        maior_atraso_rota,
+        maior_cancelamento_rota,
+        eficiencia_companhia
+      ] = json;
+
+      // 5) Popula os elementos da página
+      document.getElementById('nome_rota_mais_atraso').textContent           = maior_atraso_rota.nome;
+      document.getElementById('total_rota_mais_atraso').textContent          = maior_atraso_rota.total;
+      document.getElementById('nome_rota_mais_cancelamento').textContent     = maior_cancelamento_rota.nome;
+      document.getElementById('total_rota_mais_cancelamento').textContent    = maior_cancelamento_rota.total;
+      document.getElementById('nome_aeroporto_mais_atraso').textContent      = maior_atraso_aeroporto.nome;
+      document.getElementById('total_aeroporto_mais_atraso').textContent     = maior_atraso_aeroporto.total;
+      document.getElementById('nome_aeroporto_mais_cancelamento').textContent = maior_cancelamento_aeroporto.nome;
+      document.getElementById('total_aeroporto_mais_cancelamento').textContent= maior_cancelamento_aeroporto.total;
+      document.getElementById('pontualidade_companhia').textContent          = eficiencia_companhia.nome;
+    })
+    .catch(err => {
+      console.error('Falha ao carregar KPIs operacionais:', err);
+    });
 }
+
 
 function gerarGraficoTempoMedio() {
   // 1) pega valor de sessionStorage de forma segura
