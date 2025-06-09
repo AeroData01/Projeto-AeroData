@@ -87,25 +87,25 @@ function listarMediaAtrasoPorCompanhia(nome_fantasia) {
     c.nome_fantasia,
     ROUND(AVG(
         COALESCE(CASE 
-            WHEN v.situacao_partida LIKE 'Atraso <15%' THEN 10
-            WHEN v.situacao_partida LIKE 'Atraso 15-30%' THEN 22.5
-            WHEN v.situacao_partida LIKE 'Atraso 30-60%' THEN 45
-            WHEN v.situacao_partida LIKE 'Atraso >60%' THEN 75
+            WHEN V.situacao_partida LIKE 'Atraso <15%' THEN 10
+            WHEN V.situacao_partida LIKE 'Atraso 15-30%' THEN 22.5
+            WHEN V.situacao_partida LIKE 'Atraso 30-60%' THEN 45
+            WHEN V.situacao_partida LIKE 'Atraso >60%' THEN 75
         END, 0)
         +
         COALESCE(CASE 
-            WHEN v.situacao_chegada LIKE 'Atraso <15%' THEN 10
-            WHEN v.situacao_chegada LIKE 'Atraso 15-30%' THEN 22.5
-            WHEN v.situacao_chegada LIKE 'Atraso 30-60%' THEN 45
-            WHEN v.situacao_chegada LIKE 'Atraso >60%' THEN 75
+            WHEN V.situacao_chegada LIKE 'Atraso <15%' THEN 10
+            WHEN V.situacao_chegada LIKE 'Atraso 15-30%' THEN 22.5
+            WHEN V.situacao_chegada LIKE 'Atraso 30-60%' THEN 45
+            WHEN V.situacao_chegada LIKE 'Atraso >60%' THEN 75
         END, 0)
     ) / 2, 2) AS tempo_medio_atraso_minutos
     FROM Voos V
-    JOIN Companhia_Aerea c ON v.fk_companhia = c.sigla_companhia
+    JOIN Companhia_Aerea c ON V.fk_companhia = c.sigla_companhia
     WHERE YEAR(V.dia_referencia) IN (2023, 2024)
     AND (
-        v.situacao_partida LIKE 'Atraso%' 
-        OR v.situacao_chegada LIKE 'Atraso%'
+        V.situacao_partida LIKE 'Atraso%' 
+        OR V.situacao_chegada LIKE 'Atraso%'
     )
     AND c.nome_fantasia = '${nome_fantasia}'
     GROUP BY 
