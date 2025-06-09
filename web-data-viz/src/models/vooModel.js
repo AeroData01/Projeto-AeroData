@@ -100,7 +100,7 @@ function listarMediaAtrasoPorCompanhia(nome_fantasia) {
             WHEN v.situacao_chegada LIKE 'Atraso >60%' THEN 75
         END, 0)
     ) / 2, 2) AS tempo_medio_atraso_minutos
-    FROM Voos v
+    FROM Voos V
     JOIN Companhia_Aerea c ON v.fk_companhia = c.sigla_companhia
     WHERE YEAR(V.dia_referencia) IN (2023, 2024)
     AND (
