@@ -79,7 +79,7 @@ CONSTRAINT fk_ObsUsuario
 		REFERENCES Usuario(cpf)
 );
 
-CREATE TABLE feedback (
+CREATE TABLE Feedback (
 id_feedback INT PRIMARY KEY AUTO_INCREMENT,
 nota int,
 informacao varchar(255),
