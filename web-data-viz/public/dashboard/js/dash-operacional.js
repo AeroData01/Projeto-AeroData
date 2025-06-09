@@ -8,7 +8,7 @@ window.onload = function () {
 
 function carregarKpis() {
     var nome_fantasia = sessionStorage.COMPANHIA_USUARIO;
-    fetch(`/voos/listarKpisOperacional/${nome_fantasia}`, {
+    fetch(`../voos/listarKpisOperacional/${nome_fantasia}`, {
         method: "GET",
     }).then(response => {
         response.json().then(json => {
@@ -41,7 +41,7 @@ function gerarGraficoTempoMedio() {
   }
 
   // 2) faz fetch e trata erros
-  fetch(`/voos/listarMediaAtrasoPorCompanhia/${nomeFantasia}`, {
+  fetch(`../voos/listarMediaAtrasoPorCompanhia/${nomeFantasia}`, {
     method: 'GET'
   })
     .then(res => {
@@ -103,7 +103,7 @@ function gerarGraficoTempoMedio() {
 function gerarGraficoAtrasosPorRota() {
     // Atrasos por Rota
     var nome_fantasia = sessionStorage.COMPANHIA_USUARIO;
-    fetch(`/voos/listarRotasComMaisAtraso/${nome_fantasia}`, {
+    fetch(`../voos/listarRotasComMaisAtraso/${nome_fantasia}`, {
         method: "GET"
     }).then(response => {
         response.json().then(json => {
@@ -152,7 +152,7 @@ function gerarGraficoAtrasosPorRota() {
 function gerarGraficoCancelamentosPorRota() {
     // Cancelamentos por Rota
     var nome_fantasia = sessionStorage.COMPANHIA_USUARIO;
-    fetch(`/voos/listarRotasComMaisCancelamentos/${nome_fantasia}`, {
+    fetch(`../voos/listarRotasComMaisCancelamentos/${nome_fantasia}`, {
         method: "GET"
     }).then(response => {
         response.json().then(json => {
@@ -206,7 +206,7 @@ function gerarGraficoAtrasosPorCompanhia() {
     // Atrasos por Companhia
     // Cancelamentos por Rota
     var nome_fantasia = sessionStorage.COMPANHIA_USUARIO;
-    fetch(`/voos/listarAeroportosComMaisAtrasosECancelamentos/${nome_fantasia}`, {
+    fetch(`../voos/listarAeroportosComMaisAtrasosECancelamentos/${nome_fantasia}`, {
         method: "GET"
     }).then(response => {
         response.json().then(json => {
