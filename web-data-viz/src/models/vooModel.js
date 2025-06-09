@@ -1,7 +1,8 @@
 var database = require("../database/config");
 
+
 function listarTop3CompanhiasComMaisAtrasos() {
-    var instrucaoSql = 
+    var instrucaoSql = `
     SELECT 
     C.nome_fantasia AS companhia,
     YEAR(V.dia_referencia) AS ano,
@@ -28,13 +29,14 @@ function listarTop3CompanhiasComMaisAtrasos() {
         WHERE YEAR(V.dia_referencia) IN (2023, 2024)
         GROUP BY C.nome_fantasia, YEAR(V.dia_referencia)
         HAVING total_voos > 0
-        ORDER BY companhia, ano;;
+        ORDER BY companhia, ano;`;
 
     return database.executar(instrucaoSql);
 }
 
+
 function listarCancelamentosMensais(nome_fantasia) {
-    var instrucaoSql = 
+    var instrucaoSql = `
     SELECT 
     C.nome_fantasia AS companhia,
     YEAR(V.dia_referencia) AS ano,
@@ -43,14 +45,16 @@ function listarCancelamentosMensais(nome_fantasia) {
     FROM Voos V
     JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
     WHERE V.situacao_voo = 'CANCELADO' AND C.nome_fantasia = '${nome_fantasia}'
+
     GROUP BY C.nome_fantasia, YEAR(V.dia_referencia), MONTH(V.dia_referencia)
-    ORDER BY ano, mes, companhia;;
+    ORDER BY ano, mes, companhia;`;
 
     return database.executar(instrucaoSql);
 }
 
+
 function listarAtrasosMensais(nome_fantasia) {
-    var instrucaoSql = 
+    var instrucaoSql = `
     SELECT 
     C.nome_fantasia AS companhia,
     YEAR(V.dia_referencia) AS ano,
@@ -61,28 +65,30 @@ function listarAtrasosMensais(nome_fantasia) {
     WHERE V.situacao_partida LIKE 'Atraso%' AND C.nome_fantasia = '${nome_fantasia}' 
     OR V.situacao_chegada LIKE 'Atraso%'
     GROUP BY C.nome_fantasia, YEAR(V.dia_referencia), MONTH(V.dia_referencia)
-    ORDER BY ano, mes, companhia;;
+    ORDER BY ano, mes, companhia;`;
 
     return database.executar(instrucaoSql);
 }
 
+
 function listarTotalVoosPorCompanhia() {
-    var instrucaoSql = 
+    var instrucaoSql = `
     SELECT 
     C.nome_fantasia AS companhia,
     COUNT(*) AS total_voos
     FROM Voos V
     JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
     GROUP BY C.nome_fantasia
-    ORDER BY total_voos DESC;;
+    ORDER BY total_voos DESC;`;
 
     return database.executar(instrucaoSql);
 }
 
+
 function listarMediaAtrasoPorCompanhia(nome_fantasia) {
-    var instrucaoSql = 
+    var instrucaoSql = `
    SELECT 
-    YEAR(v.dia_referencia) AS ano,
+    YEAR(V.dia_referencia) AS ano,
     c.sigla_companhia,
     c.nome_fantasia,
     ROUND(AVG(
@@ -102,25 +108,25 @@ function listarMediaAtrasoPorCompanhia(nome_fantasia) {
     ) / 2, 2) AS tempo_medio_atraso_minutos
     FROM Voos v
     JOIN Companhia_Aerea c ON v.fk_companhia = c.sigla_companhia
-    WHERE YEAR(v.dia_referencia) IN (2023, 2024)
+    WHERE YEAR(V.dia_referencia) IN (2023, 2024)
     AND (
         v.situacao_partida LIKE 'Atraso%' 
         OR v.situacao_chegada LIKE 'Atraso%'
     )
     AND c.nome_fantasia = '${nome_fantasia}'
     GROUP BY 
-        YEAR(v.dia_referencia), 
+        YEAR(V.dia_referencia), 
         c.sigla_companhia, 
         c.nome_fantasia
     ORDER BY 
     ano,
-    tempo_medio_atraso_minutos DESC;;
+    tempo_medio_atraso_minutos DESC;`;
 
     return database.executar(instrucaoSql);
 }
 
 function listarKpisGerencial(nome_fantasia) {
-    var instrucaoSql = 
+    var instrucaoSql = `
     SELECT
   (SELECT COUNT(*) FROM Voos V
   JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
@@ -152,6 +158,7 @@ function listarKpisGerencial(nome_fantasia) {
     FROM Voos V
     JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
     WHERE situacao_voo = 'Cancelado' 
+
       AND C.nome_fantasia = '${nome_fantasia}'
   ) * 100.0 / (SELECT COUNT(*) 
       FROM Voos V
@@ -193,46 +200,46 @@ function listarKpisGerencial(nome_fantasia) {
        LIMIT 1
      )
   ) AS total_atrasos_na_rota_mais_atrasada;
-;
+`;
 
 
     return database.executar(instrucaoSql);
 }
 
 function listarRotasComMaisAtraso(nome_fantasia) {
-  var instrucaoSql = 
+  var instrucaoSql = `
   SELECT 
     CONCAT(sigla_aeroporto_partida, '-', sigla_aeroporto_destino) AS rota,
     COUNT(*) AS total_atrasos,
-    YEAR(v.dia_referencia) AS ano
+    YEAR(V.dia_referencia) AS ano
    FROM Voos V
    JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
    WHERE (situacao_partida LIKE 'Atraso%' OR situacao_chegada LIKE 'Atraso%') 
      AND C.nome_fantasia = '${nome_fantasia}'
-   GROUP BY sigla_aeroporto_partida, sigla_aeroporto_destino, YEAR(v.dia_referencia) 
-   ORDER BY COUNT(*) DESC;
+   GROUP BY sigla_aeroporto_partida, sigla_aeroporto_destino, YEAR(V.dia_referencia) 
+   ORDER BY COUNT(*) DESC;`
 
    return database.executar(instrucaoSql);
 }
 
 function listarRotasComMaisCancelamentos(nome_fantasia) {
-  var instrucaoSql = 
+  var instrucaoSql = `
   SELECT 
     CONCAT(sigla_aeroporto_partida, '-', sigla_aeroporto_destino) AS rota,
     COUNT(*) AS total_cancelamentos,
-    YEAR(v.dia_referencia) AS ano
+    YEAR(V.dia_referencia) AS ano
    FROM Voos V
    JOIN Companhia_Aerea C ON V.fk_companhia = C.sigla_companhia
    WHERE situacao_voo = 'CANCELADO' 
      AND C.nome_fantasia = '${nome_fantasia}'
-   GROUP BY sigla_aeroporto_partida, sigla_aeroporto_destino, YEAR(v.dia_referencia)
-   ORDER BY COUNT(*) DESC
+   GROUP BY sigla_aeroporto_partida, sigla_aeroporto_destino, YEAR(V.dia_referencia)
+   ORDER BY COUNT(*) DESC`
 
    return database.executar(instrucaoSql);
 }
 
 function listarAeroportosComMaisAtrasosECancelamentos(nome_fantasia) {
-  var instrucaoSql = 
+  var instrucaoSql = `
   SELECT 
   aeroporto,
   SUM(total_atrasos) AS total_atrasos,
@@ -263,13 +270,13 @@ function listarAeroportosComMaisAtrasosECancelamentos(nome_fantasia) {
   WHERE C.nome_fantasia = '${nome_fantasia}'
   ) AS rotas
   GROUP BY aeroporto
-  ORDER BY (SUM(total_atrasos) + SUM(total_cancelamentos)) DESC;;
+  ORDER BY (SUM(total_atrasos) + SUM(total_cancelamentos)) DESC;`;
 
    return database.executar(instrucaoSql);
 }
 
 function listarKpisOperacional(nome_fantasia) {
-  var instrucaoSql = 
+  var instrucaoSql = `
   WITH 
   voos_companhia AS (
     SELECT 
@@ -363,7 +370,7 @@ function listarKpisOperacional(nome_fantasia) {
   SELECT * FROM cancelamentos_rota
   UNION ALL
   SELECT * FROM eficiencia;
-  ;
+  `;
 
   return database.executar(instrucaoSql);
 }
