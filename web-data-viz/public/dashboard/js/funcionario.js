@@ -66,13 +66,13 @@ function cadastrarFuncionario() {
 
     switch (sessionStorage.COMPANHIA_USUARIO) {
         case "Azul":
-            tipoCompanhiaVar = "AZU";
+            tipoCompanhiaVar = "'AZU'";
             break;
         case "GOL":
-            tipoCompanhiaVar = "GLO";
+            tipoCompanhiaVar = "'GLO'";
             break;
         case "LATAM":
-            tipoCompanhiaVar = "TAM";
+            tipoCompanhiaVar = "'TAM'";
             break;
         default:
             tipoCompanhiaVar = null;
@@ -203,13 +203,13 @@ function listarFuncionario() {
 
     switch (sessionStorage.COMPANHIA_USUARIO) {
         case "Azul":
-            tipoCompanhia = "AZU";
+            tipoCompanhia = "'AZU'";
             break;
         case "GOL":
-            tipoCompanhia = "GLO";
+            tipoCompanhia = "'GLO'";
             break;
         case "LATAM":
-            tipoCompanhia = "TAM";
+            tipoCompanhia = "'TAM'";
             break;
         default:
             tipoCompanhia = null;
