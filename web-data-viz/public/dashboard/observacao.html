@@ -7,12 +7,15 @@
   <title>Observações - Operacional</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body onload="listarObservacao()">
   <aside class="sidebar">
     <div class="sidebar-top">
-      <a href="../dashboard/dash-operacional.html" title="Voltar"><img src="../assets/icon/icone-saindo.png" width="30px" height="30px"></a>
+      <a onclick="voltar()" title="Voltar"><i class="fa-solid fa-circle-arrow-left"></i></a>
     </div>
   </aside>
 
@@ -30,17 +33,17 @@
         </span>
       </div>
 
-
+      <div>
         <div class="div-linha-novo-funcionario">
-          <label for="inputNovaData">Data Atual</label>
+          <label for="inputNovaData"><b>Data Atual</b></label>
           <input type="date" id="inputNovaData" placeholder="Insira o data atual">
         </div>
 
         <div class="div-linha-novo-funcionario">
-          <label for="inputNovaDescricao">Descrição</label>
+          <label for="inputNovaDescricao"><b>Descrição</b></label>
           <input type="text" id="inputNovaDescricao" placeholder="Descreva o que aconteceu">
         </div>
-
+      </div>
 
         <div id="divMensagem"></div>
 

@@ -7,12 +7,15 @@
   <title>Feedback</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body onload="listarObservacao()">
   <aside class="sidebar">
     <div class="sidebar-top">
-      <a onclick="voltar()" title="Voltar"><img src="../assets/icon/icone-saindo.png" width="30px" height="30px"></a>
+      <a onclick="voltar()" title="Voltar"><i class="fa-solid fa-circle-arrow-left"></i></a>
     </div>
   </aside>
 
@@ -20,7 +23,6 @@
     <div class="conteudo-novo-funcionario">
 
       <div class="modal-header">
-        <h1>Insira as informações do feedback</h1>
         <span onclick="fecharModal()">
           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-lg"
             viewBox="0 0 16 16">
@@ -28,19 +30,20 @@
               d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z" />
           </svg>
         </span>
+        <h1>Insira as informações do feedback</h1>
       </div>
 
-
+      <div >
         <div class="div-linha-novo-funcionario">
-          <label for="inputNovaNota">Nota</label>
+          <label for="inputNovaNota"><b>Nota</b></label>
           <input type="number" max="10" min="0" id="inputNovaNota" placeholder="Insira a nota do feedback">
         </div>
 
         <div class="div-linha-novo-funcionario">
-          <label for="inputNovaInformacao">Informação</label>
+          <label for="inputNovaInformacao"><b>Informação</b></label>
           <input type="text" id="inputNovaInformacao" placeholder="Dê uma descrição pra sua nota">
         </div>
-
+      </div>
 
         <div id="divMensagem"></div>
 

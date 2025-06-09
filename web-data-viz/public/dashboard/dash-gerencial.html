@@ -6,22 +6,22 @@
   <title>Dashboard Gerencial Completo</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body onload="validarSessao()">
   <aside class="sidebar">
-    <div class="sidebar-top">
-      <a href="#" title="Alerta">🔔</a>
-    </div>
     <div class="icon">
-      <a href="../dashboard/funcionario.html" title="Adicionar funcionário"><img src="../assets/icon/icone-add-funcionario.png" width="30px" height="30px"></a>
+      <a href="../dashboard/funcionario.html" title="Adicionar funcionário"><i class="fa-solid fa-user-plus"></i></a>
     </div>
-    <div class="icon">
-      <a href="../dashboard/feedback.html" title="Gerenciar feedbacks"><img src="../assets/icon/bater-papo.png" width="30px" height="30px"></a>
+    <div class="icon" style="height: 675px;">
+      <a href="../dashboard/feedback.html" title="Gerenciar feedbacks"><i class="fa-solid fa-face-laugh-beam"></i></a>
     </div>
     <div class="sidebar-bottom">
-      <a onclick="limparSessao()" title="Sair">⏻</a>
+      <a onclick="limparSessao()" title="Sair"><i class="fa-solid fa-right-from-bracket"></i></a>
     </div>
   </aside>
 

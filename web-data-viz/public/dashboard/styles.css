@@ -28,7 +28,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 0;
+  padding: 2rem 0;
 }
 
 .sidebar a {
@@ -67,7 +67,7 @@ body {
 
 /* Cards de estatísticas (KPIs) */
 .stats {
-  display: grid;
+  display: flex;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
   margin-bottom: 2rem;
@@ -84,6 +84,7 @@ body {
   flex-direction: column;
   justify-content: center;
   height: 140px;
+  width: 100%;
 }
 
 .card:hover {
@@ -132,7 +133,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 320px;
+  height: 350;
 }
 
 /* Gráficos em canvas */
@@ -324,14 +325,17 @@ body {
 
 .div-conteudo {
     gap: 50px;
-    background-color: #D7EEC8;
-    border-radius: 10px;
+    background-color: rgb(212, 212, 212);
+    border-radius: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 50px;
+    padding: 20px;
     width: 80%;
+    height: fit-content;
+    min-height: 50%;
     margin-bottom: 50px;
+    margin-top: 100px;
 }
 
 .div-img {
@@ -691,11 +695,9 @@ body {
     width: 450px;
     display: flex;
     flex-direction: column;
-    color: #22603A;
 }
 
 .div-texto h1 {
-    color: #1D4D2F;
     font-size: 56px;
     font-weight: bolder;
     margin: 20px 0px 0px 0px;
@@ -708,18 +710,15 @@ body {
 
 .div-texto .link {
     font-weight: 600;
-    color: #22603A;
 }
 
 ::placeholder {
-    color: #22603A;
     font-family: "Poppins", sans-serif;
 }
 
 .btn-cadastro {
     cursor: pointer;
     border: none;
-    background-color: #22603A;
     font-size: 18px;
     font-family: "Poppins", sans-serif;
     color: white;
@@ -732,10 +731,8 @@ body {
 .btn-anterior {
     cursor: pointer;
     border: none;
-    background-color: #b6e399;
     font-size: 18px;
     font-family: "Poppins", sans-serif;
-    color: #22603A;
     width: 160px;
     height: 40px;
     border-radius: 20px;
@@ -744,13 +741,11 @@ body {
 
 .btn-cadastro:hover {
     background-color: white;
-    color: #22603A;
     transition: 0.4s;
 }
 
 .btn-anterior:hover {
     background-color: white;
-    color: #22603A;
     transition: 0.4s;
 }
 
@@ -928,13 +923,13 @@ body {
 .conteudo-novo-funcionario {
     display: flex;
     flex-direction: column;
-    width: 60%;
-    height: 70%;
+    width: fit-content;
+    height: fit-content;
     align-items: center;
     justify-content: center;
     background-color: white;
     border-radius: 10px;
-    padding: 10px;
+    padding: 20px;
 }
 
 .botao-fechar-funcionario {
@@ -1091,4 +1086,48 @@ body {
     gap: 10px;
     align-items: center;
     justify-content: center;
+}
+
+#inputNovaNota {
+    background-color: #F8FFFB;
+    padding: 8px 10px;
+    border: none;
+    width: 90%;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#inputNovaInformacao {
+    background-color: #F8FFFB;
+    padding: 8px 10px;
+    border: none;
+    width: 90%;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+}
+
+#inputNovaData {
+    background-color: #F8FFFB;
+    padding: 8px 10px;
+    border: none;
+    width: 90%;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+#inputNovaDescricao {
+    background-color: #F8FFFB;
+    padding: 8px 10px;
+    border: none;
+    width: 90%;
+    font-weight: bold;
+    font-size: 16px;
 }

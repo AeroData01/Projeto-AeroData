@@ -68,7 +68,7 @@ function gerarGraficoTempoMedio() {
                         legend: { display: false },
                         title: {
                             display: true,
-                            text: 'Tempo Médio de Atrasos 2023/24',
+                            text: 'Tempo Médio de Atrasos - 2023/24',
                             font: { size: 18, weight: 'bold' }
                         }
                     },
@@ -119,7 +119,7 @@ function gerarGraficoAtrasosPorRota() {
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Total de atrasos por Rota(2023/2024)',
+                            text: 'Total de atrasos por Rota - 2023/2024',
                             font: { size: 18, weight: 'bold' }
                         },
                         legend: {

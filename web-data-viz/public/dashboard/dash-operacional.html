@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard SP e RJ - Operações</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -16,17 +17,15 @@
   <div class="dashboard">
     <aside class="sidebar">
       <div class="sidebar-top">
-        <div class="icon" title="Sair">
-          <a onclick="limparSessao()">⏻</a>
-        </div>
         <br>
-        <div class="icon">
-          <a href="./observacao.html" title="Observações"><img src="../assets/icon/icone-bloco-de-anotacoes2.png"
-              width="30px" height="30px"></a>
+        <div class="icon" style="padding-bottom: 15px; padding-left: 3px;">
+          <a href="./observacao.html" title="Observações"><i class="fa-solid fa-file-lines"></i></a>
         </div>
-        <div class="icon">
-          <a href="../dashboard/feedback.html" title="Gerenciar feedbacks"><img src="../assets/icon/bater-papo.png"
-              width="30px" height="30px"></a>
+        <div class="icon" style="height: 675px;">
+          <a href="../dashboard/feedback.html" title="Gerenciar feedbacks"><i class="fa-solid fa-face-laugh-beam"></i></a>
+        </div>
+        <div class="sidebar-bottom">
+          <a onclick="limparSessao()" title="Sair"><i class="fa-solid fa-right-from-bracket"></i></a>
         </div>
       </div>
     </aside>
@@ -56,6 +55,7 @@
         </div>
       </section>
 
+      <div class="charts-operacional">
       <section class="charts" style="gap: 1.5rem; margin-top: 2rem;">
         <div class="chart-card">
           <canvas id="donutChart" style="height: 200px !important;"></canvas>
@@ -65,13 +65,16 @@
           <canvas id="lineChartAtrasos" width="600" height="500"></canvas>
         </div>
 
-        <div class="chart-card">
+        <div class="chart-card" style="width: 100%;">
           <canvas id="lineChartCancelamentos" width="600" height="500"></canvas>
         </div>
 
         <div class="chart-card wide" style="margin: 0 auto;">
           <canvas id="barChartCompanhias"></canvas>
         </div>
+        </section>
+      </div>
+        </section>
       </section>
     </main>
   </div>
