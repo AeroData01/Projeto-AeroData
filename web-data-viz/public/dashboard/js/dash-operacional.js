@@ -1,9 +1,9 @@
 window.onload = function () {
+    carregarKpis();
     gerarGraficoTempoMedio();
     gerarGraficoAtrasosPorRota();
     gerarGraficoCancelamentosPorRota();
     gerarGraficoAtrasosPorCompanhia();
-    carregarKpis();
 }
 
 function carregarKpis() {
