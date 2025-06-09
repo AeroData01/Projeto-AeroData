@@ -66,7 +66,7 @@ function gerarGraficoAtrasoMedio() {
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Atrasos por Companhia Aérea',
+                            text: 'Taxa de Atrasos por Companhia',
                             font: {
                                 size: 19
                             }
@@ -268,7 +268,7 @@ function gerarGraficoDistribuicaoCompanhias() {
                     labels: companhias,
                     datasets: [{
                         data: totalVoos,
-                        backgroundColor: ['#050652', '#eb741a', '#e31919']
+                        backgroundColor: ['#e31919', '#eb741a', '#050652'] 
                     }]
                 },
                 options: {
