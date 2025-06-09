@@ -63,6 +63,28 @@ function sumirMensagem() {
     cardErro.style.display = "none";
 }
 
+function voltar() {
+    var nome =sessionStorage.NOME_USUARIO;
+    var email =sessionStorage.EMAIL_USUARIO;
+    var cpf=sessionStorage.CPF_USUARIO;
+    var cargo =sessionStorage.CARGO_USUARIO; 
+    var empresa=sessionStorage.COMPANHIA_USUARIO;
+
+    console.log("Cargo do usuário: ", cargo);
+    console.log("Nome do usuário: ", nome);
+    console.log("Email do usuário: ", email);
+    console.log("CPF do usuário: ", cpf);
+    console.log("Empresa do usuário: ", empresa);
+
+    if (cargo === "gerencial") {
+        window.location.href = "./dash-gerencial.html";
+    }  else if (cargo === "operacional") {
+        window.location.href = "./dash-operacional.html";
+    } else  {
+        window.location.href = "./dash-admin.html";
+    }
+
+}
 
 var vezesClicadas = 0;
 

@@ -7,13 +7,16 @@
   <title>Dashboard SP e RJ - Operações</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Chart.js e plugin -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  <script>
+    // Registra o plugin antes de criar qualquer gráfico
+    Chart.register(ChartDataLabels);
+  </script>
 </head>
 
 <body class="dash-operacional">
@@ -22,14 +25,21 @@
       <div class="sidebar-top">
         <br>
         <div class="icon" style="padding-bottom: 15px; padding-left: 3px;">
-          <a href="./observacao.html" title="Observações"><i class="fa-solid fa-file-lines"></i></a>
+          <a href="./observacao.html" title="Observações">
+            <i class="fa-solid fa-file-lines"></i>
+          </a>
         </div>
-        <div class="icon" style="height: 800px;">
-          <a href="../dashboard/feedback.html" title="Gerenciar feedbacks"><i class="fa-solid fa-face-laugh-beam"></i></a>
+        <div class="icon">
+          <a href="../dashboard/feedback.html" title="Gerenciar feedbacks">
+            <i class="fa-solid fa-face-laugh-beam"></i>
+          </a>
         </div>
-        <div class="sidebar-bottom">
-      <a onclick="limparSessao()" title="Sair" style="cursor: pointer;"><i class="fa-solid fa-right-from-bracket"></i></a>
-    </div>
+      </div>
+
+      <div class="sidebar-bottom">
+        <a onclick="limparSessao()" title="Sair" style="cursor: pointer;">
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </a>
       </div>
     </aside>
 
@@ -42,49 +52,48 @@
       </header>
 
       <section class="stats">
-        <div class="card">Rota com mais atraso<h3 id="nome_rota_mais_atraso"></h3>
+        <div class="card">
+          Rota com mais atraso
+          <h3 id="nome_rota_mais_atraso"></h3>
           <h4 id="total_rota_mais_atraso"></h4>
         </div>
-        <div class="card">Rota com mais cancelamento<h3 id="nome_rota_mais_cancelamento"></h3>
+        <div class="card">
+          Rota com mais cancelamento
+          <h3 id="nome_rota_mais_cancelamento"></h3>
           <h4 id="total_rota_mais_cancelamento"></h4>
         </div>
-        <div class="card">Aeroporto com mais atraso<h3 id="nome_aeroporto_mais_atraso"></h3>
+        <div class="card">
+          Aeroporto com mais atraso
+          <h3 id="nome_aeroporto_mais_atraso"></h3>
           <h4 id="total_aeroporto_mais_atraso"></h4>
         </div>
-        <div class="card">Aeroporto com mais cancelamento<h3 id="nome_aeroporto_mais_cancelamento"></h3>
+        <div class="card">
+          Aeroporto com mais cancelamento
+          <h3 id="nome_aeroporto_mais_cancelamento"></h3>
           <h4 id="total_aeroporto_mais_cancelamento"></h4>
         </div>
-        <div class="card">Pontualidade em % da companhia Aerea<h3 id="pontualidade_companhia"></h3>
+        <div class="card">
+          Pontualidade em % da companhia Aérea
+          <h3 id="pontualidade_companhia"></h3>
         </div>
       </section>
 
       <div class="charts-operacional">
-      <section class="charts" >
-        <div class="chart-card">
-          <canvas id="donutChart" ></canvas>
-        </div>
+        <section class="charts">
 
-        <div class="chart-card">
-          <canvas id="lineChartAtrasos"></canvas>
-        </div>
+          <div class="chart-card"><canvas id="donutChart"></canvas></div>
+          <div class="chart-card"><canvas id="lineChartAtrasos"></canvas></div>
+          <div class="chart-card"><canvas id="lineChartCancelamentos"></canvas></div>
+          <div class="chart-card"><canvas id="barChartCompanhias"></canvas></div>
 
-        <div class="chart-card">
-          <canvas id="lineChartCancelamentos"></canvas>
-        </div>
-
-        <div class="chart-card wide" >
-          <canvas id="barChartCompanhias"></canvas>
-        </div>
         </section>
       </div>
-        </section>
-      </section>
     </main>
   </div>
 
+  <!-- seus scripts -->
   <script src="./js/dash-operacional.js"></script>
   <script src="../js/sessao.js"></script>
-
 </body>
 
 </html>

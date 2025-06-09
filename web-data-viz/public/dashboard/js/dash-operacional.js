@@ -8,7 +8,7 @@ window.onload = function () {
 
 function carregarKpis() {
     var nome_fantasia = sessionStorage.COMPANHIA_USUARIO;
-    fetch(`/voos/listarKpisOperacional/${nome_fantasia}`, {
+    fetch(`../voos/listarKpisOperacional/${nome_fantasia}`, {
         method: "GET",
         headers: {
             'Content-Type': 'application/json'
@@ -36,58 +36,77 @@ function carregarKpis() {
 }
 
 function gerarGraficoTempoMedio() {
-    // Gráfico de Barras Horizontal - Tempo Médio de Atrasos
-    var nome_fantasia = sessionStorage.COMPANHIA_USUARIO;
-    fetch(`/voos/listarMediaAtrasoPorCompanhia/${nome_fantasia}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(response => {
-        response.json().then(json => {
-            let data_2023 = Number(json[0].tempo_medio_atraso_minutos);
-            let data_2024 = Number(json[1].tempo_medio_atraso_minutos);
+  // 1) pega valor de sessionStorage de forma segura
+  const nomeFantasia = sessionStorage.getItem('COMPANHIA_USUARIO');
+  if (!nomeFantasia) {
+    console.error('Nome da companhia não definido em sessionStorage');
+    return;
+  }
 
-            let dataset = {
-                label: 'Tempo médio de atraso (min)',
-                data: [data_2023, data_2024],
-                backgroundColor: ['#93C5FD', '#3B82F6'], // cores diferentes para cada barra, opcional
-                borderRadius: 6
-            };
-
-            new Chart(document.getElementById('lineChartAtrasos'), {
-                type: 'bar',
-                data: {
-                    labels: ["2023", "2024"],
-                    datasets: [dataset]
-                },
-                options: {
-                    indexAxis: 'x',
-                    responsive: false,
-                    plugins: {
-                        legend: { display: false },
-                        title: {
-                            display: true,
-                            text: 'Tempo Médio de Atrasos - 2023/24',
-                            font: { size: 18, weight: 'bold' }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            ticks: { beginAtZero: true, max: 100 }
-                        }
-                    }
-                },
-                plugins: [ChartDataLabels]
-            });
-        })
+  // 2) faz fetch e trata erros
+  fetch(`../voos/listarMediaAtrasoPorCompanhia/${nomeFantasia}`, {
+    method: 'GET'
+  })
+    .then(res => {
+      if (!res.ok) throw new Error(`Erro na requisição (${res.status})`);
+      return res.json();
     })
+    .then(json => {
+      // 3) extrai os dados de forma robusta
+      const data2023 = Number(json.find(v => v.ano == '2023')?.tempo_medio_atraso_minutos ?? 0);
+      const data2024 = Number(json.find(v => v.ano == '2024')?.tempo_medio_atraso_minutos ?? 0);
+
+      // 4) registra plugin de datalabels
+      Chart.register(ChartDataLabels);
+
+      // 5) cria o gráfico com barras horizontais
+      new Chart(
+        document.getElementById('lineChartAtrasos').getContext('2d'),
+        {
+          type: 'bar',
+          data: {
+            labels: ['2023', '2024'],
+            datasets: [{
+              label: 'Tempo médio de atraso (min)',
+              data: [data2023, data2024],
+              backgroundColor: ['#93C5FD', '#3B82F6'],
+              borderRadius: 6
+            }]
+          },
+          options: {
+            indexAxis: 'y',        // barras na horizontal
+            responsive: false,
+            plugins: {
+              legend: { display: false },
+              title: {
+                display: true,
+                text: 'Tempo Médio de Atrasos – 2023/24',
+                font: { size: 19 }
+              },
+              datalabels: {        // configurações do plugin
+                anchor: 'end',
+                align: 'right',
+                formatter: v => v.toFixed(1)
+              }
+            },
+            scales: {
+              x: {                // eixo numérico agora é o X
+                beginAtZero: true,
+                max: 100
+              }
+            }
+          }
+        }
+      );
+    })
+    .catch(err => console.error('Erro ao gerar gráfico:', err));
 }
+
 
 function gerarGraficoAtrasosPorRota() {
     // Atrasos por Rota
     var nome_fantasia = sessionStorage.COMPANHIA_USUARIO;
-    fetch(`/voos/listarRotasComMaisAtraso/${nome_fantasia}`, {
+    fetch(`../voos/listarRotasComMaisAtraso/${nome_fantasia}`, {
         method: "GET"
     }).then(response => {
         response.json().then(json => {
@@ -120,7 +139,7 @@ function gerarGraficoAtrasosPorRota() {
                         title: {
                             display: true,
                             text: 'Total de atrasos por Rota - 2023/2024',
-                            font: { size: 18, weight: 'bold' }
+                            font: { size: 19 }
                         },
                         legend: {
                             position: 'bottom',
@@ -136,7 +155,7 @@ function gerarGraficoAtrasosPorRota() {
 function gerarGraficoCancelamentosPorRota() {
     // Cancelamentos por Rota
     var nome_fantasia = sessionStorage.COMPANHIA_USUARIO;
-    fetch(`/voos/listarRotasComMaisCancelamentos/${nome_fantasia}`, {
+    fetch(`../voos/listarRotasComMaisCancelamentos/${nome_fantasia}`, {
         method: "GET"
     }).then(response => {
         response.json().then(json => {
@@ -161,7 +180,10 @@ function gerarGraficoCancelamentosPorRota() {
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Cancelamentos por Rota ',
+                            text: 'Cancelamentos por Rota - 2023/2024',
+                            font: {
+                                size: 19
+                            }
                         },
                         legend: {
                             position: 'bottom',
@@ -175,16 +197,19 @@ function gerarGraficoCancelamentosPorRota() {
                         }
                     }
                 }
-            })
-        })
+            });
+        });
+    }).catch(err => {
+        console.error('Erro ao carregar dados de cancelamentos por rota:', err);
     });
 }
+
 
 function gerarGraficoAtrasosPorCompanhia() {
     // Atrasos por Companhia
     // Cancelamentos por Rota
     var nome_fantasia = sessionStorage.COMPANHIA_USUARIO;
-    fetch(`/voos/listarAeroportosComMaisAtrasosECancelamentos/${nome_fantasia}`, {
+    fetch(`../voos/listarAeroportosComMaisAtrasosECancelamentos/${nome_fantasia}`, {
         method: "GET"
     }).then(response => {
         response.json().then(json => {
@@ -216,8 +241,8 @@ function gerarGraficoAtrasosPorCompanhia() {
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Aeroportos com mais cancelamentos e atrasos 2023 + 2024  ',
-                            font: { size: 18, weight: 'bold' }
+                            text: 'Aeroportos com Mais Cancelamentos e Atrasos - 2023/2024  ',
+                            font: { size: 19 }
                         },
                         legend: { display: false }
                     }

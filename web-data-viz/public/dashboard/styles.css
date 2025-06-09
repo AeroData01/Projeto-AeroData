@@ -1024,7 +1024,7 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.3);
     align-items: center;
     justify-content: center;
     margin-bottom: 10px;
@@ -1037,7 +1037,7 @@ body {
     height: 20%;
     align-items: center;
     justify-content: start;
-    background-color: #1e40af;
+    background-color: #b7b9c0;
     border-radius: 10px;
     font-size: 15px;
     color: black;
@@ -1049,6 +1049,8 @@ body {
     text-align: start;
     font-size: 15px;
     font-weight: bolder;
+    margin-left: 30px;
+
 }
 
 .container-botao-confirmacao {
@@ -1064,8 +1066,8 @@ body {
 
 .container-botao-confirmacao button {
     display: flex;
-    background-color: black;
-    color: #22603A;
+    background-color: #0e1b47;
+    color: white;
     width: 20%;
     height: 30%;
     padding: 20px;
