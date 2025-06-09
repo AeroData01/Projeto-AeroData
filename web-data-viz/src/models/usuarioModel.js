@@ -25,7 +25,7 @@ function autenticarAdmin(email, senha) {
 function cadastrar(nome, cpf, email, telefone, tipoConta, tipoCompanhia, senha) {
     var instrucaoSql = `
         INSERT INTO Usuario (cpf, nome, cargo, email, senha, telefone, fk_sigla_companhia) VALUES 
-            ('${cpf}', '${nome}', '${tipoConta}', '${email}', MD5('${senha}'), '${telefone}', '${tipoCompanhia}');
+            ('${cpf}', '${nome}', '${tipoConta}', '${email}', MD5('${senha}'), '${telefone}', ${tipoCompanhia});
     `;
 
     return database.executar(instrucaoSql);
@@ -37,7 +37,7 @@ function listarFuncionario(tipoCompanhia) {
         FROM Usuario u
         JOIN Companhia_Aerea c
             ON c.sigla_companhia = u.fk_sigla_companhia 
-        WHERE cargo LIKE "operacional" AND u.fk_sigla_companhia LIKE '${tipoCompanhia}'
+        WHERE cargo LIKE "operacional" AND u.fk_sigla_companhia LIKE ${tipoCompanhia}
     ;`
 
     return database.executar(instrucaoSql);
